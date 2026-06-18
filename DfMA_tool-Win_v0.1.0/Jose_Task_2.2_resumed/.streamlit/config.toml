@@ -1,0 +1,15 @@
+[theme]
+# The main background color (Matched to the SMART Lab Navy Blue)
+backgroundColor = "#0F2841"
+
+# The background color for the sidebar and interactive widgets (slightly lighter to pop)
+secondaryBackgroundColor = "#18385A"
+
+# The primary accent color for buttons and sliders
+primaryColor = "#FFFFFF"
+
+# The text color (White to contrast against the dark blue)
+textColor = "#FFFFFF"
+
+# The font family
+font = "sans serif"
