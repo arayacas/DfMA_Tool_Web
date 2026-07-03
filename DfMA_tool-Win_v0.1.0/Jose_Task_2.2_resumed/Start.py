@@ -99,7 +99,7 @@ if st.button("Reset to Default Parameters"):
         "part_max_height_mm": 5000,
         "part_max_depth_mm" : 5000,
         "hole_border_clearance_mm": 20,
-        "slanted_beam_angle" : 45,
+        "slanted_beam_angle" : 26,
         "total_assembly_payload_limit_kg": 100,
         "CoG_radius_tolerance_mm" : 250
     }

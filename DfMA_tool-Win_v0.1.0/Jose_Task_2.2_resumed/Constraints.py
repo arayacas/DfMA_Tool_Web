@@ -54,7 +54,7 @@ def check_max_dimensions(elements, max_length_mm=6.00, max_height_mm=3.00):
     
     if actual_length > max_length_mm or actual_height > max_height_mm:
         passed = False
-        message = f"Panel exceeds limits! Actual: {actual_length:.1f}mm L x {actual_height:.1f}mm H. (Limits: {max_length_mm}mm x {max_height_mm}mm)"
+        message = f"Panel exceeds limits! Actual: {actual_length:.1f}mm L x {actual_height:.1f}mm H. (Limits: {max_length_mm}mm x {max_height_mm}mm). This panel might be too big for your current work station, consider spliting the panel in smaller parts or assemble a smaller panel instead."
         
         # Find exactly WHICH elements are sticking out
         for element in elements:
@@ -162,7 +162,7 @@ def check_hole_alignment(elements, tolerance_m = 0.01):
     if passed:
         message = f"Passed: All {len(holes_data)} holes are properly aligned across {len(rows)} horizontal rows."
     else:
-        message = f"Failed: Found {misaligned_holes_count} unaligned orphan hole(s) that do not match any horizontal row!"
+        message = f"Failed: Found {misaligned_holes_count} unaligned orphan hole(s) that do not match any horizontal row. Make sure that any holes in the panel are well aligned in Revit or equivalent software. Otherwise, mark the violating element as a CustomHole to override this violation (a warning will be displayed instead)."
 
     return {
         "passed": passed,
@@ -250,7 +250,7 @@ def check_custom_holes(elements):
             "warning_elements": []
         }
 
-    message = f"Found {len(holes_data)} custom hole(s) spread across {len(warning_elements)} stud(s)."
+    message = f"Found {len(holes_data)} custom hole(s) spread across {len(warning_elements)} stud(s). These holes are not being tracked by the tool, make sure they are correctly aligned and in correct position"
     
     return {
         "has_holes": True,
@@ -359,7 +359,7 @@ def check_track_continuity(elements, tolerance_m=0.02):
     if passed:
         message = f"Passed: All {tracks_found} boundary tracks are continuous."
     else:
-        message = f"Failed: Found {splices_found} spliced/broken tracks! Tracks must be continuous."
+        message = f"Failed: Found {splices_found} spliced/broken tracks! Tracks must be continuous. If you consider this is a mistake, increase the Track Continuity (m) parameter in Design Parameters to a desired length."
 
     return {
         "passed": passed,
@@ -474,7 +474,7 @@ def check_track_hole_alignment(elements, tolerance_m=0.02):
     if passed:
         message = f"Passed: {len(holes_data)} track holes processed. Found {len(columns) - anchor_holes_count} plumb drops and {anchor_holes_count} bottom anchor holes."
     else:
-        message = f"Failed: Found {misaligned_holes_count} unaligned orphan hole(s) in the tracks! (Ignored {anchor_holes_count} bottom anchors)."
+        message = f"Failed: Found {misaligned_holes_count} unaligned orphan hole(s) in the tracks! (Ignored {anchor_holes_count} bottom anchors). You can mark the violating element as a CustomHole to override this violation (a warning will be displayed instead). "
 
     return {
         "passed": passed,
@@ -549,7 +549,7 @@ def check_max_weight(elements, max_weight_kg=50.0, density_kg_m3=7850):
         message = f"Passed: Heaviest piece is {max_mass:.1f} kg (Limit: {max_weight_kg} kg)."
         passed = True
     else:
-        message = f"Failed: Found {len(violating_elements)} oversized piece(s)! Heaviest is {max_mass:.1f} kg."
+        message = f"Failed: Found {len(violating_elements)} oversized piece(s)! Heaviest is {max_mass:.1f} kg. Your parts are too heavy for your robot to carry, consider using shorter parts or spiting a member into smaller members for assembly (increases number of parts)."
         passed = False
 
     return {
@@ -666,7 +666,7 @@ def check_hole_sizes(elements, allowed_sizes_m=[0.014, 0.034], tolerance_m=0.002
     if passed:
         message = f"Passed: All {total_holes} holes perfectly match allowed sizes."
     else:
-        message = f"Failed: Found {invalid_holes_count} out of {total_holes} hole(s) with non-standard dimensions!"
+        message = f"Failed: Found {invalid_holes_count} out of {total_holes} hole(s) with non-standard dimensions. Make sure you have correctly entered your expected hole sizes and tolerance in the hole size design parameters. If you think this is a mistake, you can mark the hole member as a CustomHole to stop tracking it (A warning will be displayed instead)."
 
     return {
         "passed": passed,
@@ -684,7 +684,7 @@ def check_part_count(elements, max_parts=50):
     if passed:
         message = f"Passed: Panel contains {count} total structural parts. (Limit: {max_parts})"
     else:
-        message = f"Failed: Panel is too complex! Contains {count} parts. (Limit: {max_parts})"
+        message = f"Failed: Panel is too complex! Contains {count} parts. (Limit: {max_parts}). Consider reducing the number of parts by making a simpler panel, spliting the panel or incresing the number of parts your robot can process in the Design Parameters page"
         
     return {
         "passed": passed,
@@ -774,7 +774,7 @@ def check_stud_spacing(elements, target_spacings_mms="600, 100", tolerance_mm=10
     violators_unique = list(set(violating_elements))
     passed = len(violators_unique) == 0
     
-    message = f"Passed: All {checked_count} studs match allowed spacing gaps." if passed else f"Failed: Irregular gaps found between {len(violators_unique)} studs!"
+    message = f"Passed: All {checked_count} studs match allowed spacing gaps." if passed else f"Failed: Irregular gaps found between {len(violators_unique)} studs!. Make sure you have entered the correct stud spacing and tolerance in the design paramaters section. Otherwise this panel has irregular spacing between studs, consider checking your panel in Revit or Equivalent Software. If you think this is a mistake, give the Stud tolerance any negative value to override this constraint."
         
     return {
         "passed": passed,
@@ -839,7 +839,7 @@ def check_joist_uniformity(elements, tolerance_mm=5.0):
         })
             
     passed = len(violating_elements) == 0
-    message = f"Passed: All {count} horizontal tracks have a uniform depth of ~{baseline_depth:.1f}mm." if passed else f"Failed: {len(violating_elements)} out of {count} tracks do not match the standard depth of {baseline_depth:.1f}mm!"
+    message = f"Passed: All {count} horizontal tracks have a uniform depth of ~{baseline_depth:.1f}mm." if passed else f"Failed: {len(violating_elements)} out of {count} tracks do not match the standard depth of {baseline_depth:.1f}mm!. Your panel depth seems to be disaligned, you can increase the tolerance for joist depth in the design parameters. Otherwise, check your panel in Revit or Equivalent Software for misaligned beam depth."
         
     return {
         "passed": passed,
@@ -909,7 +909,7 @@ def check_part_max_dimensions(elements, max_length_mm=1000.0, max_height_mm=1000
     if passed:
         message = f"Passed: All {total_parts_checked} individual parts fit within robotic gripper limits."
     else:
-        message = f"Failed: {len(violating_elements)} out of {total_parts_checked} parts exceed maximum handling dimensions!"
+        message = f"Failed: {len(violating_elements)} out of {total_parts_checked} parts exceed maximum handling dimensions! Your current robot configuration seems to be unable to handle the highlighted elements (red). Consider using smaller individual elements on your panel instead or increase the dimensional capacity in the Design Parameters page."
         
     return {
         "passed": passed,
@@ -975,7 +975,7 @@ def check_center_of_gravity(elements, tolerance_mm=250.0):
     if passed:
         message = f"Passed: Panel is balanced. CoG offset is only {offset_mm:.1f}mm."
     else:
-        message = f"Failed: Unbalanced Panel! CoG is offset by {offset_mm:.1f}mm (Limit: {tolerance_mm}mm)."
+        message = f"Failed: Unbalanced Panel! CoG is offset by {offset_mm:.1f}mm (Limit: {tolerance_mm}mm). Assembling this panel might result in tilting/tipping during the assembly process. Consider making this panel more simetrical in the x-y-z plane on Revit or Equivalent Software. If you think this is a mistake, you can increase the Center of Gravity tolerance spherical radius in the Design Parameters Page."
         
     # 3. RECORD TABLE DATA
     cog_details = [
@@ -1075,7 +1075,7 @@ def check_slanted_beam_angle(elements, max_angle_degrees=45.0, tolerance=2.0):
     if passed:
         message = f"Passed: All {slanted_beams_found} slanted beams are at or below {max_angle_degrees}°."
     else:
-        message = f"Failed: {len(violating_elements)} out of {slanted_beams_found} slanted beams exceed the {max_angle_degrees}° limit!"
+        message = f"Failed: {len(violating_elements)} out of {slanted_beams_found} slanted beams exceed the {max_angle_degrees}° limit!. The Panel's members are too slanted, this panel is not safe. Change the panel design on Revit or Equivalent Software."
 
     return {
         "passed": passed,
@@ -1148,7 +1148,7 @@ def check_total_assembly_payload(elements, max_payload_kg=100.0):
     if passed:
         message = f"Passed: Total assembled panel weight is {total_weight_kg:.1f} kg. (Safe limit: {max_payload_kg} kg)."
     else:
-        message = f"Failed: Panel is too heavy to hoist safely! Total weight is {total_weight_kg:.1f} kg. (Limit: {max_payload_kg} kg)."
+        message = f"Failed: Panel is too heavy to hoist safely! Total weight is {total_weight_kg:.1f} kg. (Limit: {max_payload_kg} kg). Consider using less elements/parts to relieve the Panel's weight. Otherwise, make a smaller panel by divding your panel in smaller assembly sequences by using Revit or Equivalent Software."
         
     return {
         "passed": passed,
