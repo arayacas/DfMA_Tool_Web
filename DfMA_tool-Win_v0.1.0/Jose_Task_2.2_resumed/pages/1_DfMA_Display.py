@@ -16,7 +16,7 @@ import Find_elements
 import Constraints
 
 # --- 2. PAGE SETUP ---
-st.set_page_config(page_title="3D Visualizer", layout="wide")
+st.set_page_config(page_title="Difema (3D Visualizer)", layout="wide")
 
 st.markdown(
     """
@@ -38,6 +38,7 @@ st.title("3D Panel Visualizer")
 # Instead of a hardcoded folder, we grab the unique temp file path generated on Start.py
 config_path = st.session_state.get('config_path', None)
 
+#Defaults for rules, avoid crash if params is not loaded.
 default_max_length = 6.00
 default_max_height = 3.00
 default_hole_tol = 0.010
@@ -45,26 +46,36 @@ default_track_cont_tol = 0.020
 default_track_hole_tol = 0.020
 default_max_weight = 50.0
 
-# Defaults for the Hole Sizer (in millimeters!)
+# Defaults for the Hole Sizer (in millimeters)
 default_allowed_holes_mm = "14, 34"
 default_hole_size_tol_mm = 2.0
+default_part_max_length_mm = 1000
 
-if config_path and os.path.exists(config_path):
-    try:
-        with open(config_path, "r") as f:
-            saved_data = json.load(f)
-            default_max_length = float(saved_data.get("max_length", 6.00))
-            default_max_height = float(saved_data.get("max_height", 3.00))
-            default_hole_tol = float(saved_data.get("hole_tol", 0.010))
-            default_track_cont_tol = float(saved_data.get("track_cont_tol", 0.020))
-            default_track_hole_tol = float(saved_data.get("track_hole_tol", 0.020))
-            default_max_weight = float(saved_data.get("max_weight", 50.0))
-            
-            # Load our new mm variables
-            default_allowed_holes_mm = str(saved_data.get("allowed_holes_mm", "14, 34"))
-            default_hole_size_tol_mm = float(saved_data.get("hole_size_tol_mm", 2.0))
-    except Exception:
-        pass 
+#Initialize Params[], set current rule values to the ones stored in params[]
+params = st.session_state["design_params"]
+
+max_height = params["max_height"]
+max_length = params["max_length"]
+hole_tol = params["hole_tol"]
+track_hole_tol = params["track_hole_tol"]
+track_cont_tol = params["track_cont_tol"]
+allowed_holes_mm = params["allowed_holes_mm"]
+hole_size_tol = params ["hole_size_tol_mm"]
+max_weight = params["max_weight"]
+max_parts = params["max_parts"]
+stud_spacing_mm = params["stud_spacing_mm"]
+stud_tol_mm = params["stud_tol_mm"]
+joist_depth_tolerance_mm = params["joist_depth_tolerance_mm"]
+part_max_length_mm = params["part_max_length_mm"]
+part_max_height_mm = params["part_max_height_mm"]
+part_max_depth_mm = params["part_max_depth_mm"]
+hole_border_clearance_mm = params["hole_border_clearance_mm"]
+slanted_beam_angle = params["slanted_beam_angle"]
+total_assembly_payload_limit_kg = params["total_assembly_payload_limit_kg"]
+CoG_radius_tolerance_mm = params["CoG_radius_tolerance_mm"]
+
+#Pinned[] has the pinned rules from page#2.
+pinned = st.session_state["pinned_rules"]
 
 # --- 4. THE GATEWAY CHECK ---
 if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['current_ifc_path']):
@@ -81,36 +92,18 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
             left_col, right_col = st.columns([1, 3])
             
             with left_col:
-                st.markdown("### Design Parameters")
+                st.markdown("### Quick Access Parameters")
                 mini_left_col, mini_right_col = st.columns([2, 2])
 
                 with mini_left_col:
-                    hole_tol = st.number_input("Stud Hole Alignment (m)", value=default_hole_tol, step=0.005, format="%.3f")
-                    track_cont_tol = st.number_input("Track Continuity (m)", value=default_track_cont_tol, step=0.005, format="%.3f")
+                    params["hole_tol"] = st.number_input("w4w", value=default_hole_tol, step=0.005, format="%.3f")
+                    params["track_cont_tol"] = st.number_input("Track Continuity (m)", value=default_track_cont_tol, step=0.005, format="%.3f")
                     track_hole_tol = st.number_input("Plumb Drop Alignment (m)", value=default_track_hole_tol, step=0.005, format="%.3f")
 
                 with mini_right_col:
                     max_weight = st.number_input("Max Element Weight (kg)", value=default_max_weight, step=5.0, format="%.1f")
                     allowed_holes_str_mm = st.text_input("Allowed Hole Sizes (mm)", value=default_allowed_holes_mm, help="e.g., 14, 34")
                     hole_size_tol_mm = st.number_input("Hole Size Tolerance (mm)", value=default_hole_size_tol_mm, step=0.01, format="%.2f")
-
-                # Overwrite the Cloud JSON file dynamically
-                if config_path:
-                    new_config = {
-                        "max_length": default_max_length, 
-                        "max_height": default_max_height, 
-                        "hole_tol": hole_tol,
-                        "track_cont_tol": track_cont_tol,
-                        "track_hole_tol": track_hole_tol,
-                        "max_weight": max_weight,
-                        "allowed_holes_mm": allowed_holes_str_mm,
-                        "hole_size_tol_mm": hole_size_tol_mm
-                    }
-                    try:
-                        with open(config_path, "w") as f:
-                            json.dump(new_config, f, indent=4)
-                    except Exception as e:
-                        st.error(f"Failed to save constraints: {e}")
 
                 # --- Convert UI mm to Engine meters ---
                 try:
@@ -122,18 +115,40 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
 
                 # -- RULES ENGINE --
                 # Notice we are now explicitly passing the parameters here!
-                size_rule_report = Constraints.check_max_dimensions(all_elements, max_length_mm=default_max_length, max_height_mm=default_max_height)
+                size_rule_report = Constraints.check_max_dimensions(all_elements, max_length_mm= max_length, max_height_mm= max_height)
                 
-                alignedhole_rule_report = Constraints.check_hole_alignment(all_elements, tolerance_m=hole_tol)
+                alignedhole_rule_report = Constraints.check_hole_alignment(all_elements, tolerance_m = hole_tol)
                 customhole_rule_report = Constraints.check_custom_holes(all_elements)
-                track_rule_report = Constraints.check_track_continuity(all_elements, tolerance_m=track_cont_tol)
-                track_hole_report = Constraints.check_track_hole_alignment(all_elements, tolerance_m=track_hole_tol)
-                weight_report = Constraints.check_max_weight(all_elements, max_weight_kg=max_weight)
-                
+                track_rule_report = Constraints.check_track_continuity(all_elements, tolerance_m = track_cont_tol)
+                track_hole_report = Constraints.check_track_hole_alignment(all_elements, tolerance_m = track_hole_tol)
+                weight_report = Constraints.check_max_weight(all_elements, max_weight_kg = max_weight)
                 hole_size_report = Constraints.check_hole_sizes(
                     all_elements, 
                     allowed_sizes_m=allowed_sizes_list_m, 
                     tolerance_m=hole_size_tol_m
+                )
+                part_count_report = Constraints.check_part_count(all_elements, max_parts = max_parts)
+                stud_spacing_report = Constraints.check_stud_spacing(all_elements, stud_spacing_mm, stud_tol_mm)
+                joist_uniformity_report = Constraints.check_joist_uniformity(all_elements, joist_depth_tolerance_mm)
+                part_size_report = Constraints.check_part_max_dimensions(
+                    all_elements, 
+                    max_length_mm=params.get("part_max_length_mm", 1000.0),
+                    max_height_mm=params.get("part_max_height_mm", 1000.0),
+                    max_depth_mm=params.get("part_max_depth_mm", 300.0)
+                )
+                cog_report = Constraints.check_center_of_gravity(
+                    all_elements, 
+                    tolerance_mm=params.get("CoG_radius_tolerance_mm", 250.0)
+                )
+
+                slanted_beam_report = Constraints.check_slanted_beam_angle(
+                    all_elements, 
+                    max_angle_degrees=params.get("slanted_beam_angle", 45.0)
+                )
+
+                payload_report = Constraints.check_total_assembly_payload(
+                    all_elements, 
+                    max_payload_kg=params.get("total_assembly_payload_limit_kg", 100.0)
                 )
 
                 # -- WARNINGS & ERROR PART PAINT--
@@ -142,7 +157,15 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                             + track_rule_report.get("violating_elements", []) 
                             + track_hole_report.get("violating_elements", [])
                             + weight_report.get("violating_elements", [])
-                            + hole_size_report.get("violating_elements", []) 
+                            + hole_size_report.get("violating_elements", [])
+                            # --- ADD THE NEW RULES TO THE RED PAINT BUCKET ---
+                            + part_count_report.get("violating_elements", [])
+                            + stud_spacing_report.get("violating_elements", [])
+                            + joist_uniformity_report.get("violating_elements", [])
+                            + part_size_report.get("violating_elements", [])
+                            + cog_report.get("violating_elements", [])
+                            + slanted_beam_report.get("violating_elements", [])
+                            + payload_report.get("violating_elements", [])
                             )
                 
                 orange_parts = customhole_rule_report.get("warning_elements", [])     
@@ -174,6 +197,7 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                     )
 
                 # --- DRAW LASER ALIGNMENT LINES ---
+                
                 if show_alignment:
                     bounds = plotter.bounds 
                     xmin, xmax, ymin, ymax, zmin, zmax = bounds
@@ -192,6 +216,21 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                                 x_val = col[0].get("x_pos", 0)
                                 line = pv.Line((x_val, y_center, zmin), (x_val, y_center, zmax))
                                 plotter.add_mesh(line, color="magenta", line_width=4, render_lines_as_tubes=True)
+                            
+                # --- DRAW CENTER OF GRAVITY (CoG) ---
+                if "cog_coords" in cog_report and "geom_coords" in cog_report:
+                    # Draw Geometric Center (Blue Sphere)
+                    geom_center = cog_report["geom_coords"]
+                    plotter.add_mesh(pv.Sphere(radius=0.03, center=geom_center), color="blue")
+                    
+                    # Draw CoG (Green Sphere if pass, Red if fail)
+                    cog_center = cog_report["cog_coords"]
+                    cog_color = "green" if cog_report["passed"] else "red"
+                    plotter.add_mesh(pv.Sphere(radius=0.04, center=cog_center), color=cog_color)
+                    
+                    # Draw a line connecting them to visualize the offset
+                    line = pv.Line(geom_center, cog_center)
+                    plotter.add_mesh(line, color="yellow", line_width=3)
                                 
                 # --- DRAW THE RED TRACKERS FOR FAILED HOLES ---
                 bad_hole_locations = hole_size_report.get("violating_hole_coords", [])
@@ -216,10 +255,10 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
             if not alignedhole_rule_report["passed"]: st.error(alignedhole_rule_report["message"])
             else: st.success(alignedhole_rule_report["message"])
                 
-            if customhole_rule_report.get("has_holes"): st.warning(f"⚠️ {customhole_rule_report['message']}")
+            if customhole_rule_report.get("has_holes"): st.warning(f"{customhole_rule_report['message']}")
             else: st.success(customhole_rule_report["message"])
 
-            if not track_rule_report.get("has_tracks", True): st.warning(f"⚠️ {track_rule_report['message']}")
+            if not track_rule_report.get("has_tracks", True): st.warning(f"{track_rule_report['message']}")
             elif not track_rule_report["passed"]: st.error(track_rule_report["message"])
             else: st.success(track_rule_report["message"])
 
@@ -232,8 +271,29 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
             if not hole_size_report["passed"]: st.error(hole_size_report["message"])
             else: st.success(hole_size_report["message"])
 
+            if not part_count_report["passed"]: st.error(part_count_report["message"])
+            else: st.success(part_count_report["message"]) 
+            
+            if not stud_spacing_report["passed"]: st.error(stud_spacing_report["message"])
+            else: st.success(stud_spacing_report["message"])
+
+            if not joist_uniformity_report["passed"]: st.error(joist_uniformity_report["message"])
+            else: st.success(joist_uniformity_report["message"]) 
+
+            if not part_size_report["passed"]: st.error(part_size_report["message"])
+            else: st.success(part_size_report["message"])
+
+            if not cog_report["passed"]: st.error(cog_report["message"])
+            else: st.success(cog_report["message"])
+
+            if not slanted_beam_report["passed"]: st.error(slanted_beam_report["message"])
+            else: st.success(slanted_beam_report["message"])
+
+            if not payload_report["passed"]: st.error(payload_report["message"])
+            else: st.success(payload_report["message"])
+
     except Exception as e:
         st.error(f"Oops, something went wrong reading the IFC: {e}")
 
 else:
-    st.warning("⚠️ No IFC file found! Please upload a file on the Start page first.")
+    st.warning("No IFC file found! Please upload a file on the Start page first.")

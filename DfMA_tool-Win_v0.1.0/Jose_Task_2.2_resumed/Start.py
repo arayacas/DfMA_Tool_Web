@@ -29,7 +29,7 @@ except Exception:
 
 st.set_page_config(
     layout="wide",
-    page_title="DiefeMA",
+    page_title="DifiMA",
     page_icon=logo_img
 )
 
@@ -57,25 +57,59 @@ except Exception:
 if 'config_path' not in st.session_state:
     st.session_state['config_path'] = None
 
-if st.button("Initialize / Reset Default Constraints"):
-    default_config = {
-        "max_length": 12.00,
+# --- 1. INITIALIZE WEB-SAFE PARAMETERS ---
+if "design_params" not in st.session_state:
+    st.session_state["design_params"] = {
+        "max_length": 6.00,
         "max_height": 3.00,
         "hole_tol": 0.010,
         "track_cont_tol": 0.020,
         "track_hole_tol": 0.20,
         "max_weight": 50.00,     
-        "allowed_holes": [0.014, 0.034]
+        "allowed_holes_mm": "14, 34", # Storing as a string for easy text_input
+        "hole_size_tol_mm": 2.0,
+        "max_parts": 50,
+        "stud_spacing_mm": "600, 100", #Another String 
+        "stud_tol_mm": 50, 
+        "joist_depth_tolerance_mm": 100,
+        "part_max_length_mm": 5000,
+        "part_max_height_mm": 5000,
+        "part_max_depth_mm" : 5000,
+        "hole_border_clearance_mm": 20,
+        "slanted_beam_angle" : 45,
+        "total_assembly_payload_limit_kg": 150,
+        "CoG_radius_tolerance_mm" : 250
     }
-    try:
-        # Create a unique temporary file for this user's constraints
-        with tempfile.NamedTemporaryFile(delete=False, mode="w", suffix=".json") as tmp_config:
-            json.dump(default_config, tmp_config, indent=4)
-            st.session_state['config_path'] = tmp_config.name
-        st.success("Default constraints initialized!")
-    except Exception as e:
-        st.error(f"Failed to initialize/reset system constraints: {e}")
 
+if st.button("Reset to Default Parameters"):
+    st.session_state["design_params"] = {
+        "max_length": 6.00,
+        "max_height": 3.00,
+        "hole_tol": 0.010,
+        "track_cont_tol": 0.020,
+        "track_hole_tol": 0.20,
+        "max_weight": 50.00,     
+        "allowed_holes_mm": "14, 34", # Storing as a string for easy text_input
+        "hole_size_tol_mm": 2.0,
+        "max_parts": 50,
+        "stud_spacing_mm": "600, 100", #Another String 
+        "stud_tol_mm": 50, 
+        "joist_depth_tolerance_mm": 100,
+        "part_max_length_mm": 5000,
+        "part_max_height_mm": 5000,
+        "part_max_depth_mm" : 5000,
+        "hole_border_clearance_mm": 20,
+        "slanted_beam_angle" : 45,
+        "total_assembly_payload_limit_kg": 100,
+        "CoG_radius_tolerance_mm" : 250
+    }
+    st.rerun()
+
+# --- 2. INITIALIZE PINNED RULES (For your new dashboard system) ---
+if "pinned_rules" not in st.session_state:
+    st.session_state["pinned_rules"] = ["max_length", "max_height", "max_weight"]
+
+    
 # Title
 st.title("Design for Manufacturing and Robot Assembly check tool")
 st.write("Upload an IFC file to check for DfMA constraints and rules")

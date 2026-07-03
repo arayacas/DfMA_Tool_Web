@@ -8,11 +8,11 @@ def get_elements(file_path):
     model = ifcopenshell.open(file_path)
     
     # 2. Grab the vertical studs and horizontal tracks
-    vertical_studs = model.by_type("IfcColumn")
-    horizontal_tracks = model.by_type("IfcBeam")
-    
-    # 3. Combine both lists together
-    all_framing = vertical_studs + horizontal_tracks
+    beams = model.by_type("IfcBeam")
+    columns = model.by_type("IfcColumn")
+    members = model.by_type("IfcMember") # The new file uses this!
+
+    all_framing = beams + columns + members
     
     # 4. If they are still zero check for miscellaneous elements, unclasified elements safety net
     if len(all_framing) == 0:

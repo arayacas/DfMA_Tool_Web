@@ -265,12 +265,14 @@ def check_track_continuity(elements, tolerance_m=0.02):
     Checks if the primary Top and Bottom tracks are continuous.
     Identifies tracks geometrically, ignores noggings/bridging, and ensures 
     the tracks span the full horizontal length of the panel.
+    Now exports table data for Numerical Data debugging.
     """
     settings = ifcopenshell.geom.settings()
     settings.set(settings.USE_WORLD_COORDS, True)
 
     violating_elements = []
     element_bounds = []
+    track_details = [] # NEW: List to hold our table data
     
     global_min_x = float('inf')
     global_max_x = float('-inf')
@@ -306,7 +308,7 @@ def check_track_continuity(elements, tolerance_m=0.02):
     panel_length = global_max_x - global_min_x
     
     if len(element_bounds) == 0:
-        return {"passed": True, "message": "No valid geometry found.", "violating_elements": []}
+        return {"passed": True, "message": "No valid geometry found.", "violating_elements": [], "track_details": []}
 
     # 2. FILTER AND CHECK THE TRACKS
     passed = True
@@ -317,7 +319,7 @@ def check_track_continuity(elements, tolerance_m=0.02):
         # Check if it's horizontal steel (Length is significantly greater than Height)
         if item["dx"] > item["dz"]:
             
-            # Is it a Top Track or Bottom Track? (Within 20mm of the absolute top/bottom)
+            # Is it a Top Track or Bottom Track? (Within tolerance of the absolute top/bottom)
             is_bottom_track = abs(item["min_z"] - global_min_z) <= tolerance_m
             is_top_track = abs(item["max_z"] - global_max_z) <= tolerance_m
             
@@ -325,11 +327,24 @@ def check_track_continuity(elements, tolerance_m=0.02):
                 tracks_found += 1
                 
                 # The Rule: Does this specific track span the whole panel?
-                if item["dx"] < (panel_length - tolerance_m):
+                is_valid = item["dx"] >= (panel_length - tolerance_m)
+                
+                if not is_valid:
                     passed = False
                     splices_found += 1
                     if item["element"] not in violating_elements:
                         violating_elements.append(item["element"])
+
+                # --- RECORD RAW DATA FOR THE TABLE ---
+                position_label = "Top Track" if is_top_track else "Bottom Track"
+                track_details.append({
+                    "Position": position_label,
+                    "Element ID": item["element"].GlobalId,
+                    "Actual Track Length": round(item["dx"], 3),
+                    "Full Panel Length": round(panel_length, 3),
+                    "Gap Deficit": round(panel_length - item["dx"], 3),
+                    "Status": "✅ Pass" if is_valid else "❌ Fail"
+                })
 
     # 3. FORMAT THE REPORT
     if tracks_found == 0:
@@ -337,7 +352,8 @@ def check_track_continuity(elements, tolerance_m=0.02):
             "passed": True,  # Keep true so it doesn't paint the whole panel red
             "has_tracks": False, # New flag to trigger the UI warning
             "message": "Could not identify any boundary tracks. Tolerance may be too tight.",
-            "violating_elements": violating_elements
+            "violating_elements": violating_elements,
+            "track_details": track_details
         }
         
     if passed:
@@ -349,7 +365,8 @@ def check_track_continuity(elements, tolerance_m=0.02):
         "passed": passed,
         "has_tracks": True,
         "message": message,
-        "violating_elements": violating_elements
+        "violating_elements": violating_elements,
+        "track_details": track_details # Export the table!
     }
 
 #RULE 5
@@ -657,4 +674,486 @@ def check_hole_sizes(elements, allowed_sizes_m=[0.014, 0.034], tolerance_m=0.002
         "violating_elements": violating_elements,
         "hole_details": hole_details, 
         "violating_hole_coords": violating_hole_coords # Return ONLY the bad ones
+    }
+
+def check_part_count(elements, max_parts=50):
+    """Rule 12: Part Count Complexity"""
+    count = len(elements)
+    passed = count <= max_parts
+    
+    if passed:
+        message = f"Passed: Panel contains {count} total structural parts. (Limit: {max_parts})"
+    else:
+        message = f"Failed: Panel is too complex! Contains {count} parts. (Limit: {max_parts})"
+        
+    return {
+        "passed": passed,
+        "message": message,
+        "violating_elements": [] if passed else elements # Flags whole panel if too complex
+    }
+
+def check_stud_spacing(elements, target_spacings_mms="600, 100", tolerance_mm=10.0):
+    """
+    Rule 3 (DfRA): Standardized Stud Spacing.
+    Checks spacing against MULTIPLE allowed target gaps (e.g. standard 600mm and junction 100mm).
+    Dynamically adjusts to the IFC file's native length units.
+    """
+    if not elements:
+        return {"passed": True, "message": "No elements provided.", "violating_elements": [], "spacing_details": []}
+
+    # --- 1. STRING PARSER (Like the Holes Rule) ---
+    if isinstance(target_spacings_mms, str):
+        try:
+            allowed_spacings = [float(x.strip()) for x in target_spacings_mms.split(",")]
+        except ValueError:
+            allowed_spacings = [600.0] 
+    elif not isinstance(target_spacings_mms, list):
+        allowed_spacings = [float(target_spacings_mms)]
+    else:
+        allowed_spacings = target_spacings_mms
+
+    # --- 2. DYNAMIC UNIT CONVERSION ---
+    try:
+        model = elements[0].file
+        length_unit = [u for u in model.by_type("IfcUnitAssignment")[0].Units if u.is_a("IfcSIUnit") and u.UnitType == "LENGTHUNIT"][0]
+        if length_unit.Prefix == "MILLI": to_mm_factor = 1.0
+        elif length_unit.Prefix == "CENTI": to_mm_factor = 10.0
+        else: to_mm_factor = 1000.0
+    except Exception:
+        to_mm_factor = 1000.0
+
+    # --- 3. FILTER & MEASURE ---
+    studs = [e for e in elements if e.Name and "stud" in e.Name.lower()]
+    stud_data = []
+    
+    for s in studs:
+        try:
+            raw_x = s.ObjectPlacement.RelativePlacement.Location.Coordinates[0]
+            x_coord_mm = raw_x * to_mm_factor
+            stud_data.append((x_coord_mm, s))
+        except Exception:
+            continue
+            
+    stud_data.sort(key=lambda x: x[0])
+    
+    violating_elements = []
+    spacing_details = [] 
+    checked_count = len(stud_data)
+    
+    if checked_count < 2:
+        return {"passed": True, "message": f"Warning: Only {checked_count} stud(s) found.", "violating_elements": [], "spacing_details": []}
+    
+    # --- 4. MULTI-TARGET EVALUATION ---
+    for i in range(len(stud_data) - 1):
+        x1 = stud_data[i][0]
+        x2 = stud_data[i+1][0]
+        actual_spacing = abs(x2 - x1)
+        
+        is_valid = False
+        matched_target = None
+        
+        # Check against every allowed size in the list
+        for target in allowed_spacings:
+            if abs(actual_spacing - target) <= tolerance_mm:
+                is_valid = True
+                matched_target = target
+                break
+        
+        if not is_valid:
+            violating_elements.append(stud_data[i][1])
+            violating_elements.append(stud_data[i+1][1])
+            
+        spacing_details.append({
+            "Left Stud ID": stud_data[i][1].GlobalId,
+            "Right Stud ID": stud_data[i+1][1].GlobalId,
+            "Actual Gap (mm)": round(actual_spacing, 2),
+            "Target Gap (mm)": matched_target if is_valid else str(allowed_spacings),
+            "Status": "✅ Pass" if is_valid else "❌ Fail"
+        })
+            
+    violators_unique = list(set(violating_elements))
+    passed = len(violators_unique) == 0
+    
+    message = f"Passed: All {checked_count} studs match allowed spacing gaps." if passed else f"Failed: Irregular gaps found between {len(violators_unique)} studs!"
+        
+    return {
+        "passed": passed,
+        "message": message,
+        "violating_elements": violators_unique,
+        "spacing_details": spacing_details
+    }
+def check_joist_uniformity(elements, tolerance_mm=5.0):
+    """
+    Rule 6 (DfM): Uniform Joist Depth
+    Extracts the 3D bounding box of horizontal members and exports the depths to a table.
+    """
+    tracks = [e for e in elements if e.Name and any(word in e.Name.lower() for word in ["track", "joist", "plate"])]
+    count = len(tracks)
+    
+    if count == 0:
+        return {"passed": True, "message": "No horizontal tracks found to check.", "violating_elements": [], "joist_details": []}
+        
+    settings = ifcopenshell.geom.settings()
+    settings.set(settings.USE_WORLD_COORDS, True)
+    
+    track_depths = []
+    
+    for t in tracks:
+        try:
+            shape = ifcopenshell.geom.create_shape(settings, t)
+            verts = np.array(shape.geometry.verts).reshape((-1, 3))
+            
+            min_c = verts.min(axis=0)
+            max_c = verts.max(axis=0)
+            dims = (max_c - min_c) * 1000.0 
+            
+            dims_sorted = np.sort(dims) 
+            depth_mm = dims_sorted[1] 
+            
+            track_depths.append((depth_mm, t))
+        except Exception:
+            pass
+            
+    if not track_depths:
+        return {"passed": True, "message": f"Could not calculate geometry for the {count} tracks.", "violating_elements": [], "joist_details": []}
+        
+    depths_only = [d[0] for d in track_depths]
+    baseline_depth = np.median(depths_only) 
+    
+    violating_elements = []
+    joist_details = [] # NEW: Table Data
+    
+    for depth, t in track_depths:
+        is_valid = abs(depth - baseline_depth) <= tolerance_mm
+        if not is_valid:
+            violating_elements.append(t)
+            
+        # RECORD RAW DATA FOR THE TABLE
+        joist_details.append({
+            "Element ID": t.GlobalId,
+            "Type": "Track/Joist",
+            "Actual Depth (mm)": round(depth, 2),
+            "Median Panel Depth (mm)": round(baseline_depth, 2),
+            "Variance (mm)": round(abs(depth - baseline_depth), 2),
+            "Status": "✅ Pass" if is_valid else "❌ Fail"
+        })
+            
+    passed = len(violating_elements) == 0
+    message = f"Passed: All {count} horizontal tracks have a uniform depth of ~{baseline_depth:.1f}mm." if passed else f"Failed: {len(violating_elements)} out of {count} tracks do not match the standard depth of {baseline_depth:.1f}mm!"
+        
+    return {
+        "passed": passed,
+        "message": message,
+        "violating_elements": violating_elements,
+        "joist_details": joist_details
+    }
+
+def check_part_max_dimensions(elements, max_length_mm=1000.0, max_height_mm=1000.0, max_depth_mm=300.0):
+    """
+    Rule X (DfMA): Maximum Individual Part Size
+    Checks every single element to ensure it does not exceed the robot's maximum 
+    handling dimensions (Length, Height, or Depth).
+    """
+    settings = ifcopenshell.geom.settings()
+    settings.set(settings.USE_WORLD_COORDS, True)
+    
+    violating_elements = []
+    part_details = [] # NEW: List to hold our table data
+    total_parts_checked = 0
+    
+    for element in elements:
+        try:
+            shape = ifcopenshell.geom.create_shape(settings, element)
+            verts = np.array(shape.geometry.verts).reshape((-1, 3))
+            
+            # Find the local bounding box of this specific part
+            min_c = verts.min(axis=0)
+            max_c = verts.max(axis=0)
+            
+            # Calculate dimensions in mm
+            dims = (max_c - min_c) * 1000.0 
+            
+            # Sort dimensions from smallest to largest to find depth, height, and length
+            dims_sorted = np.sort(dims)
+            actual_depth = dims_sorted[0]
+            actual_height = dims_sorted[1]
+            actual_length = dims_sorted[2]
+            
+            total_parts_checked += 1
+            
+            # Check against limits
+            is_valid = True
+            if (actual_length > max_length_mm or 
+                actual_height > max_height_mm or 
+                actual_depth > max_depth_mm):
+                is_valid = False
+                violating_elements.append(element)
+                
+            # --- RECORD THE RAW DATA FOR THE TABLE ---
+            part_type = "Track" if element.Name and "track" in element.Name.lower() else "Stud"
+            
+            part_details.append({
+                "Type": part_type,
+                "Element ID": element.GlobalId,
+                "Length (mm)": round(actual_length, 2),
+                "Height (mm)": round(actual_height, 2),
+                "Depth (mm)": round(actual_depth, 2),
+                "Status": "✅ Pass" if is_valid else "❌ Fail"
+            })
+                
+        except Exception:
+            pass # Skip parts that don't have physical 3D geometry
+
+    passed = len(violating_elements) == 0
+    
+    if passed:
+        message = f"Passed: All {total_parts_checked} individual parts fit within robotic gripper limits."
+    else:
+        message = f"Failed: {len(violating_elements)} out of {total_parts_checked} parts exceed maximum handling dimensions!"
+        
+    return {
+        "passed": passed,
+        "message": message,
+        "violating_elements": violating_elements,
+        "part_details": part_details # We export the table here!
+    }
+
+def check_center_of_gravity(elements, tolerance_mm=250.0):
+    """
+    Rule X (DfMA): Center of Gravity Balance
+    Estimates the CoG using a volume-weighted average of all parts.
+    Fails if the CoG is too far from the geometric center of the panel.
+    """
+    settings = ifcopenshell.geom.settings()
+    settings.set(settings.USE_WORLD_COORDS, True)
+    
+    global_min = np.array([float('inf'), float('inf'), float('inf')])
+    global_max = np.array([float('-inf'), float('-inf'), float('-inf')])
+    
+    total_volume = 0.0
+    weighted_sum = np.zeros(3)
+    
+    # 1. SCAN PARTS FOR VOLUME AND LOCAL CENTERS
+    for e in elements:
+        try:
+            shape = ifcopenshell.geom.create_shape(settings, e)
+            verts = np.array(shape.geometry.verts).reshape((-1, 3))
+            
+            min_c = verts.min(axis=0)
+            max_c = verts.max(axis=0)
+            
+            # Expand global panel boundaries
+            global_min = np.minimum(global_min, min_c)
+            global_max = np.maximum(global_max, max_c)
+            
+            # Calculate element volume (dx * dy * dz)
+            dims = max_c - min_c
+            vol = dims[0] * dims[1] * dims[2]
+            
+            # Local center of this specific part
+            center = (max_c + min_c) / 2.0
+            
+            total_volume += vol
+            weighted_sum += center * vol
+            
+        except Exception:
+            pass
+
+    if total_volume == 0:
+        return {"passed": True, "message": "Could not extract geometry for CoG.", "violating_elements": [], "cog_details": []}
+
+    # 2. CALCULATE OFFSETS
+    cog_m = weighted_sum / total_volume
+    geom_center_m = (global_max + global_min) / 2.0
+    
+    # Euclidean distance between true center and CoG (converted to mm)
+    offset_m = np.linalg.norm(cog_m - geom_center_m)
+    offset_mm = offset_m * 1000.0
+    
+    passed = offset_mm <= tolerance_mm
+    
+    if passed:
+        message = f"Passed: Panel is balanced. CoG offset is only {offset_mm:.1f}mm."
+    else:
+        message = f"Failed: Unbalanced Panel! CoG is offset by {offset_mm:.1f}mm (Limit: {tolerance_mm}mm)."
+        
+    # 3. RECORD TABLE DATA
+    cog_details = [
+        {"Metric": "Geometric Center (X,Y,Z)", "Value": f"{geom_center_m[0]:.2f}, {geom_center_m[1]:.2f}, {geom_center_m[2]:.2f}"},
+        {"Metric": "Estimated CoG (X,Y,Z)", "Value": f"{cog_m[0]:.2f}, {cog_m[1]:.2f}, {cog_m[2]:.2f}"},
+        {"Metric": "Offset Distance (mm)", "Value": str(round(offset_mm, 2))},
+        {"Metric": "Tolerance Limit (mm)", "Value": str(tolerance_mm)},
+        {"Metric": "Status", "Value": "✅ Pass" if passed else "❌ Fail"}
+    ]
+
+    return {
+        "passed": passed,
+        "message": message,
+        # If it fails, the WHOLE panel is unsafe to lift, so we flag all elements
+        "violating_elements": elements if not passed else [], 
+        "cog_coords": cog_m.tolist(),       # We return these to draw a cool 3D widget!
+        "geom_coords": geom_center_m.tolist(),
+        "cog_details": cog_details
+    }
+
+def check_slanted_beam_angle(elements, max_angle_degrees=45.0, tolerance=2.0):
+    """
+    Rule X (DfM): Slanted Beam Angle (Roof Panels).
+    Identifies slanted structural members and ensures their pitch/angle
+    does not exceed the robotic assembly limit (default 45 degrees).
+    """
+    settings = ifcopenshell.geom.settings()
+    settings.set(settings.USE_WORLD_COORDS, True)
+
+    violating_elements = []
+    angle_details = []
+    slanted_beams_found = 0
+
+    for element in elements:
+        try:
+            shape = ifcopenshell.geom.create_shape(settings, element)
+            verts = np.array(shape.geometry.verts).reshape((-1, 3))
+
+            if len(verts) < 2:
+                continue
+
+            # --- FAST VECTOR APPROXIMATION ---
+            # Find the two furthest points in the mesh to get the longitudinal axis
+            dist_from_0 = np.linalg.norm(verts - verts[0], axis=1)
+            idx_A = np.argmax(dist_from_0)
+            A = verts[idx_A]
+
+            dist_from_A = np.linalg.norm(verts - A, axis=1)
+            idx_B = np.argmax(dist_from_A)
+            B = verts[idx_B]
+
+            vector = B - A
+            length = np.linalg.norm(vector)
+
+            if length == 0:
+                continue
+
+            # --- CALCULATE THE ANGLE ---
+            # Angle relative to the horizontal (XY plane)
+            dz = abs(vector[2])
+            angle_rad = np.arcsin(dz / length)
+            angle_deg = np.degrees(angle_rad)
+
+            # --- FILTER & EVALUATE ---
+            # We only care about slanted members (ignoring flat tracks <5° and vertical studs >85°)
+            if 5.0 < angle_deg < 85.0:
+                slanted_beams_found += 1
+
+                # Check if it exceeds our robot's maximum pitch capability
+                is_valid = angle_deg <= (max_angle_degrees + tolerance)
+
+                if not is_valid:
+                    violating_elements.append(element)
+
+                # Record data for the Numerical Data table
+                angle_details.append({
+                    "Element ID": element.GlobalId,
+                    "Type": element.Name if element.Name else "Beam",
+                    "Calculated Pitch (°)": round(angle_deg, 1),
+                    "Maximum Allowed (°)": max_angle_degrees,
+                    "Status": "✅ Pass" if is_valid else "❌ Fail"
+                })
+
+        except Exception:
+            pass
+
+    passed = len(violating_elements) == 0
+
+    if slanted_beams_found == 0:
+        return {
+            "passed": True,
+            "message": "No slanted beams detected (all parts are standard vertical/horizontal).",
+            "violating_elements": [],
+            "angle_details": []
+        }
+
+    if passed:
+        message = f"Passed: All {slanted_beams_found} slanted beams are at or below {max_angle_degrees}°."
+    else:
+        message = f"Failed: {len(violating_elements)} out of {slanted_beams_found} slanted beams exceed the {max_angle_degrees}° limit!"
+
+    return {
+        "passed": passed,
+        "message": message,
+        "violating_elements": violating_elements,
+        "angle_details": angle_details
+    }
+
+def check_total_assembly_payload(elements, max_payload_kg=100.0):
+    """
+    Rule X (DfMA): Total Assembly Payload
+    Calculates the cumulative weight of the entire panel to ensure it does not 
+    exceed the hoisting/crane limits.
+    """
+    settings = ifcopenshell.geom.settings()
+    settings.set(settings.USE_WORLD_COORDS, True)
+    
+    total_weight_kg = 0.0
+    payload_details = []
+    
+    for e in elements:
+        weight = 0.0
+        found_weight = False
+        
+        # --- 1. SMART CHECK: Look for embedded IFC Properties ---
+        try:
+            psets = ifcopenshell.util.element.get_psets(e)
+            for pset_name, pset_data in psets.items():
+                if isinstance(pset_data, dict):
+                    # Search for any property containing 'weight' or 'mass'
+                    for key, val in pset_data.items():
+                        if ('weight' in key.lower() or 'mass' in key.lower()) and isinstance(val, (int, float)):
+                            weight = float(val)
+                            found_weight = True
+                            break
+                if found_weight: break
+        except Exception:
+            pass
+                
+        # --- 2. FALLBACK: Linear Meter Estimation ---
+        # If the architect didn't include weights, we estimate based on length
+        if not found_weight:
+            try:
+                shape = ifcopenshell.geom.create_shape(settings, e)
+                verts = np.array(shape.geometry.verts).reshape((-1, 3))
+                
+                min_c = verts.min(axis=0)
+                max_c = verts.max(axis=0)
+                
+                # Find the longest dimension (the length of the stud/track) in meters
+                length_m = np.max(max_c - min_c)
+                
+                # Standard LGS estimation: ~2.5 kg per linear meter of steel
+                weight = length_m * 2.5 
+            except Exception:
+                weight = 0.0
+                
+        total_weight_kg += weight
+        
+        # Record the part for our data table
+        payload_details.append({
+            "Element ID": e.GlobalId,
+            "Type": e.Name if e.Name else "Unknown",
+            "Weight (kg)": round(weight, 2),
+            "Calculation Method": "IFC Property" if found_weight else "Linear Estimate (2.5kg/m)"
+        })
+        
+    passed = total_weight_kg <= max_payload_kg
+    
+    if passed:
+        message = f"Passed: Total assembled panel weight is {total_weight_kg:.1f} kg. (Safe limit: {max_payload_kg} kg)."
+    else:
+        message = f"Failed: Panel is too heavy to hoist safely! Total weight is {total_weight_kg:.1f} kg. (Limit: {max_payload_kg} kg)."
+        
+    return {
+        "passed": passed,
+        "message": message,
+        "violating_elements": elements if not passed else [], # If it fails, the WHOLE panel paints red
+        "payload_details": payload_details,
+        "total_weight": total_weight_kg
     }

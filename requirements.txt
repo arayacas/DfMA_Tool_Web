@@ -14,3 +14,4 @@ trame-vuetify==3.2.2
 vtk==9.6.2
 panel>=1.4.1
 nest_asyncio2
+redflib==7.0.0

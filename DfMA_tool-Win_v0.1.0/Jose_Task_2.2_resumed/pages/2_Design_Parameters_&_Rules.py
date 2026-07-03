@@ -1,79 +1,111 @@
 import streamlit as st
 import os
-import json
+import sys
 import UI_Helpers
 
+# --- PATH HACK FOR PARENT FOLDER IMPORTS ---
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
+
 # --- PAGE SETUP ---
-st.set_page_config(page_title="Constraints & Rules", layout="wide")
+st.set_page_config(page_title="Design Parameters", layout="wide")
 
-st.markdown(
-    """
-    <style>
-    [data-testid="stSidebarNav"] span { font-size: 30px !important; }
-    </style>
-    """, unsafe_allow_html=True)
-
-lablogo_path = os.path.join("..", "Images", "horizontal_smart.png")
-try:
-    UI_Helpers.add_floating_lab_logo(lablogo_path, url="https://rafiqahmads.com/")
-except Exception:
-    pass
-
-st.title("DfMA Design Parameters & Constraints")
-st.write("Configure the manufacturing rules for the wall panels here.")
-st.markdown("---")
-
-st.subheader("Maximum Panel Dimensions")
-
-# --- CLOUD-SAFE JSON CONFIGURATION SETUP ---
-import tempfile # Ensure this is imported at the top of your script!
-
-# Grab the unique temp file path generated on the Start page
-config_path = st.session_state.get('config_path', None)
-
-# NEW LOGIC: If the file doesn't exist yet, build it right now so the user isn't blocked!
-if not config_path or not os.path.exists(config_path):
-    default_config = {
+# Initialize Session State
+if "design_params" not in st.session_state:
+    st.session_state["design_params"] = {
         "max_length": 6.00,
         "max_height": 3.00,
         "hole_tol": 0.010,
         "track_cont_tol": 0.020,
         "track_hole_tol": 0.20,
         "max_weight": 50.00,     
-        "allowed_holes_mm": "14, 34",
-        "hole_size_tol_mm": 2.0
+        "allowed_holes_mm": "14, 34", 
+        "hole_size_tol_mm": 2.0,
+        "max_parts": 50,
+        "stud_spacing_mm": 600,
+        "stud_tol_mm": 50, 
+        "joist_depth_tolerance": 100,
+        "part_max_length_mm": 5000,
+        "part_max_height_mm": 5000,
+        "part_max_depth_mm" : 500,
+        "hole_border_clearance_mm": 20,
+        "slanted_beam_angle" : 45,
+        "total_assembly_payload_limit_kg": 100,
+        "CoG_radius_tolerance_mm" : 250
     }
-    with tempfile.NamedTemporaryFile(delete=False, mode="w", suffix=".json") as tmp_config:
-        json.dump(default_config, tmp_config, indent=4)
-        st.session_state['config_path'] = tmp_config.name
-        config_path = tmp_config.name # Update local variable so the rest of the page works
 
-# 1. READ: Load existing data so sliders remember their positions
-saved_data = {} 
-default_length = 6.00
-default_height = 3.00
+if "pinned_rules" not in st.session_state:
+    # Default pinned rules
+    st.session_state["pinned_rules"] = ["max_length", "max_height", "max_weight"]
 
-try:
-    with open(config_path, "r") as f:
-        saved_data = json.load(f)
-        default_length = float(saved_data.get("max_length", 6.00))
-        default_height = float(saved_data.get("max_height", 3.00))
-except Exception:
-    pass 
+params = st.session_state["design_params"]
+pinned = st.session_state["pinned_rules"]
 
-# 2. UI: Draw the sliders using the loaded default values
-selected_length = st.slider("Max Allowed Length (m)", min_value=0.5, max_value=12.00, value=default_length, step=0.01)
-selected_height = st.slider("Max Allowed Height (m)", min_value=0.5, max_value=12.00, value=default_height, step=0.01)
+# Helper to manage pinning
+def pin_control(rule_id):
+    is_pinned = rule_id in pinned
+    if st.toggle("Pin to Display", value=is_pinned, key=f"pin_{rule_id}"):
+        if rule_id not in pinned:
+            if len(pinned) < 14: pinned.append(rule_id)
+            else: st.warning("Maximum 14 rules pinned.")
+    else:
+        if rule_id in pinned: pinned.remove(rule_id)
 
-# 3. WRITE: Update the specific keys WITHOUT deleting the rest of the file
-saved_data["max_length"] = selected_length
-saved_data["max_height"] = selected_height
+st.title("Design Constraints")
+st.write("Configure physical limitations. Toggle 'Pin to Display' to bring the rule into DfMA Display.")
+st.markdown("---")
 
-try:
-    with open(config_path, "w") as f:
-        json.dump(saved_data, f, indent=4)
-    st.success("💾 Constraints actively saved to cloud session!")
-except Exception as e:
-    st.error(f"Failed to save constraints: {e}")
-else:
-    st.warning("⚠️ Session memory not initialized. Please visit the Start page first.")
+tab1, tab2, tab3 = st.tabs(["Dimensional & Spatial Limits", "Tolerances & Alignment", "Assembly Capabilities"])
+
+with tab1:
+    col1, col2 = st.columns(2)
+    with col1:
+        params["max_length"] = st.number_input("Maximum Operational Length (m)", value=params["max_length"], step=0.5)
+        pin_control("max_length")
+        params["max_height"] = st.number_input("Maximum Operational Height (m)", value=params["max_height"], step=0.5)
+        pin_control("max_height")
+        params["total_assembly_payload_limit_kg"] = st.number_input("Maximum Assembly Weight (kg)", value=params["total_assembly_payload_limit_kg"])
+        pin_control("Maximum Assembly Weight (kg)")
+    with col2:
+        params["max_weight"] = st.number_input("Max Element Weight (kg)", value=params["max_weight"], step=5.0)
+        pin_control("max_weight")
+        params["part_max_length_mm"] = st.number_input("Max Element Lenght", value=params["part_max_length_mm"])
+        pin_control("part_max_length_mm") # Fixed pin label
+        params["part_max_height_mm"] = st.number_input("Max Element Height", value=params["part_max_height_mm"]) # Fixed value lookup
+        pin_control("part_max_height_mm") # Fixed pin label
+        params["part_max_depth_mm"] = st.number_input("Max Element Depth", value=params["part_max_depth_mm"]) # Fixed value lookup
+        pin_control("part_max_depth_mm") # Fixed pin label
+
+with tab2:
+    col3, col4 = st.columns(2)
+    with col3:
+        params["allowed_holes_mm"] = st.text_input("Allowed Hole Sizes (mm)", value=params["allowed_holes_mm"])
+        pin_control("allowed_holes_mm")
+        params["hole_size_tol_mm"] = st.number_input("Hole Tolerance (mm)", value=params["hole_size_tol_mm"], step=0.5)
+        pin_control("hole_size_tol_mm")
+        params["hole_tol"] = st.number_input("Stud Hole Alignment Tolerance", value=params["hole_tol"], step=0.005)
+        pin_control("hole_tol")
+        params["track_hole_tol"] = st.number_input("Vertical Drop Hole Alignment Tolerance", value=params["track_hole_tol"], step=0.005)
+        pin_control("track_hole_tol")
+    with col4:
+        params["track_cont_tol"] = st.number_input("Track Continuity Length (m)", value=params["track_cont_tol"], step=0.005)
+        pin_control("track_cont_tol")
+        params["stud_spacing_mm"] = st.text_input("Stud Spacing (mm)", value=params["stud_spacing_mm"])
+        pin_control("Stud Spacing (mm)")
+        params["stud_tol_mm"] = st.number_input("Stud Spacing Tolerance (mm)", value=params["stud_tol_mm"])
+        pin_control("Stud Spacing Tolerance (mm)")
+
+
+with tab3:
+    col5, col6 = st.columns(2)
+    with col5:
+        params["slanted_beam_angle"] = st.number_input("Slanted beam angle (Roof Panels)", value=params["slanted_beam_angle"])
+        pin_control("slanted_beam_angle")
+        params["CoG_radius_tolerance_mm"] = st.number_input("Center of Gravity Tolerance", value = params["CoG_radius_tolerance_mm"])
+        pin_control("Center of Gravity Tolerance")
+    with col6:
+        params["total_assembly_payload_limit_kg"] = st.number_input("Total Assembly Payload", value=params["total_assembly_payload_limit_kg"])
+        pin_control("Assembly Payload Kg")
+        params["max_parts"] = st.number_input("Total Assembly Parts", value=params["max_parts"])
+        pin_control("Max_Parts")

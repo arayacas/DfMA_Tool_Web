@@ -1,0 +1,2293 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.w3.org/2002/07/owl"
+     xmlns:bim="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <Ontology/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#connectsElement -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#connectsElement"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasAngleXY -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasAngleXY"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasAxesClose -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasAxesClose"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasConnectionAngleDeg -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasConnectionAngleDeg"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasConnectionType -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasConnectionType"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasContactX -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasContactX"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasContactY -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasContactY"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasContactZ -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasContactZ"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasGapDistance -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasGapDistance"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasHeight -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasHeight"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasIntersection -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasIntersection"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasLength -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasLength"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasName -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasName"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasNetCrossSectionalArea -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasNetCrossSectionalArea"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasOverlapX -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasOverlapX"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasOverlapY -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasOverlapY"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasOverlapZ -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasOverlapZ"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasStorey -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasStorey"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasTag -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasTag"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasThickness -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasThickness"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasWidth -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasWidth"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasX -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasX"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasY -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasY"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasZ -->
+
+    <AnnotationProperty rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#hasZ"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection -->
+
+    <Class rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener -->
+
+    <Class rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Structural_element -->
+
+    <Class rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Structural_element"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Stud -->
+
+    <Class rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Stud"/>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Track -->
+
+    <Class rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Track"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhW_0Mxc9hiKT5IhDB2THdcnhb -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhW_0Mxc9hiKT5IhDB2THdcnhb">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhW"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhb"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-3.8671942</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2.9703</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhW_0Mxc9hiKT5IhDB2THdcnhv -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhW_0Mxc9hiKT5IhDB2THdcnhv">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhW"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-3.8671942</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.9441</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhc -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhc">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhb"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhc"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8.816394</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2.9703</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhm -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhm">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhb"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhm"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-7.4417944</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2.9703</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhn -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhn">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhb"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhn"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8.041794</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2.9703</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnho -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnho">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhb"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnho"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8.641794</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2.9703</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhp -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhp">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhb"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhp"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6.241794</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2.9703</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnht -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnht">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhb"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnht"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6.8417945</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2.9703</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhy -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhy">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhb"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhy"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5.641794</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2.9703</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhz -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhz">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhb"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhz"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5.0417943</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2.9703</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhc_0Mxc9hiKT5IhDB2THdcnhv -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhc_0Mxc9hiKT5IhDB2THdcnhv">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhc"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8.816394</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.9441</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhm_0Mxc9hiKT5IhDB2THdcnhv -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhm_0Mxc9hiKT5IhDB2THdcnhv">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhm"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-7.4417944</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.9441</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhn_0Mxc9hiKT5IhDB2THdcnhv -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhn_0Mxc9hiKT5IhDB2THdcnhv">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhn"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8.041794</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.9441</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnho_0Mxc9hiKT5IhDB2THdcnhv -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnho_0Mxc9hiKT5IhDB2THdcnhv">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnho"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8.641794</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.9441</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhp_0Mxc9hiKT5IhDB2THdcnhv -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhp_0Mxc9hiKT5IhDB2THdcnhv">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhp"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6.241794</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.9441</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnht_0Mxc9hiKT5IhDB2THdcnhv -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnht_0Mxc9hiKT5IhDB2THdcnhv">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnht"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6.8417945</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.9441</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhv_0Mxc9hiKT5IhDB2THdcnhy -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhv_0Mxc9hiKT5IhDB2THdcnhy">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhy"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5.641794</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.9441</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhv_0Mxc9hiKT5IhDB2THdcnhz -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhv_0Mxc9hiKT5IhDB2THdcnhz">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhz"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5.0417943</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.9441</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcne6 -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcne6">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806477</bim:hasName>
+        <bim:hasTag>1806477</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-3878.2942</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcne7 -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcne7">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806476</bim:hasName>
+        <bim:hasTag>1806476</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-3878.2942</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneH -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneH">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806490</bim:hasName>
+        <bim:hasTag>1806490</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5652.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneI -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneI">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806489</bim:hasName>
+        <bim:hasTag>1806489</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5652.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneL -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneL">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806494</bim:hasName>
+        <bim:hasTag>1806494</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6252.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneM -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneM">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806493</bim:hasName>
+        <bim:hasTag>1806493</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6252.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneQ -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneQ">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806481</bim:hasName>
+        <bim:hasTag>1806481</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-4452.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneR -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneR">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806480</bim:hasName>
+        <bim:hasTag>1806480</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-4452.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneT -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneT">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806486</bim:hasName>
+        <bim:hasTag>1806486</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5052.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneU -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneU">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806485</bim:hasName>
+        <bim:hasTag>1806485</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5052.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneX -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneX">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806506</bim:hasName>
+        <bim:hasTag>1806506</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8052.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneY -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneY">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806505</bim:hasName>
+        <bim:hasTag>1806505</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8052.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneb -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneb">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806510</bim:hasName>
+        <bim:hasTag>1806510</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8652.895</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnec -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnec">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806509</bim:hasName>
+        <bim:hasTag>1806509</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8652.895</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnef -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnef">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806498</bim:hasName>
+        <bim:hasTag>1806498</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6852.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneg -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneg">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806497</bim:hasName>
+        <bim:hasTag>1806497</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6852.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnej -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnej">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806502</bim:hasName>
+        <bim:hasTag>1806502</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-7452.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnek -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnek">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806501</bim:hasName>
+        <bim:hasTag>1806501</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-7452.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnem -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnem">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806523</bim:hasName>
+        <bim:hasTag>1806523</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-4452.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneq -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcneq">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806527</bim:hasName>
+        <bim:hasTag>1806527</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5052.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnet -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnet">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806524</bim:hasName>
+        <bim:hasTag>1806524</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-4452.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnev -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnev">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806514</bim:hasName>
+        <bim:hasTag>1806514</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8805.294</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnew -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnew">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806513</bim:hasName>
+        <bim:hasTag>1806513</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8805.294</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2995.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcney -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcney">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806519</bim:hasName>
+        <bim:hasTag>1806519</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-3878.2942</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnez -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnez">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806518</bim:hasName>
+        <bim:hasTag>1806518</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-3878.2942</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnf0 -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnf0">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806539</bim:hasName>
+        <bim:hasTag>1806539</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6852.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnf3 -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnf3">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806536</bim:hasName>
+        <bim:hasTag>1806536</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6252.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnf4 -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnf4">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806543</bim:hasName>
+        <bim:hasTag>1806543</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-7452.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnf7 -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnf7">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806540</bim:hasName>
+        <bim:hasTag>1806540</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6852.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnf8 -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnf8">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806531</bim:hasName>
+        <bim:hasTag>1806531</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5652.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfB -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfB">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806528</bim:hasName>
+        <bim:hasTag>1806528</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5052.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfC -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfC">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806535</bim:hasName>
+        <bim:hasTag>1806535</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6252.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfF -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfF">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806532</bim:hasName>
+        <bim:hasTag>1806532</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5652.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfG -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfG">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806555</bim:hasName>
+        <bim:hasTag>1806555</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8805.294</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfJ -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfJ">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806552</bim:hasName>
+        <bim:hasTag>1806552</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8652.895</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfL -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfL">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806558</bim:hasName>
+        <bim:hasTag>1806558</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-3843.2942</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2998.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfN -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfN">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806556</bim:hasName>
+        <bim:hasTag>1806556</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8805.294</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfO -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfO">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806547</bim:hasName>
+        <bim:hasTag>1806547</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8052.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfR -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfR">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806544</bim:hasName>
+        <bim:hasTag>1806544</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-7452.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfS -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfS">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806551</bim:hasName>
+        <bim:hasTag>1806551</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8652.895</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfV -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfV">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806548</bim:hasName>
+        <bim:hasTag>1806548</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8052.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">918.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfW -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfW">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806571</bim:hasName>
+        <bim:hasTag>1806571</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-7417.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2998.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfY -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfY">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806569</bim:hasName>
+        <bim:hasTag>1806569</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6817.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2998.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfa -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfa">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806575</bim:hasName>
+        <bim:hasTag>1806575</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8617.895</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2998.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfc -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfc">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806573</bim:hasName>
+        <bim:hasTag>1806573</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8017.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2998.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfe -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfe">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806563</bim:hasName>
+        <bim:hasTag>1806563</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5017.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2998.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfh -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfh">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806560</bim:hasName>
+        <bim:hasTag>1806560</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-4417.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2998.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfi -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfi">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806567</bim:hasName>
+        <bim:hasTag>1806567</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6217.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2998.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfk -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfk">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806565</bim:hasName>
+        <bim:hasTag>1806565</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5617.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2998.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfn -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfn">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806586</bim:hasName>
+        <bim:hasTag>1806586</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5017.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfr -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfr">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806590</bim:hasName>
+        <bim:hasTag>1806590</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6217.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnft -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnft">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806588</bim:hasName>
+        <bim:hasTag>1806588</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5617.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfu -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfu">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806579</bim:hasName>
+        <bim:hasTag>1806579</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-3843.2942</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfw -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfw">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806577</bim:hasName>
+        <bim:hasTag>1806577</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8840.294</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2998.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfy -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnfy">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806583</bim:hasName>
+        <bim:hasTag>1806583</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-4417.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhW -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhW">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Stud"/>
+        <bim:hasHeight rdf:datatype="http://www.w3.org/2001/XMLSchema#float">102.0</bim:hasHeight>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhW_0Mxc9hiKT5IhDB2THdcnhb"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhW_0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasLength rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2027.7</bim:hasLength>
+        <bim:hasName>M_MF Stud-Joist:C10251-15:1806443</bim:hasName>
+        <bim:hasNetCrossSectionalArea rdf:datatype="http://www.w3.org/2001/XMLSchema#float">153.0</bim:hasNetCrossSectionalArea>
+        <bim:hasStorey>L1</bim:hasStorey>
+        <bim:hasTag>1806443</bim:hasTag>
+        <bim:hasThickness rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.5</bim:hasThickness>
+        <bim:hasWidth rdf:datatype="http://www.w3.org/2001/XMLSchema#float">50.8</bim:hasWidth>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-3892.5942</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8156.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhb -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhb">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Track"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasHeight rdf:datatype="http://www.w3.org/2001/XMLSchema#float">107.0</bim:hasHeight>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhW_0Mxc9hiKT5IhDB2THdcnhb"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhc"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhm"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhn"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnho"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhp"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnht"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhy"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhz"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnh$_0Mxc9hiKT5IhDB2THdcnhb"/>
+        <bim:hasLength rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4949.2</bim:hasLength>
+        <bim:hasName>M_MF Track:U10758-15:1806446</bim:hasName>
+        <bim:hasNetCrossSectionalArea rdf:datatype="http://www.w3.org/2001/XMLSchema#float">160.5</bim:hasNetCrossSectionalArea>
+        <bim:hasStorey>L1</bim:hasStorey>
+        <bim:hasTag>1806446</bim:hasTag>
+        <bim:hasThickness rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.5</bim:hasThickness>
+        <bim:hasWidth rdf:datatype="http://www.w3.org/2001/XMLSchema#float">57.9</bim:hasWidth>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8841.794</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8153.89</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2942.1</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhc -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhc">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Stud"/>
+        <bim:hasHeight rdf:datatype="http://www.w3.org/2001/XMLSchema#float">102.0</bim:hasHeight>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhc"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhc_0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasLength rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2027.7</bim:hasLength>
+        <bim:hasName>M_MF Stud-Joist:C10251-15:1806445</bim:hasName>
+        <bim:hasNetCrossSectionalArea rdf:datatype="http://www.w3.org/2001/XMLSchema#float">153.0</bim:hasNetCrossSectionalArea>
+        <bim:hasStorey>L1</bim:hasStorey>
+        <bim:hasTag>1806445</bim:hasTag>
+        <bim:hasThickness rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.5</bim:hasThickness>
+        <bim:hasWidth rdf:datatype="http://www.w3.org/2001/XMLSchema#float">50.8</bim:hasWidth>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8841.794</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8156.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhm -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhm">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Stud"/>
+        <bim:hasHeight rdf:datatype="http://www.w3.org/2001/XMLSchema#float">102.0</bim:hasHeight>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhm"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhm_0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasLength rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2027.7</bim:hasLength>
+        <bim:hasName>M_MF Stud-Joist:C10251-15:1806459</bim:hasName>
+        <bim:hasNetCrossSectionalArea rdf:datatype="http://www.w3.org/2001/XMLSchema#float">153.0</bim:hasNetCrossSectionalArea>
+        <bim:hasStorey>L1</bim:hasStorey>
+        <bim:hasTag>1806459</bim:hasTag>
+        <bim:hasThickness rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.5</bim:hasThickness>
+        <bim:hasWidth rdf:datatype="http://www.w3.org/2001/XMLSchema#float">50.8</bim:hasWidth>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-7467.1943</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8156.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhn -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhn">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Stud"/>
+        <bim:hasHeight rdf:datatype="http://www.w3.org/2001/XMLSchema#float">102.0</bim:hasHeight>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhn"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhn_0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasLength rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2027.7</bim:hasLength>
+        <bim:hasName>M_MF Stud-Joist:C10251-15:1806458</bim:hasName>
+        <bim:hasNetCrossSectionalArea rdf:datatype="http://www.w3.org/2001/XMLSchema#float">153.0</bim:hasNetCrossSectionalArea>
+        <bim:hasStorey>L1</bim:hasStorey>
+        <bim:hasTag>1806458</bim:hasTag>
+        <bim:hasThickness rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.5</bim:hasThickness>
+        <bim:hasWidth rdf:datatype="http://www.w3.org/2001/XMLSchema#float">50.8</bim:hasWidth>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8067.1943</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8156.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnho -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnho">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Stud"/>
+        <bim:hasHeight rdf:datatype="http://www.w3.org/2001/XMLSchema#float">102.0</bim:hasHeight>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnho"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnho_0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasLength rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2027.7</bim:hasLength>
+        <bim:hasName>M_MF Stud-Joist:C10251-15:1806457</bim:hasName>
+        <bim:hasNetCrossSectionalArea rdf:datatype="http://www.w3.org/2001/XMLSchema#float">153.0</bim:hasNetCrossSectionalArea>
+        <bim:hasStorey>L1</bim:hasStorey>
+        <bim:hasTag>1806457</bim:hasTag>
+        <bim:hasThickness rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.5</bim:hasThickness>
+        <bim:hasWidth rdf:datatype="http://www.w3.org/2001/XMLSchema#float">50.8</bim:hasWidth>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8667.194</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8156.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhp -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhp">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Stud"/>
+        <bim:hasHeight rdf:datatype="http://www.w3.org/2001/XMLSchema#float">102.0</bim:hasHeight>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhp"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhp_0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasLength rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2027.7</bim:hasLength>
+        <bim:hasName>M_MF Stud-Joist:C10251-15:1806456</bim:hasName>
+        <bim:hasNetCrossSectionalArea rdf:datatype="http://www.w3.org/2001/XMLSchema#float">153.0</bim:hasNetCrossSectionalArea>
+        <bim:hasStorey>L1</bim:hasStorey>
+        <bim:hasTag>1806456</bim:hasTag>
+        <bim:hasThickness rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.5</bim:hasThickness>
+        <bim:hasWidth rdf:datatype="http://www.w3.org/2001/XMLSchema#float">50.8</bim:hasWidth>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6267.1943</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8156.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhq -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhq">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Structural_element"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasHeight rdf:datatype="http://www.w3.org/2001/XMLSchema#float">50.0</bim:hasHeight>
+        <bim:hasLength rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4974.6</bim:hasLength>
+        <bim:hasName>M_MF Strap:50x1:1806463</bim:hasName>
+        <bim:hasNetCrossSectionalArea rdf:datatype="http://www.w3.org/2001/XMLSchema#float">50.0</bim:hasNetCrossSectionalArea>
+        <bim:hasStorey>L1</bim:hasStorey>
+        <bim:hasTag>1806463</bim:hasTag>
+        <bim:hasThickness rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</bim:hasThickness>
+        <bim:hasWidth rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</bim:hasWidth>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-3867.1943</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8132.89</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2414.4</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhs -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhs">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Structural_element"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasHeight rdf:datatype="http://www.w3.org/2001/XMLSchema#float">50.0</bim:hasHeight>
+        <bim:hasLength rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4974.6</bim:hasLength>
+        <bim:hasName>M_MF Strap:50x1:1806461</bim:hasName>
+        <bim:hasNetCrossSectionalArea rdf:datatype="http://www.w3.org/2001/XMLSchema#float">50.0</bim:hasNetCrossSectionalArea>
+        <bim:hasStorey>L1</bim:hasStorey>
+        <bim:hasTag>1806461</bim:hasTag>
+        <bim:hasThickness rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</bim:hasThickness>
+        <bim:hasWidth rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</bim:hasWidth>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-3867.1943</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8281.891</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2414.4</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnht -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnht">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Stud"/>
+        <bim:hasHeight rdf:datatype="http://www.w3.org/2001/XMLSchema#float">102.0</bim:hasHeight>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnht"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnht_0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasLength rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2027.7</bim:hasLength>
+        <bim:hasName>M_MF Stud-Joist:C10251-15:1806460</bim:hasName>
+        <bim:hasNetCrossSectionalArea rdf:datatype="http://www.w3.org/2001/XMLSchema#float">153.0</bim:hasNetCrossSectionalArea>
+        <bim:hasStorey>L1</bim:hasStorey>
+        <bim:hasTag>1806460</bim:hasTag>
+        <bim:hasThickness rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.5</bim:hasThickness>
+        <bim:hasWidth rdf:datatype="http://www.w3.org/2001/XMLSchema#float">50.8</bim:hasWidth>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6867.1943</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8156.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhv -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhv">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Track"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasHeight rdf:datatype="http://www.w3.org/2001/XMLSchema#float">107.0</bim:hasHeight>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhW_0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhc_0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhm_0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhn_0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnho_0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhp_0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnht_0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhv_0Mxc9hiKT5IhDB2THdcnhy"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhv_0Mxc9hiKT5IhDB2THdcnhz"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnh$_0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasLength rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4949.2</bim:hasLength>
+        <bim:hasName>M_MF Track:U10758-15:1806450</bim:hasName>
+        <bim:hasNetCrossSectionalArea rdf:datatype="http://www.w3.org/2001/XMLSchema#float">160.5</bim:hasNetCrossSectionalArea>
+        <bim:hasStorey>L1</bim:hasStorey>
+        <bim:hasTag>1806450</bim:hasTag>
+        <bim:hasThickness rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.5</bim:hasThickness>
+        <bim:hasWidth rdf:datatype="http://www.w3.org/2001/XMLSchema#float">57.9</bim:hasWidth>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8841.794</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8153.89</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">914.4</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhy -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhy">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Stud"/>
+        <bim:hasHeight rdf:datatype="http://www.w3.org/2001/XMLSchema#float">102.0</bim:hasHeight>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhy"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhv_0Mxc9hiKT5IhDB2THdcnhy"/>
+        <bim:hasLength rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2027.7</bim:hasLength>
+        <bim:hasName>M_MF Stud-Joist:C10251-15:1806455</bim:hasName>
+        <bim:hasNetCrossSectionalArea rdf:datatype="http://www.w3.org/2001/XMLSchema#float">153.0</bim:hasNetCrossSectionalArea>
+        <bim:hasStorey>L1</bim:hasStorey>
+        <bim:hasTag>1806455</bim:hasTag>
+        <bim:hasThickness rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.5</bim:hasThickness>
+        <bim:hasWidth rdf:datatype="http://www.w3.org/2001/XMLSchema#float">50.8</bim:hasWidth>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5667.1943</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8156.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhz -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhz">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Stud"/>
+        <bim:hasHeight rdf:datatype="http://www.w3.org/2001/XMLSchema#float">102.0</bim:hasHeight>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhb_0Mxc9hiKT5IhDB2THdcnhz"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnhv_0Mxc9hiKT5IhDB2THdcnhz"/>
+        <bim:hasLength rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2027.7</bim:hasLength>
+        <bim:hasName>M_MF Stud-Joist:C10251-15:1806454</bim:hasName>
+        <bim:hasNetCrossSectionalArea rdf:datatype="http://www.w3.org/2001/XMLSchema#float">153.0</bim:hasNetCrossSectionalArea>
+        <bim:hasStorey>L1</bim:hasStorey>
+        <bim:hasTag>1806454</bim:hasTag>
+        <bim:hasThickness rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.5</bim:hasThickness>
+        <bim:hasWidth rdf:datatype="http://www.w3.org/2001/XMLSchema#float">50.8</bim:hasWidth>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5067.1943</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8156.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnk3 -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnk3">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806600</bim:hasName>
+        <bim:hasTag>1806600</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8840.294</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnk9 -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnk9">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806594</bim:hasName>
+        <bim:hasTag>1806594</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-7417.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkB -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkB">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806592</bim:hasName>
+        <bim:hasTag>1806592</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6817.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkD -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkD">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806598</bim:hasName>
+        <bim:hasTag>1806598</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8617.895</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkF -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkF">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasAngleXY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</bim:hasAngleXY>
+        <bim:hasName>M_SC_Angle Connector:100:1806596</bim:hasName>
+        <bim:hasTag>1806596</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8017.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8207.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkG -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkG">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806619</bim:hasName>
+        <bim:hasTag>1806619</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-4420.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkH -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkH">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806618</bim:hasName>
+        <bim:hasTag>1806618</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-4420.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkK -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkK">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806623</bim:hasName>
+        <bim:hasTag>1806623</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5020.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkT -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkT">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806614</bim:hasName>
+        <bim:hasTag>1806614</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-3846.2942</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkU -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkU">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806613</bim:hasName>
+        <bim:hasTag>1806613</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-3846.2942</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkX -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkX">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806634</bim:hasName>
+        <bim:hasTag>1806634</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6220.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkY -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkY">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806633</bim:hasName>
+        <bim:hasTag>1806633</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6220.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnka -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnka">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806639</bim:hasName>
+        <bim:hasTag>1806639</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6820.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkb -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkb">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806638</bim:hasName>
+        <bim:hasTag>1806638</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6820.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkh -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkh">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806624</bim:hasName>
+        <bim:hasTag>1806624</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5020.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkk -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkk">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806629</bim:hasName>
+        <bim:hasTag>1806629</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5620.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkl -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkl">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806628</bim:hasName>
+        <bim:hasTag>1806628</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5620.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnko -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnko">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806649</bim:hasName>
+        <bim:hasTag>1806649</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8020.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkp -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkp">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806648</bim:hasName>
+        <bim:hasTag>1806648</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8020.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkr -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnkr">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806654</bim:hasName>
+        <bim:hasTag>1806654</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8620.895</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnks -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnks">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806653</bim:hasName>
+        <bim:hasTag>1806653</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8620.895</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnku -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnku">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806643</bim:hasName>
+        <bim:hasTag>1806643</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-7420.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnl3 -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnl3">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806664</bim:hasName>
+        <bim:hasTag>1806664</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-3846.2942</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnl6 -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnl6">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806669</bim:hasName>
+        <bim:hasTag>1806669</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-4420.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnl7 -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnl7">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806668</bim:hasName>
+        <bim:hasTag>1806668</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-4420.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnl8 -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnl8">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806659</bim:hasName>
+        <bim:hasTag>1806659</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8837.294</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnl9 -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnl9">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806658</bim:hasName>
+        <bim:hasTag>1806658</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8837.294</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlC -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlC">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806663</bim:hasName>
+        <bim:hasTag>1806663</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-3846.2942</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlG -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlG">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806683</bim:hasName>
+        <bim:hasTag>1806683</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6220.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlN -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlN">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806684</bim:hasName>
+        <bim:hasTag>1806684</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6220.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlP -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlP">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806674</bim:hasName>
+        <bim:hasTag>1806674</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5020.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlQ -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlQ">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806673</bim:hasName>
+        <bim:hasTag>1806673</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5020.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlS -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlS">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806679</bim:hasName>
+        <bim:hasTag>1806679</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5620.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlT -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlT">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806678</bim:hasName>
+        <bim:hasTag>1806678</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-5620.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlW -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlW">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806699</bim:hasName>
+        <bim:hasTag>1806699</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8020.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlX -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlX">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806698</bim:hasName>
+        <bim:hasTag>1806698</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8020.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnl_ -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnl_">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806709</bim:hasName>
+        <bim:hasTag>1806709</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8837.294</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnla -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnla">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806703</bim:hasName>
+        <bim:hasTag>1806703</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8620.895</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlg -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlg">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806689</bim:hasName>
+        <bim:hasTag>1806689</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6820.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlh -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlh">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806688</bim:hasName>
+        <bim:hasTag>1806688</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-6820.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlj -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlj">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806694</bim:hasName>
+        <bim:hasTag>1806694</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-7420.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlk -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlk">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806693</bim:hasName>
+        <bim:hasTag>1806693</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-7420.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlx -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnlx">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806704</bim:hasName>
+        <bim:hasTag>1806704</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8620.895</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnh$ -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnh$">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Stud"/>
+        <bim:hasHeight rdf:datatype="http://www.w3.org/2001/XMLSchema#float">102.0</bim:hasHeight>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnh$_0Mxc9hiKT5IhDB2THdcnhb"/>
+        <bim:hasIntersection rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnh$_0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:hasLength rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2027.7</bim:hasLength>
+        <bim:hasName>M_MF Stud-Joist:C10251-15:1806452</bim:hasName>
+        <bim:hasNetCrossSectionalArea rdf:datatype="http://www.w3.org/2001/XMLSchema#float">153.0</bim:hasNetCrossSectionalArea>
+        <bim:hasStorey>L1</bim:hasStorey>
+        <bim:hasTag>1806452</bim:hasTag>
+        <bim:hasThickness rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.5</bim:hasThickness>
+        <bim:hasWidth rdf:datatype="http://www.w3.org/2001/XMLSchema#float">50.8</bim:hasWidth>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-4467.1943</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8156.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">915.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnk$ -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnk$">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806644</bim:hasName>
+        <bim:hasTag>1806644</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-7420.894</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8187.39</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2963.5</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnl$ -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnl$">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Fastener"/>
+        <bim:hasName>M_SC_Bolt:M12 x 15:1806708</bim:hasName>
+        <bim:hasTag>1806708</bim:hasTag>
+        <bim:hasX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8837.294</bim:hasX>
+        <bim:hasY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8227.391</bim:hasY>
+        <bim:hasZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">950.9</bim:hasZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnh$_0Mxc9hiKT5IhDB2THdcnhb -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnh$_0Mxc9hiKT5IhDB2THdcnhb">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhb"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnh$"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-4.4417944</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2.9703</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnh$_0Mxc9hiKT5IhDB2THdcnhv -->
+
+    <NamedIndividual rdf:about="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#conn_0Mxc9hiKT5IhDB2THdcnh$_0Mxc9hiKT5IhDB2THdcnhv">
+        <rdf:type rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Connection"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnhv"/>
+        <bim:connectsElement rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#0Mxc9hiKT5IhDB2THdcnh$"/>
+        <bim:hasAxesClose rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</bim:hasAxesClose>
+        <bim:hasConnectionAngleDeg rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</bim:hasConnectionAngleDeg>
+        <bim:hasConnectionType rdf:resource="http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#Crossing"/>
+        <bim:hasContactX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-4.4417944</bim:hasContactX>
+        <bim:hasContactY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.207391</bim:hasContactY>
+        <bim:hasContactZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.9441</bim:hasContactZ>
+        <bim:hasGapDistance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</bim:hasGapDistance>
+        <bim:hasOverlapX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0508</bim:hasOverlapX>
+        <bim:hasOverlapY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.102</bim:hasOverlapY>
+        <bim:hasOverlapZ rdf:datatype="http://www.w3.org/2001/XMLSchema#float">24.0564</bim:hasOverlapZ>
+    </NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+
