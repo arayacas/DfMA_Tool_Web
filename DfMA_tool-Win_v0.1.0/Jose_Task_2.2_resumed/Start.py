@@ -20,8 +20,16 @@ import tempfile
 from PIL import Image
 import UI_Helpers
 
+# --- DYNAMIC PATH RESOLUTION ---
+# 1. Get the absolute path to the folder containing this specific script (Jose_Task_2.2_resumed)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# 2. Go up one level to 'DfMA_tool-Win_v0.1.0', then into the 'Images' folder
+images_dir = os.path.join(current_dir, "..", "Images")
+
 # --- PAGE SETUP ---
-logo_path = os.path.join("..", "Images", "smart_logo.jpeg")
+# 3. Safely join the dynamic directory with your image files
+logo_path = os.path.join(images_dir, "smart_logo.jpeg")
 try:
     logo_img = Image.open(logo_path)
 except Exception:
@@ -29,7 +37,7 @@ except Exception:
 
 st.set_page_config(
     layout="wide",
-    page_title="DifiMA",
+    page_title="DifeMA",
     page_icon=logo_img
 )
 
@@ -46,7 +54,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-lablogo_path = os.path.join("..", "Images", "horizontal_smart.png")
+lablogo_path = os.path.join(images_dir, "horizontal_smart.png")
 try:
     UI_Helpers.add_floating_lab_logo(lablogo_path, url="https://rafiqahmads.com/")
 except Exception:
@@ -78,7 +86,8 @@ if "design_params" not in st.session_state:
         "hole_border_clearance_mm": 20,
         "slanted_beam_angle" : 45,
         "total_assembly_payload_limit_kg": 150,
-        "CoG_radius_tolerance_mm" : 250
+        "CoG_radius_tolerance_mm" : 250,
+        "hole_border_clearance_mm": 20,
     }
 
 if st.button("Reset to Default Parameters"):

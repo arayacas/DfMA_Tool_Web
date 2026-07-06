@@ -1157,3 +1157,108 @@ def check_total_assembly_payload(elements, max_payload_kg=100.0):
         "payload_details": payload_details,
         "total_weight": total_weight_kg
     }
+
+def check_hole_border_clearance(elements, min_clearance_mm=20.0):
+    """
+    Rule X (DfRA): Hole Border Clearance
+    Measures 2D radial clearance using purely LOCAL coordinates to avoid 
+    rotation bounding-box bloat.
+    """
+    # 1. LOCAL settings for accurate physical dimensions (ignoring rotation)
+    settings_local = ifcopenshell.geom.settings()
+    settings_local.set(settings_local.USE_WORLD_COORDS, False)
+    
+    # 2. GLOBAL settings just so we can draw the red sphere in the right 3D spot
+    settings_global = ifcopenshell.geom.settings()
+    settings_global.set(settings_global.USE_WORLD_COORDS, True)
+
+    violating_elements = []
+    clearance_details = []
+    violating_hole_coords = []
+    
+    total_holes_checked = 0
+    failed_holes = 0
+
+    # FORCE the multiplier to 1000 because ifcopenshell.geom ALWAYS outputs meters
+    to_mm_factor = 1000.0 
+
+    for element in elements:
+        if not hasattr(element, 'HasOpenings') or not element.HasOpenings:
+            continue
+
+        try:
+            # --- GET EXACT LOCAL DIMENSIONS ---
+            el_shape_l = ifcopenshell.geom.create_shape(settings_local, element)
+            el_verts_l = np.array(el_shape_l.geometry.verts).reshape((-1, 3))
+            
+            dims_l = (el_verts_l.max(axis=0) - el_verts_l.min(axis=0)) * to_mm_factor
+            
+            # Sorted: [0]=Flange Depth, [1]=Web Width, [2]=Total Length
+            dims_sorted = np.sort(dims_l)
+            web_width_mm = dims_sorted[1] 
+
+            # --- ANALYZE HOLES ---
+            for rel in element.HasOpenings:
+                if rel.is_a("IfcRelVoidsElement"):
+                    opening = rel.RelatedOpeningElement
+
+                    # Local Geometry for the exact radius
+                    o_shape_l = ifcopenshell.geom.create_shape(settings_local, opening)
+                    o_verts_l = np.array(o_shape_l.geometry.verts).reshape((-1, 3))
+                    o_dims_l = (o_verts_l.max(axis=0) - o_verts_l.min(axis=0)) * to_mm_factor
+                    
+                    # A cylinder's sorted dims: [thickness, diameter, diameter]
+                    # We grab index 1 to ensure we get the diameter, not the web thickness
+                    hole_diameter_mm = np.sort(o_dims_l)[1]
+                    hole_radius_mm = hole_diameter_mm / 2.0 
+                    
+                    # --- THE FILTER: Ignore giant slicing voids & hollow cores ---
+                    if hole_radius_mm > 100.0 or hole_radius_mm < 1.0:
+                        continue
+                        
+                    total_holes_checked += 1
+
+                    # The math: assuming the hole is punched in the center of the web
+                    actual_clearance_mm = (web_width_mm / 2.0) - hole_radius_mm
+                    is_valid = actual_clearance_mm >= min_clearance_mm
+
+                    if not is_valid:
+                        failed_holes += 1
+                        if element not in violating_elements:
+                            violating_elements.append(element)
+                        
+                        # Grab global coordinates so the 3D viewer knows where to paint the sphere
+                        o_shape_g = ifcopenshell.geom.create_shape(settings_global, opening)
+                        o_verts_g = np.array(o_shape_g.geometry.verts).reshape((-1, 3))
+                        center_point = (o_verts_g.max(axis=0) + o_verts_g.min(axis=0)) / 2.0
+                        violating_hole_coords.append(center_point.tolist())
+
+                    clearance_details.append({
+                        "Element ID": element.GlobalId,
+                        "Host Type": "Track" if element.Name and "track" in element.Name.lower() else "Stud",
+                        "Web Width (mm)": round(web_width_mm, 1),
+                        "Hole Radius (mm)": round(hole_radius_mm, 1),
+                        "Actual Edge Clearance (mm)": round(actual_clearance_mm, 1),
+                        "Required Clearance (mm)": min_clearance_mm,
+                        "Status": "✅ Pass" if is_valid else "❌ Fail"
+                    })
+
+        except Exception:
+            pass
+
+    if total_holes_checked == 0:
+        return {"passed": True, "message": "No standard service holes found.", "violating_elements": [], "clearance_details": []}
+
+    passed = failed_holes == 0
+    if passed:
+        message = f"Passed: All {total_holes_checked} holes have safe edge clearance (≥ {min_clearance_mm}mm)."
+    else:
+        message = f"Failed: {failed_holes} out of {total_holes_checked} holes are drilled too close to the steel edge!"
+
+    return {
+        "passed": passed,
+        "message": message,
+        "violating_elements": violating_elements,
+        "violating_hole_coords": violating_hole_coords,
+        "clearance_details": clearance_details
+    }

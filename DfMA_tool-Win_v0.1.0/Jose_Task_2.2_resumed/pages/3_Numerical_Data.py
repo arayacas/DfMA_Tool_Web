@@ -17,15 +17,55 @@ import Constraints
 # --- PAGE SETUP ---
 st.set_page_config(page_title="Numerical Data", layout="wide")
 
+import streamlit as st
+import os
+from PIL import Image
+import sys
+
+# --- DYNAMIC PATH RESOLUTION (FOR NESTED PAGES) ---
+# 1. Get the absolute path to the 'pages' folder
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# 2. Go up TWO levels:
+#    First ".." escapes the 'pages' folder.
+#    Second ".." escapes 'Jose_Task_2.2_resumed' into 'DfMA_tool-Win_v0.1.0'
+#    Then enter the 'Images' folder.
+images_dir = os.path.join(current_dir, "..", "..", "Images")
+
+# 3. Path hack to allow importing UI_Helpers from the parent directory
+parent_dir = os.path.abspath(os.path.join(current_dir, '..'))
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
+
+import UI_Helpers
+
+# --- PAGE SETUP ---
+logo_path = os.path.join(images_dir, "smart_logo.jpeg")
+try:
+    logo_img = Image.open(logo_path)
+except Exception:
+    logo_img = "🏗️"
+
+# Side bar format (external to Streamlit)
 st.markdown(
     """
     <style>
-    [data-testid="stSidebarNav"] span { font-size: 30px !important; }
+    /* Target the sidebar navigation menu items */
+    [data-testid="stSidebarNav"] span {
+        font-size: 30px !important; 
+    }
     </style>
-    """, unsafe_allow_html=True
+    """,
+    unsafe_allow_html=True
 )
 
-lablogo_path = os.path.join("..", "Images", "horizontal_smart.png")
+st.set_page_config(
+    layout="wide",
+    page_title="Numerical Data",
+    page_icon=logo_img
+)
+
+lablogo_path = os.path.join(images_dir, "horizontal_smart.png")
 try:
     UI_Helpers.add_floating_lab_logo(lablogo_path, url="https://rafiqahmads.com/")
 except Exception:
@@ -33,6 +73,53 @@ except Exception:
 
 st.title("Raw Panel Data")
 st.write("Extracting and analyzing spatial coordinates and dimensions from the IFC file.")
+
+#Get the Design Parameters:
+
+params = st.session_state["design_params"]
+
+#Defaults for rules, avoid crash if params is not loaded.
+default_max_length = params["max_length"]
+default_max_height = params["max_length"]
+default_hole_tol = params["hole_tol"]
+default_track_cont_tol = params["track_cont_tol"]
+default_track_hole_tol = params["track_hole_tol"]
+default_max_weight = params["max_weight"]
+
+# Defaults for the Hole Sizer (in millimeters)
+default_allowed_holes_mm = params["allowed_holes_mm"]
+default_hole_size_tol_mm = params ["hole_size_tol_mm"]
+default_part_max_length_mm = params["part_max_length_mm"]
+
+
+max_height = params["max_height"]
+max_length = params["max_length"]
+hole_tol = params["hole_tol"]
+track_hole_tol = params["track_hole_tol"]
+track_cont_tol = params["track_cont_tol"]
+allowed_holes_mm = params["allowed_holes_mm"]
+hole_size_tol = params ["hole_size_tol_mm"]
+max_weight = params["max_weight"]
+max_parts = params["max_parts"]
+stud_spacing_mm = params["stud_spacing_mm"]
+stud_tol_mm = params["stud_tol_mm"]
+joist_depth_tolerance_mm = params["joist_depth_tolerance_mm"]
+part_max_length_mm = params["part_max_length_mm"]
+part_max_height_mm = params["part_max_height_mm"]
+part_max_depth_mm = params["part_max_depth_mm"]
+hole_border_clearance_mm = params["hole_border_clearance_mm"]
+slanted_beam_angle = params["slanted_beam_angle"]
+total_assembly_payload_limit_kg = params["total_assembly_payload_limit_kg"]
+CoG_radius_tolerance_mm = params["CoG_radius_tolerance_mm"]
+hole_border_clearance_mm = params["hole_border_clearance_mm"]
+
+#Pinned[] has the pinned rules from page#2.
+pinned = st.session_state["pinned_rules"]
+
+# --- 4. THE GATEWAY CHECK ---
+if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['current_ifc_path']):
+    ifcfile_path = st.session_state['current_ifc_path']
+    st.info("Scanning for physical parts...")
 
 # ==========================================
 # 1. THE BODY: IFC GEOMETRY DATA
@@ -126,26 +213,15 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
             
             # --- CLOUD SAFE MEMORY READ ---
             # Pull the allowed sizes from session memory so Pass/Fail is accurate
-            config_path = st.session_state.get('config_path', None)
-            allowed_holes_str_mm = "14, 34" # Default fallback in mm
-            hole_size_tol_mm = 2.0
-            
-            if config_path and os.path.exists(config_path):
-                try:
-                    with open(config_path, "r") as f:
-                        saved_data = json.load(f)
-                        allowed_holes_str_mm = str(saved_data.get("allowed_holes_mm", "14, 34"))
-                        hole_size_tol_mm = float(saved_data.get("hole_size_tol_mm", 2.0))
-                except Exception:
-                    pass
-
             # Convert to meters for the engine
             try:
-                allowed_sizes_list_m = [float(x.strip()) / 1000.0 for x in allowed_holes_str_mm.split(",")]
+                allowed_sizes_list_m = [float(x.strip()) / 1000.0 for x in allowed_holes_mm.split(",")]
             except ValueError:
                 allowed_sizes_list_m = [0.034] 
                 
-            hole_size_tol_m = hole_size_tol_mm / 1000.0
+            hole_size_tol_m = hole_size_tol / 1000.0
+
+            hole_size_tol_m = hole_size_tol / 1000.0
 
             # Run the engine
             hole_report = Constraints.check_hole_sizes(
@@ -160,6 +236,28 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                 st.dataframe(df_holes, use_container_width=True)
             else:
                 st.info("No standard holes detected in this panel.")
+
+            # ==========================================
+            # 10. Hole Edge Clearance Table
+            # ==========================================
+            st.markdown("---")
+            st.write("### Punched Hole Edge Clearances")
+            
+            clearance_report = Constraints.check_hole_border_clearance(
+                all_elements, 
+                min_clearance_mm=params.get("hole_border_clearance_mm", 20.0)
+            )
+            
+            if "clearance_details" in clearance_report and len(clearance_report["clearance_details"]) > 0:
+                df_clearance = pd.DataFrame(clearance_report["clearance_details"])
+                st.dataframe(df_clearance, use_container_width=True)
+                
+                if clearance_report["passed"]: 
+                    st.success(clearance_report["message"])
+                else: 
+                    st.error(clearance_report["message"])
+            else:
+                st.info("No service holes were detected in the model.")
             
             # ==========================================
             # 6. The Track Continuity Table

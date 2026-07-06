@@ -15,18 +15,61 @@ if parent_dir not in sys.path:
 import Find_elements
 import Constraints
 
-# --- 2. PAGE SETUP ---
-st.set_page_config(page_title="Difema (3D Visualizer)", layout="wide")
+import streamlit as st
+import os
+from PIL import Image
+import sys
 
+# --- DYNAMIC PATH RESOLUTION (FOR NESTED PAGES) ---
+# 1. Get the absolute path to the 'pages' folder
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# 2. Go up TWO levels:
+#    First ".." escapes the 'pages' folder.
+#    Second ".." escapes 'Jose_Task_2.2_resumed' into 'DfMA_tool-Win_v0.1.0'
+#    Then enter the 'Images' folder.
+images_dir = os.path.join(current_dir, "..", "..", "Images")
+
+# 3. Path hack to allow importing UI_Helpers from the parent directory
+parent_dir = os.path.abspath(os.path.join(current_dir, '..'))
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
+
+import UI_Helpers
+
+# --- PAGE SETUP ---
+logo_path = os.path.join(images_dir, "smart_logo.jpeg")
+try:
+    logo_img = Image.open(logo_path)
+except Exception:
+    logo_img = "🏗️"
+
+st.set_page_config(
+    layout="wide",
+    page_title="DfMA Display",
+    page_icon=logo_img
+)
+
+lablogo_path = os.path.join(images_dir, "horizontal_smart.png")
+try:
+    UI_Helpers.add_floating_lab_logo(lablogo_path, url="https://rafiqahmads.com/")
+except Exception:
+    pass
+
+# Side bar format (external to Streamlit)
 st.markdown(
     """
     <style>
-    [data-testid="stSidebarNav"] span { font-size: 30px !important; }
+    /* Target the sidebar navigation menu items */
+    [data-testid="stSidebarNav"] span {
+        font-size: 30px !important; 
+    }
     </style>
-    """, unsafe_allow_html=True
+    """,
+    unsafe_allow_html=True
 )
 
-lablogo_path = os.path.join("..", "Images", "horizontal_smart.png")
+lablogo_path = os.path.join(images_dir, "horizontal_smart.png")
 try:
     UI_Helpers.add_floating_lab_logo(lablogo_path, url="https://rafiqahmads.com/")
 except Exception:
@@ -37,22 +80,22 @@ st.title("3D Panel Visualizer")
 # --- 3. LOAD CLOUD-SAFE CONSTRAINTS ---
 # Instead of a hardcoded folder, we grab the unique temp file path generated on Start.py
 config_path = st.session_state.get('config_path', None)
-
-#Defaults for rules, avoid crash if params is not loaded.
-default_max_length = 6.00
-default_max_height = 3.00
-default_hole_tol = 0.010
-default_track_cont_tol = 0.020
-default_track_hole_tol = 0.020
-default_max_weight = 50.0
-
-# Defaults for the Hole Sizer (in millimeters)
-default_allowed_holes_mm = "14, 34"
-default_hole_size_tol_mm = 2.0
-default_part_max_length_mm = 1000
-
 #Initialize Params[], set current rule values to the ones stored in params[]
 params = st.session_state["design_params"]
+
+#Defaults for rules, avoid crash if params is not loaded.
+default_max_length = params["max_length"]
+default_max_height = params["max_length"]
+default_hole_tol = params["hole_tol"]
+default_track_cont_tol = params["track_cont_tol"]
+default_track_hole_tol = params["track_hole_tol"]
+default_max_weight = params["max_weight"]
+
+# Defaults for the Hole Sizer (in millimeters)
+default_allowed_holes_mm = params["allowed_holes_mm"]
+default_hole_size_tol_mm = params ["hole_size_tol_mm"]
+default_part_max_length_mm = params["part_max_length_mm"]
+
 
 max_height = params["max_height"]
 max_length = params["max_length"]
@@ -73,6 +116,7 @@ hole_border_clearance_mm = params["hole_border_clearance_mm"]
 slanted_beam_angle = params["slanted_beam_angle"]
 total_assembly_payload_limit_kg = params["total_assembly_payload_limit_kg"]
 CoG_radius_tolerance_mm = params["CoG_radius_tolerance_mm"]
+hole_border_clearance_mm = params["hole_border_clearance_mm"]
 
 #Pinned[] has the pinned rules from page#2.
 pinned = st.session_state["pinned_rules"]
@@ -93,25 +137,70 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
             
             with left_col:
                 st.markdown("### Quick Access Parameters")
+                
+                # Fetch the pinned list safely
+                pinned = st.session_state.get("pinned_rules", [])
+                
+                # Create the two balanced columns
                 mini_left_col, mini_right_col = st.columns([2, 2])
 
+                # --- LEFT COLUMN (9 Parameters) ---
                 with mini_left_col:
-                    params["hole_tol"] = st.number_input("w4w", value=default_hole_tol, step=0.005, format="%.3f")
-                    params["track_cont_tol"] = st.number_input("Track Continuity (m)", value=default_track_cont_tol, step=0.005, format="%.3f")
-                    track_hole_tol = st.number_input("Plumb Drop Alignment (m)", value=default_track_hole_tol, step=0.005, format="%.3f")
+                    if "max_length" in pinned:
+                        params["max_length"] = st.number_input("Max Operational Length (m)", value=params["max_length"], step=0.5)
+                        
+                    if "max_height" in pinned:
+                        params["max_height"] = st.number_input("Max Operational Height (m)", value=params["max_height"], step=0.5)
+                        
+                    if "total_assembly_payload_limit_kg" in pinned:
+                        params["total_assembly_payload_limit_kg"] = st.number_input("Max Assembly Weight (kg)", value=params["total_assembly_payload_limit_kg"])
+                        
+                    if "max_weight" in pinned:
+                        params["max_weight"] = st.number_input("Max Element Weight (kg)", value=params["max_weight"], step=5.0)
+                        
+                    if "part_max_length_mm" in pinned:
+                        params["part_max_length_mm"] = st.number_input("Max Element Length (mm)", value=params["part_max_length_mm"])
+                        
+                    if "part_max_height_mm" in pinned:
+                        params["part_max_height_mm"] = st.number_input("Max Element Height (mm)", value=params["part_max_height_mm"])
+                        
+                    if "part_max_depth_mm" in pinned:
+                        params["part_max_depth_mm"] = st.number_input("Max Element Depth (mm)", value=params["part_max_depth_mm"])
+                        
+                    if "max_parts" in pinned:
+                        params["max_parts"] = st.number_input("Total Assembly Parts", value=params["max_parts"])
+                        
+                    if "slanted_beam_angle" in pinned:
+                        params["slanted_beam_angle"] = st.number_input("Slanted Beam Angle (°)", value=params["slanted_beam_angle"])
 
+                # --- RIGHT COLUMN (9 Parameters) ---
                 with mini_right_col:
-                    max_weight = st.number_input("Max Element Weight (kg)", value=default_max_weight, step=5.0, format="%.1f")
-                    allowed_holes_str_mm = st.text_input("Allowed Hole Sizes (mm)", value=default_allowed_holes_mm, help="e.g., 14, 34")
-                    hole_size_tol_mm = st.number_input("Hole Size Tolerance (mm)", value=default_hole_size_tol_mm, step=0.01, format="%.2f")
-
-                # --- Convert UI mm to Engine meters ---
-                try:
-                    allowed_sizes_list_m = [float(x.strip()) / 1000.0 for x in allowed_holes_str_mm.split(",")]
-                except ValueError:
-                    allowed_sizes_list_m = [0.034] 
-                
-                hole_size_tol_m = hole_size_tol_mm / 1000.0
+                    if "allowed_holes_mm" in pinned:
+                        params["allowed_holes_mm"] = st.text_input("Allowed Hole Sizes (mm)", value=params["allowed_holes_mm"])
+                        
+                    if "hole_size_tol_mm" in pinned:
+                        params["hole_size_tol_mm"] = st.number_input("Hole Tolerance (mm)", value=params["hole_size_tol_mm"], step=0.5)
+                        
+                    if "hole_tol" in pinned:
+                        params["hole_tol"] = st.number_input("Stud Hole Alignment Tol", value=params["hole_tol"], step=0.005)
+                        
+                    if "track_hole_tol" in pinned:
+                        params["track_hole_tol"] = st.number_input("Vertical Drop Hole Tol", value=params["track_hole_tol"], step=0.005)
+                        
+                    if "track_cont_tol" in pinned:
+                        params["track_cont_tol"] = st.number_input("Track Continuity Length (m)", value=params["track_cont_tol"], step=0.005)
+                        
+                    if "stud_spacing_mm" in pinned:
+                        params["stud_spacing_mm"] = st.text_input("Stud Spacing (mm)", value=params["stud_spacing_mm"])
+                        
+                    if "stud_tol_mm" in pinned:
+                        params["stud_tol_mm"] = st.number_input("Stud Spacing Tolerance (mm)", value=params["stud_tol_mm"])
+                        
+                    if "hole_border_clearance_mm" in pinned:
+                        params["hole_border_clearance_mm"] = st.number_input("Hole-Border Clearance (mm)", value=params["hole_border_clearance_mm"])
+                        
+                    if "CoG_radius_tolerance_mm" in pinned:
+                        params["CoG_radius_tolerance_mm"] = st.number_input("Center of Gravity Tol (mm)", value=params["CoG_radius_tolerance_mm"])
 
                 # -- RULES ENGINE --
                 # Notice we are now explicitly passing the parameters here!
@@ -122,10 +211,21 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                 track_rule_report = Constraints.check_track_continuity(all_elements, tolerance_m = track_cont_tol)
                 track_hole_report = Constraints.check_track_hole_alignment(all_elements, tolerance_m = track_hole_tol)
                 weight_report = Constraints.check_max_weight(all_elements, max_weight_kg = max_weight)
+
+                #Correction of Hole size Design Parameter:
+
+                 # --- Convert UI mm to Engine meters ---
+                try:
+                    allowed_sizes_list_m = [float(x.strip()) / 1000.0 for x in allowed_holes_mm.split(",")]
+                except ValueError:
+                    allowed_sizes_list_m = [0.034] 
+                
+                hole_size_tol_m = hole_size_tol / 1000.0
+
                 hole_size_report = Constraints.check_hole_sizes(
                     all_elements, 
-                    allowed_sizes_m=allowed_sizes_list_m, 
-                    tolerance_m=hole_size_tol_m
+                    allowed_sizes_m = allowed_sizes_list_m, 
+                    tolerance_m = hole_size_tol_m
                 )
                 part_count_report = Constraints.check_part_count(all_elements, max_parts = max_parts)
                 stud_spacing_report = Constraints.check_stud_spacing(all_elements, stud_spacing_mm, stud_tol_mm)
@@ -151,6 +251,11 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                     max_payload_kg=params.get("total_assembly_payload_limit_kg", 100.0)
                 )
 
+                clearance_report = Constraints.check_hole_border_clearance(
+                    all_elements, 
+                    min_clearance_mm=params.get("hole_border_clearance_mm", 20.0)
+                )
+
                 # -- WARNINGS & ERROR PART PAINT--
                 red_parts = (size_rule_report.get("violating_elements", []) 
                             + alignedhole_rule_report.get("violating_elements", [])
@@ -166,6 +271,8 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                             + cog_report.get("violating_elements", [])
                             + slanted_beam_report.get("violating_elements", [])
                             + payload_report.get("violating_elements", [])
+                            + clearance_report.get("violating_elements", [])
+
                             )
                 
                 orange_parts = customhole_rule_report.get("warning_elements", [])     
@@ -231,6 +338,12 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                     # Draw a line connecting them to visualize the offset
                     line = pv.Line(geom_center, cog_center)
                     plotter.add_mesh(line, color="yellow", line_width=3)
+
+                # --- DRAW TRACKERS FOR BORDER CLEARANCE FAILURES ---
+                bad_clearance_locations = clearance_report.get("violating_hole_coords", [])
+                for loc in bad_clearance_locations:
+                    sphere = pv.Sphere(radius=0.025, center=(loc[0], loc[1], loc[2]))
+                    plotter.add_mesh(sphere, color="red")
                                 
                 # --- DRAW THE RED TRACKERS FOR FAILED HOLES ---
                 bad_hole_locations = hole_size_report.get("violating_hole_coords", [])
@@ -291,6 +404,9 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
 
             if not payload_report["passed"]: st.error(payload_report["message"])
             else: st.success(payload_report["message"])
+
+            if not clearance_report["passed"]: st.error(clearance_report["message"])
+            else: st.success(clearance_report["message"])
 
     except Exception as e:
         st.error(f"Oops, something went wrong reading the IFC: {e}")
