@@ -74,7 +74,7 @@ if "design_params" not in st.session_state:
         "track_cont_tol": 0.020,
         "track_hole_tol": 0.20,
         "max_weight": 50.00,     
-        "allowed_holes_mm": "14, 34", # Storing as a string for easy text_input
+        "allowed_holes_mm": "3, 12", # Storing as a string for easy text_input
         "hole_size_tol_mm": 2.0,
         "max_parts": 50,
         "stud_spacing_mm": "600, 100", #Another String 
@@ -164,7 +164,7 @@ with col1:
 with col2:
     st.markdown("#### .rdf Ontology")
     if 'current_ontology_path' in st.session_state and os.path.exists(st.session_state['current_ontology_path']):
-        st.success(f"✅ Ontology Loaded & Ready")
+        st.success(f"Ontology Loaded & Ready")
         
         if st.button("Upload Different Ontology"):
             try:
@@ -189,7 +189,7 @@ with col2:
 # Check if both are loaded to give the green light
 st.markdown("---")
 if 'current_ifc_path' in st.session_state and 'current_ontology_path' in st.session_state:
-    st.success("✨ All systems ready! Please move to the DfMA Display page.")
+    st.success("All systems ready! Please move to the DfMA Display page.")
 elif 'current_ifc_path' in st.session_state:
     st.warning("Geometry loaded. Waiting for Ontology file...")
 else:

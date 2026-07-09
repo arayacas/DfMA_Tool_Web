@@ -6,6 +6,7 @@ import pyvista as pv
 from stpyvista import stpyvista
 import UI_Helpers
 import platform
+import engine
 
 # --- 1. PATH HACK FOR IMPORTS ---
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -128,6 +129,7 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
     
     try:
         all_elements = Find_elements.get_elements(ifcfile_path)
+        summary, model = engine.analyse(ifcfile_path)
         
         if len(all_elements) > 0:
             st.markdown("---")
@@ -289,12 +291,15 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                 
                 plotter = pv.Plotter(window_size=[800, 800])
                 panel_meshes = Find_elements.get_3d_meshes(all_elements)
-                
+                fasteners = engine.get_fasteners_table(summary)
+                fastener_meshes = Find_elements.get_3d_meshes(fasteners)
+
+                #Panel 3d Meshes
                 for element, mesh in zip(all_elements, panel_meshes):
                     if element in red_parts: part_color = "red"
                     elif element in orange_parts: part_color = "orange"
                     else: part_color = "lightgrey"
-                    
+                                    
                     plotter.add_mesh(
                         mesh,
                         color=part_color,
@@ -303,6 +308,89 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                         ambient=0.2,
                     )
 
+                with st.spinner("Extracting Fasteners & Ontology..."):
+                    try:
+                        summary, _ = engine.analyse(st.session_state['current_ifc_path'])
+                        
+                        # Filter for all elements the engine classified as a Fastener
+                        fasteners_and_connectors = [e for e in summary["elements"] if e["cls"] == "Fastener"]
+                        
+                        to_meters = 1000.0 
+                        bolts_plotted = 0
+                        connectors_plotted = 0
+                        
+                        for f in fasteners_and_connectors:
+                            pos = f.get("pos")
+                            name = f.get("name", "").lower() # Convert to lowercase for easy searching
+                            
+                            if pos:
+                                x = pos[0] / to_meters
+                                y = pos[1] / to_meters
+                                z = pos[2] / to_meters
+                                
+                                # IF IT IS A BOLT/SCREW
+                                if "bolt" in name or "screw" in name:
+                                    # 1. Fetch the exact direction axis (fallback to Z-up if missing)
+                                    axis = f.get("axis")
+                                    bolt_dir = (axis[0], axis[1], axis[2]) if axis else (0, 0, 1)
+                                    
+                                    # 2. Fetch the actual dimensions of the bolt
+                                    # We use width for diameter, and length for the height.
+                                    bolt_diam = (f.get("width") or 12.0) / to_meters
+                                    bolt_len = (f.get("length") or 30.0) / to_meters
+                                    
+                                    # 3. Create the cylinder pointing perfectly down the hole
+                                    mesh = pv.Cylinder(
+                                        center=(x, y, z), 
+                                        direction=bolt_dir,    # <-- Instantly aligns it!
+                                        radius=bolt_diam / 2.0, 
+                                        height=bolt_len
+                                    )
+                                    
+                                    # Draw it!
+                                    plotter.add_mesh(mesh, color="gold", smooth_shading=True)
+                                    bolts_plotted += 1
+                                    
+                                # IF IT IS A CONNECTOR/BRACKET
+                                elif "connector" in name or "bracket" in name:
+                                    # 1. Fetch exact dimensions
+                                    w = (f.get("width") or 50.0) / to_meters    # Leg length
+                                    d = (f.get("depth") or 50.0) / to_meters    # Extrusion (width of the bracket)
+                                    t = (f.get("thickness") or 5.0) / to_meters # Metal thickness
+                                    
+                                    # 2. Build the two legs of the L-shape at the origin
+                                    # Leg 1 (The flat base plate)
+                                    leg1 = pv.Cube(center=(w/2, t/2, 0), x_length=w, y_length=t, z_length=d)
+                                    # Leg 2 (The upright vertical plate)
+                                    leg2 = pv.Cube(center=(t/2, w/2, 0), x_length=t, y_length=d, z_length=w)
+                                    
+                                    # 3. Fuse them into a single L-bracket!
+                                    bracket_mesh = leg1 + leg2
+                                    
+                                    # Shift the fused bracket so its corner is centered on the origin
+                                    bracket_mesh.translate((-w/2, -w/2, 0), inplace=True)
+                                    
+                                    # 4. Rotate it to face the right way (Tweak this 90 depending on your IFC axis)
+                                    bracket_mesh.rotate_y(90, inplace=True)
+                                    bracket_mesh.rotate_z(270, inplace=True)
+                                    bracket_mesh.rotate_x(0, inplace=True)   
+                                    
+                                    # 5. Move the finished bracket to the exact joint location
+                                    bracket_mesh.translate((x, y, z), inplace=True)
+                                    
+                                    # Draw it!
+                                    plotter.add_mesh(bracket_mesh, color="blue", smooth_shading=True)
+                                    connectors_plotted += 1
+                                                    
+                                    # FALLBACK (Just in case the name is weird)
+                                else:
+                                    mesh = pv.Sphere(radius=0.015, center=(x, y, z))
+                                    plotter.add_mesh(mesh, color="magenta", smooth_shading=True)
+                            
+                        st.success(f"Successfully rendered {bolts_plotted} bolts and {connectors_plotted} connectors!")
+
+                    except Exception as e:
+                        st.warning(f"Could not render semantic fasteners: {e}")
                 # --- DRAW LASER ALIGNMENT LINES ---
                 
                 if show_alignment:

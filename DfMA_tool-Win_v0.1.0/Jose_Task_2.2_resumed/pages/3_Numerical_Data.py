@@ -5,6 +5,7 @@ import sys
 import json
 import UI_Helpers
 from rdflib import Graph 
+import engine
 
 # --- PATH HACK FOR PARENT FOLDER IMPORTS ---
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -129,6 +130,7 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
     
     try:
         # Load the elements
+        summary, model = engine.analyse(ifcfile_path)
         all_elements = Find_elements.get_elements(ifcfile_path)
         vertical_studs, horizontal_tracks = Find_elements.sort_framing_by_orientation(all_elements)
         
@@ -144,7 +146,7 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
         Table Display, each tab has a different table tracking different rules numerically. 
         """
         
-        tab1, tab2, tab3, tab4 = st.tabs(["Spatial Coordinates and Sizes", "Identified Holes and Alignments", "Gaps and Depth", "Ontology"])
+        tab1, tab2, tab3, tab4, tab5 = st.tabs(["Spatial Coordinates and Sizes", "Identified Holes and Alignments", "Gaps and Depth", "Ontology", "Fasteners and Connectors"])
 
 
         with tab1:
@@ -413,6 +415,13 @@ if 'current_ontology_path' in st.session_state and os.path.exists(st.session_sta
                 "Relationship": pred, 
                 "Value": obj
             })
+
+                    
+        with tab5:
+            st.markdown("---")
+            st.markdown("Connections and Fasteners Data")
+            fasteners = engine.get_fasteners_table(summary)
+            st.dataframe(fasteners, use_container_width=True)
         
         with tab4:
             st.markdown("---")
