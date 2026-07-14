@@ -194,3 +194,24 @@ elif 'current_ifc_path' in st.session_state:
     st.warning("Geometry loaded. Waiting for Ontology file...")
 else:
     st.info("Please upload your project files above to begin.")
+
+st.info("Download a Simple Sample .ifc file for a LGS panel:")
+
+sample_file_path = os.path.join(os.path.dirname(__file__), "..", "load", "LGS_roof_flat_IFC4.ifc")
+
+if os.path.exists(sample_file_path):
+    with open(sample_file_path, "rb") as file:
+        st.download_button(
+            label="Download Sample LGS Wall (.ifc)",
+            data=file,
+            file_name="LGS_roof_flat_IFC4.ifc",
+            mime="application/octet-stream"
+        )
+
+
+
+
+
+
+
+
