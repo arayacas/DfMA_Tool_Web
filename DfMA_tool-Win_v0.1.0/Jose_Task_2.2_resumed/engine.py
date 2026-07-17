@@ -711,7 +711,8 @@ def get_fasteners_table(summary):
             "Width (mm)": e["width"],
             "Depth (mm)": e["depth"],
             "Thickness (mm)": e["thickness"],
-            "Position": e["pos"]
+            "Position": e["pos"],
+            "Axis (Direction)": e.get("axis")
         })
 
     return pd.DataFrame(rows)
