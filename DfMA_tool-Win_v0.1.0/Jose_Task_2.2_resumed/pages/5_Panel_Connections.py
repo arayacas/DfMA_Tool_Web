@@ -434,7 +434,7 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                 if 'manual_overrides' not in st.session_state:
                     st.session_state.manual_overrides = {}
 
-                st.markdown("### 🛠️ Connection Fine-Tuning (Overrides)")
+                st.markdown("### Connection Fine-Tuning (Overrides)")
                 
                 selected_gid = None
                 highlight_selected = False
