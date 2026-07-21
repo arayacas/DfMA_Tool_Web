@@ -15,4 +15,3 @@ vtk==9.6.2
 panel>=1.4.1
 nest_asyncio2
 rdflib==7.0.0
-streamlit-agraph
