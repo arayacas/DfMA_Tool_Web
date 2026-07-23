@@ -1,0 +1,970 @@
+@prefix : <http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> a owl:AnnotationProperty .
+
+<http://webprotege.stanford.edu/R7LNWON19hK5rcq7zo1SDRz> a owl:Class ;
+    rdfs:label "Fastening" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <http://webprotege.stanford.edu/RkbhOGMHuz3tCcBIQmbPVt> ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/RDokwKTiPLcW3OLZvoJ6gfI> ],
+        :Operation .
+
+<http://webprotege.stanford.edu/R7OT1szixxpkoIRvfnFVgKp> a owl:Class ;
+    rdfs:label "Welding"^^xsd:string ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <http://webprotege.stanford.edu/RkbhOGMHuz3tCcBIQmbPVt> ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/R3Ur7mlrn2KZSEJYclCBNW> ],
+        :Operation .
+
+<http://webprotege.stanford.edu/R7P1NaoIEsengd5f70LFjrE> a owl:Class ;
+    rdfs:label "Bolting" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <http://webprotege.stanford.edu/RkbhOGMHuz3tCcBIQmbPVt> ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/RBvSLooVN1JOIfjbRCqKd1R> ],
+        :Operation .
+
+<http://webprotege.stanford.edu/RBM7AJOIrdwQTcORVNYjGNV> a owl:Class ;
+    rdfs:label "Cutting" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <http://webprotege.stanford.edu/RkbhOGMHuz3tCcBIQmbPVt> ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/RCMqa6LBPhDsiWslh25ZcUs> ],
+        :Operation .
+
+<http://webprotege.stanford.edu/RC2CcluCDT8QT30OrhH3x8J> a owl:Class ;
+    rdfs:label "Milling" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <http://webprotege.stanford.edu/RkbhOGMHuz3tCcBIQmbPVt> ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/R9CDcXX1y7Fokvmx9yRUSpz> ],
+        :Operation .
+
+<http://webprotege.stanford.edu/RCPhgnnd9fIEcRjVz1a68oh> a owl:Class ;
+    rdfs:label "Drilling" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <http://webprotege.stanford.edu/RkbhOGMHuz3tCcBIQmbPVt> ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/Rg4dD1KFbLShzzVTEZmqEs> ],
+        :Operation .
+
+<http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology> a owl:Ontology ;
+    owl:versionInfo "corrected: reified attributes, property-type fixes, disjointness, SWRL" .
+
+:Floor a owl:Class ;
+    rdfs:subClassOf :Building_element .
+
+:Roof a owl:Class ;
+    rdfs:subClassOf :Building_element .
+
+:Wall a owl:Class ;
+    rdfs:subClassOf :Building_element .
+
+:hasAngleXY a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+:hasAttribute a owl:ObjectProperty ;
+    rdfs:domain :Structural_element ;
+    rdfs:range :Attribute .
+
+:hasAxesClose a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:float .
+
+:hasConnectionAngleDeg a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:float .
+
+:hasContactX a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:float .
+
+:hasContactY a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:float .
+
+:hasContactZ a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:float .
+
+:hasGapDistance a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:float .
+
+:hasGeometricInformation a owl:ObjectProperty ;
+    rdfs:domain :Structural_element ;
+    rdfs:range :Geometric_Information .
+
+:hasHeight a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+:hasIntersection a owl:ObjectProperty ;
+    rdfs:domain :Structural_element ;
+    rdfs:range :Connection ;
+    owl:inverseOf :connectsElement .
+
+:hasLength a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+:hasLengthToWidthRatio a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+:hasName a owl:DatatypeProperty ;
+    rdfs:domain :Project_information ;
+    rdfs:range xsd:string .
+
+:hasNetCrossSectionalArea a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+:hasNumberofConnection a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:integer .
+
+:hasOverlapX a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:float .
+
+:hasOverlapY a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:float .
+
+:hasOverlapZ a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:float .
+
+:hasProjectInformation a owl:ObjectProperty ;
+    rdfs:domain :Structural_element ;
+    rdfs:range :Project_information .
+
+:hasStorey a owl:DatatypeProperty ;
+    rdfs:domain :Project_information ;
+    rdfs:range xsd:string .
+
+:hasTag a owl:DatatypeProperty ;
+    rdfs:domain :Project_information ;
+    rdfs:range xsd:string .
+
+:hasThickness a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+:hasWidth a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+:hasX a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+:hasY a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+:hasZ a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+:requiresOperation a owl:ObjectProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range :Operation .
+
+<http://webprotege.stanford.edu/R3Ur7mlrn2KZSEJYclCBNW> a owl:Class ;
+    rdfs:label "Welding_gun" ;
+    rdfs:subClassOf <http://webprotege.stanford.edu/RCBN6rq2jjiGhYBpYlQ6jO8> .
+
+<http://webprotege.stanford.edu/R9CDcXX1y7Fokvmx9yRUSpz> a owl:Class ;
+    rdfs:label "Milling_tool" ;
+    rdfs:subClassOf <http://webprotege.stanford.edu/RCBN6rq2jjiGhYBpYlQ6jO8> .
+
+<http://webprotege.stanford.edu/RBvSLooVN1JOIfjbRCqKd1R> a owl:Class ;
+    rdfs:label "Torque_wrench" ;
+    rdfs:subClassOf <http://webprotege.stanford.edu/RCBN6rq2jjiGhYBpYlQ6jO8> .
+
+<http://webprotege.stanford.edu/RCMqa6LBPhDsiWslh25ZcUs> a owl:Class ;
+    rdfs:label "Cutter" ;
+    rdfs:subClassOf <http://webprotege.stanford.edu/RCBN6rq2jjiGhYBpYlQ6jO8> .
+
+<http://webprotege.stanford.edu/RDokwKTiPLcW3OLZvoJ6gfI> a owl:Class ;
+    rdfs:label "Screwdriver" ;
+    rdfs:subClassOf <http://webprotege.stanford.edu/RCBN6rq2jjiGhYBpYlQ6jO8> .
+
+<http://webprotege.stanford.edu/Rg4dD1KFbLShzzVTEZmqEs> a owl:Class ;
+    rdfs:label "Electric_driller" ;
+    rdfs:subClassOf <http://webprotege.stanford.edu/RCBN6rq2jjiGhYBpYlQ6jO8> .
+
+:022noYkY9FquvI_ol0MNMn_geom a :Geometric_Information,
+        owl:NamedIndividual ;
+    :hasLength "4.0"^^xsd:float ;
+    :hasX "0.0"^^xsd:float ;
+    :hasY "0.0"^^xsd:float ;
+    :hasZ "0.0"^^xsd:float .
+
+:022noYkY9FquvI_ol0MNMn_proj a :Project_information,
+        owl:NamedIndividual ;
+    :hasName "C200x65x18 1.6mm (joist)"^^xsd:string .
+
+:0FHobzFAf6ShZz5Y5jz4t8_geom a :Geometric_Information,
+        owl:NamedIndividual ;
+    :hasLength "4.0"^^xsd:float ;
+    :hasX "0.0"^^xsd:float ;
+    :hasY "0.0"^^xsd:float ;
+    :hasZ "0.0"^^xsd:float .
+
+:0FHobzFAf6ShZz5Y5jz4t8_proj a :Project_information,
+        owl:NamedIndividual ;
+    :hasName "C200x65x18 1.6mm (joist)"^^xsd:string .
+
+:0xW5zuQJT7v9UEVzbUQxM9_geom a :Geometric_Information,
+        owl:NamedIndividual ;
+    :hasLength "3.6"^^xsd:float ;
+    :hasX "0.0"^^xsd:float ;
+    :hasY "0.0"^^xsd:float ;
+    :hasZ "0.0"^^xsd:float .
+
+:0xW5zuQJT7v9UEVzbUQxM9_proj a :Project_information,
+        owl:NamedIndividual ;
+    :hasName "U204x65 1.6mm (rim)"^^xsd:string .
+
+:1Ee1Anlmj8ahGVEqsLT1YL_geom a :Geometric_Information,
+        owl:NamedIndividual ;
+    :hasLength "4.0"^^xsd:float ;
+    :hasX "0.0"^^xsd:float ;
+    :hasY "0.0"^^xsd:float ;
+    :hasZ "0.0"^^xsd:float .
+
+:1Ee1Anlmj8ahGVEqsLT1YL_proj a :Project_information,
+        owl:NamedIndividual ;
+    :hasName "C200x65x18 1.6mm (joist)"^^xsd:string .
+
+:1G3QKZwab1AwhQvitifQLt_geom a :Geometric_Information,
+        owl:NamedIndividual ;
+    :hasLength "4.0"^^xsd:float ;
+    :hasX "0.0"^^xsd:float ;
+    :hasY "0.0"^^xsd:float ;
+    :hasZ "0.0"^^xsd:float .
+
+:1G3QKZwab1AwhQvitifQLt_proj a :Project_information,
+        owl:NamedIndividual ;
+    :hasName "C200x65x18 1.6mm (joist)"^^xsd:string .
+
+:23sLJmCyTFBPPvE8On6mBC_geom a :Geometric_Information,
+        owl:NamedIndividual ;
+    :hasLength "4.0"^^xsd:float ;
+    :hasX "0.0"^^xsd:float ;
+    :hasY "0.0"^^xsd:float ;
+    :hasZ "0.0"^^xsd:float .
+
+:23sLJmCyTFBPPvE8On6mBC_proj a :Project_information,
+        owl:NamedIndividual ;
+    :hasName "C200x65x18 1.6mm (joist)"^^xsd:string .
+
+:2D6VSgD2T0WPIEFSfzBUS3_geom a :Geometric_Information,
+        owl:NamedIndividual ;
+    :hasLength "3.6"^^xsd:float ;
+    :hasX "0.0"^^xsd:float ;
+    :hasY "0.0"^^xsd:float ;
+    :hasZ "0.0"^^xsd:float .
+
+:2D6VSgD2T0WPIEFSfzBUS3_proj a :Project_information,
+        owl:NamedIndividual ;
+    :hasName "U204x65 1.6mm (rim)"^^xsd:string .
+
+:3Fs1eku6T63wlXnfuJLunu_geom a :Geometric_Information,
+        owl:NamedIndividual ;
+    :hasLength "4.0"^^xsd:float ;
+    :hasX "0.0"^^xsd:float ;
+    :hasY "0.0"^^xsd:float ;
+    :hasZ "0.0"^^xsd:float .
+
+:3Fs1eku6T63wlXnfuJLunu_proj a :Project_information,
+        owl:NamedIndividual ;
+    :hasName "C200x65x18 1.6mm (joist)"^^xsd:string .
+
+:3WImLSEo93nB_h_ucBqzsg_geom a :Geometric_Information,
+        owl:NamedIndividual ;
+    :hasLength "4.0"^^xsd:float ;
+    :hasX "0.0"^^xsd:float ;
+    :hasY "0.0"^^xsd:float ;
+    :hasZ "0.0"^^xsd:float .
+
+:3WImLSEo93nB_h_ucBqzsg_proj a :Project_information,
+        owl:NamedIndividual ;
+    :hasName "C200x65x18 1.6mm (joist)"^^xsd:string .
+
+:Angled a owl:Class ;
+    rdfs:subClassOf :Connection .
+
+:Crossing a owl:Class ;
+    rdfs:subClassOf :Connection .
+
+:Double_Angled a owl:Class ;
+    rdfs:subClassOf :Connection .
+
+:Fastener a owl:Class ;
+    rdfs:subClassOf :Structural_element .
+
+:Nogging a owl:Class ;
+    rdfs:subClassOf :Structural_element .
+
+:Stud a owl:Class ;
+    rdfs:subClassOf :Structural_element .
+
+:Track a owl:Class ;
+    rdfs:subClassOf :Structural_element .
+
+:Process a owl:Class .
+
+:conn_022noYkY9FquvI_ol0MNMn_1Ee1Anlmj8ahGVEqsLT1YL a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :022noYkY9FquvI_ol0MNMn,
+        :1Ee1Anlmj8ahGVEqsLT1YL ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "3.2675"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "0.6000000000000001"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.3999999999999999"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_0FHobzFAf6ShZz5Y5jz4t8_022noYkY9FquvI_ol0MNMn a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :022noYkY9FquvI_ol0MNMn,
+        :0FHobzFAf6ShZz5Y5jz4t8 ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "2.0675"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "1.7999999999999998"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_0FHobzFAf6ShZz5Y5jz4t8_1Ee1Anlmj8ahGVEqsLT1YL a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :0FHobzFAf6ShZz5Y5jz4t8,
+        :1Ee1Anlmj8ahGVEqsLT1YL ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "2.3674999999999997"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "2.4"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_0FHobzFAf6ShZz5Y5jz4t8_1G3QKZwab1AwhQvitifQLt a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :0FHobzFAf6ShZz5Y5jz4t8,
+        :1G3QKZwab1AwhQvitifQLt ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "1.4675"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "0.6000000000000001"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.3999999999999999"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_0FHobzFAf6ShZz5Y5jz4t8_3Fs1eku6T63wlXnfuJLunu a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :0FHobzFAf6ShZz5Y5jz4t8,
+        :3Fs1eku6T63wlXnfuJLunu ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "1.7674999999999998"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "1.1999999999999997"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_0xW5zuQJT7v9UEVzbUQxM9_022noYkY9FquvI_ol0MNMn a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :022noYkY9FquvI_ol0MNMn,
+        :0xW5zuQJT7v9UEVzbUQxM9 ;
+    :hasContactX "4.0"^^xsd:float ;
+    :hasContactY "2.9675"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "0.0"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "1.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_0xW5zuQJT7v9UEVzbUQxM9_0FHobzFAf6ShZz5Y5jz4t8 a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :0FHobzFAf6ShZz5Y5jz4t8,
+        :0xW5zuQJT7v9UEVzbUQxM9 ;
+    :hasContactX "4.0"^^xsd:float ;
+    :hasContactY "1.1675"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "0.0"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "1.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_0xW5zuQJT7v9UEVzbUQxM9_1Ee1Anlmj8ahGVEqsLT1YL a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :0xW5zuQJT7v9UEVzbUQxM9,
+        :1Ee1Anlmj8ahGVEqsLT1YL ;
+    :hasContactX "4.0"^^xsd:float ;
+    :hasContactY "3.5675"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "0.0"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "1.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_0xW5zuQJT7v9UEVzbUQxM9_1G3QKZwab1AwhQvitifQLt a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :0xW5zuQJT7v9UEVzbUQxM9,
+        :1G3QKZwab1AwhQvitifQLt ;
+    :hasContactX "4.0"^^xsd:float ;
+    :hasContactY "1.7675"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "2.220446049250313e-16"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "1.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_0xW5zuQJT7v9UEVzbUQxM9_23sLJmCyTFBPPvE8On6mBC a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :0xW5zuQJT7v9UEVzbUQxM9,
+        :23sLJmCyTFBPPvE8On6mBC ;
+    :hasContactX "4.0"^^xsd:float ;
+    :hasContactY "0.5675"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "0.0"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "0.9999999999999999"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_0xW5zuQJT7v9UEVzbUQxM9_3Fs1eku6T63wlXnfuJLunu a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :0xW5zuQJT7v9UEVzbUQxM9,
+        :3Fs1eku6T63wlXnfuJLunu ;
+    :hasContactX "4.0"^^xsd:float ;
+    :hasContactY "2.3674999999999997"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "0.0"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "1.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_0xW5zuQJT7v9UEVzbUQxM9_3WImLSEo93nB_h_ucBqzsg a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :0xW5zuQJT7v9UEVzbUQxM9,
+        :3WImLSEo93nB_h_ucBqzsg ;
+    :hasContactX "4.0"^^xsd:float ;
+    :hasContactY "-0.01625"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "0.0325"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "0.9675"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_1G3QKZwab1AwhQvitifQLt_022noYkY9FquvI_ol0MNMn a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :022noYkY9FquvI_ol0MNMn,
+        :1G3QKZwab1AwhQvitifQLt ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "2.3674999999999997"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "1.1999999999999997"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_1G3QKZwab1AwhQvitifQLt_1Ee1Anlmj8ahGVEqsLT1YL a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :1Ee1Anlmj8ahGVEqsLT1YL,
+        :1G3QKZwab1AwhQvitifQLt ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "2.6675"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "1.7999999999999998"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_1G3QKZwab1AwhQvitifQLt_3Fs1eku6T63wlXnfuJLunu a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :1G3QKZwab1AwhQvitifQLt,
+        :3Fs1eku6T63wlXnfuJLunu ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "2.0675"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "0.5999999999999996"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.40000000000000036"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_23sLJmCyTFBPPvE8On6mBC_022noYkY9FquvI_ol0MNMn a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :022noYkY9FquvI_ol0MNMn,
+        :23sLJmCyTFBPPvE8On6mBC ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "1.7674999999999998"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "2.4"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_23sLJmCyTFBPPvE8On6mBC_0FHobzFAf6ShZz5Y5jz4t8 a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :0FHobzFAf6ShZz5Y5jz4t8,
+        :23sLJmCyTFBPPvE8On6mBC ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "0.8674999999999999"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "0.6"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.3999999999999999"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_23sLJmCyTFBPPvE8On6mBC_1Ee1Anlmj8ahGVEqsLT1YL a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :1Ee1Anlmj8ahGVEqsLT1YL,
+        :23sLJmCyTFBPPvE8On6mBC ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "2.0675"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "3.0"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_23sLJmCyTFBPPvE8On6mBC_1G3QKZwab1AwhQvitifQLt a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :1G3QKZwab1AwhQvitifQLt,
+        :23sLJmCyTFBPPvE8On6mBC ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "1.1675"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "1.2000000000000002"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_23sLJmCyTFBPPvE8On6mBC_3Fs1eku6T63wlXnfuJLunu a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :23sLJmCyTFBPPvE8On6mBC,
+        :3Fs1eku6T63wlXnfuJLunu ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "1.4674999999999998"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "1.7999999999999998"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_2D6VSgD2T0WPIEFSfzBUS3_022noYkY9FquvI_ol0MNMn a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :022noYkY9FquvI_ol0MNMn,
+        :2D6VSgD2T0WPIEFSfzBUS3 ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "2.9675"^^xsd:float ;
+    :hasContactZ "0.1"^^xsd:float ;
+    :hasGapDistance "0.2"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "1.0"^^xsd:float ;
+    :hasOverlapZ "0.8"^^xsd:float .
+
+:conn_2D6VSgD2T0WPIEFSfzBUS3_0FHobzFAf6ShZz5Y5jz4t8 a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :0FHobzFAf6ShZz5Y5jz4t8,
+        :2D6VSgD2T0WPIEFSfzBUS3 ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "1.1675"^^xsd:float ;
+    :hasContactZ "0.1"^^xsd:float ;
+    :hasGapDistance "0.2"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "1.0"^^xsd:float ;
+    :hasOverlapZ "0.8"^^xsd:float .
+
+:conn_2D6VSgD2T0WPIEFSfzBUS3_0xW5zuQJT7v9UEVzbUQxM9 a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :0xW5zuQJT7v9UEVzbUQxM9,
+        :2D6VSgD2T0WPIEFSfzBUS3 ;
+    :hasContactX "2.0"^^xsd:float ;
+    :hasContactY "0.0"^^xsd:float ;
+    :hasContactZ "0.1"^^xsd:float ;
+    :hasGapDistance "4.004996878900157"^^xsd:float ;
+    :hasOverlapX "0.0"^^xsd:float ;
+    :hasOverlapY "4.6"^^xsd:float ;
+    :hasOverlapZ "0.8"^^xsd:float .
+
+:conn_2D6VSgD2T0WPIEFSfzBUS3_1Ee1Anlmj8ahGVEqsLT1YL a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :1Ee1Anlmj8ahGVEqsLT1YL,
+        :2D6VSgD2T0WPIEFSfzBUS3 ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "3.5675"^^xsd:float ;
+    :hasContactZ "0.1"^^xsd:float ;
+    :hasGapDistance "0.2"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "1.0"^^xsd:float ;
+    :hasOverlapZ "0.8"^^xsd:float .
+
+:conn_2D6VSgD2T0WPIEFSfzBUS3_1G3QKZwab1AwhQvitifQLt a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :1G3QKZwab1AwhQvitifQLt,
+        :2D6VSgD2T0WPIEFSfzBUS3 ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "1.7675"^^xsd:float ;
+    :hasContactZ "0.1"^^xsd:float ;
+    :hasGapDistance "0.2"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "1.0"^^xsd:float ;
+    :hasOverlapZ "0.8"^^xsd:float .
+
+:conn_2D6VSgD2T0WPIEFSfzBUS3_23sLJmCyTFBPPvE8On6mBC a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :23sLJmCyTFBPPvE8On6mBC,
+        :2D6VSgD2T0WPIEFSfzBUS3 ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "0.5675"^^xsd:float ;
+    :hasContactZ "0.1"^^xsd:float ;
+    :hasGapDistance "0.2"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "0.9999999999999999"^^xsd:float ;
+    :hasOverlapZ "0.8"^^xsd:float .
+
+:conn_2D6VSgD2T0WPIEFSfzBUS3_3Fs1eku6T63wlXnfuJLunu a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :2D6VSgD2T0WPIEFSfzBUS3,
+        :3Fs1eku6T63wlXnfuJLunu ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "2.3674999999999997"^^xsd:float ;
+    :hasContactZ "0.1"^^xsd:float ;
+    :hasGapDistance "0.2"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "1.0"^^xsd:float ;
+    :hasOverlapZ "0.8"^^xsd:float .
+
+:conn_2D6VSgD2T0WPIEFSfzBUS3_3WImLSEo93nB_h_ucBqzsg a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :2D6VSgD2T0WPIEFSfzBUS3,
+        :3WImLSEo93nB_h_ucBqzsg ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "-0.01625"^^xsd:float ;
+    :hasContactZ "0.1"^^xsd:float ;
+    :hasGapDistance "0.2026234191795213"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "0.9675"^^xsd:float ;
+    :hasOverlapZ "0.8"^^xsd:float .
+
+:conn_3Fs1eku6T63wlXnfuJLunu_022noYkY9FquvI_ol0MNMn a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :022noYkY9FquvI_ol0MNMn,
+        :3Fs1eku6T63wlXnfuJLunu ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "2.6674999999999995"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "0.6000000000000001"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.3999999999999999"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_3Fs1eku6T63wlXnfuJLunu_1Ee1Anlmj8ahGVEqsLT1YL a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :1Ee1Anlmj8ahGVEqsLT1YL,
+        :3Fs1eku6T63wlXnfuJLunu ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "2.9675"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "1.2000000000000002"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_3WImLSEo93nB_h_ucBqzsg_022noYkY9FquvI_ol0MNMn a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :022noYkY9FquvI_ol0MNMn,
+        :3WImLSEo93nB_h_ucBqzsg ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "1.4674999999999998"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "3.0"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_3WImLSEo93nB_h_ucBqzsg_0FHobzFAf6ShZz5Y5jz4t8 a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :0FHobzFAf6ShZz5Y5jz4t8,
+        :3WImLSEo93nB_h_ucBqzsg ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "0.5675"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "1.2"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_3WImLSEo93nB_h_ucBqzsg_1Ee1Anlmj8ahGVEqsLT1YL a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :1Ee1Anlmj8ahGVEqsLT1YL,
+        :3WImLSEo93nB_h_ucBqzsg ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "1.7674999999999998"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "3.6"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_3WImLSEo93nB_h_ucBqzsg_1G3QKZwab1AwhQvitifQLt a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :1G3QKZwab1AwhQvitifQLt,
+        :3WImLSEo93nB_h_ucBqzsg ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "0.8675"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "1.8"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_3WImLSEo93nB_h_ucBqzsg_23sLJmCyTFBPPvE8On6mBC a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :23sLJmCyTFBPPvE8On6mBC,
+        :3WImLSEo93nB_h_ucBqzsg ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "0.2675"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "0.6"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.4"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_3WImLSEo93nB_h_ucBqzsg_3Fs1eku6T63wlXnfuJLunu a :Connection,
+        :Lateral,
+        owl:NamedIndividual ;
+    :connectsElement :3Fs1eku6T63wlXnfuJLunu,
+        :3WImLSEo93nB_h_ucBqzsg ;
+    :hasContactX "0.0"^^xsd:float ;
+    :hasContactY "1.1674999999999998"^^xsd:float ;
+    :hasContactZ "0.0"^^xsd:float ;
+    :hasGapDistance "2.4"^^xsd:float ;
+    :hasOverlapX "5.0"^^xsd:float ;
+    :hasOverlapY "0.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:connectsElement a owl:ObjectProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range :Structural_element .
+
+:Building_element a owl:Class ;
+    rdfs:subClassOf :Product .
+
+:Resource a owl:Class .
+
+:Attribute a owl:Class ;
+    rdfs:subClassOf :Product .
+
+:Product a owl:Class .
+
+<http://webprotege.stanford.edu/RCBN6rq2jjiGhYBpYlQ6jO8> a owl:Class ;
+    rdfs:label "Robot" ;
+    rdfs:subClassOf :Resource .
+
+<http://webprotege.stanford.edu/RkbhOGMHuz3tCcBIQmbPVt> a owl:ObjectProperty ;
+    rdfs:label "requiresResource" ;
+    rdfs:domain :Operation ;
+    rdfs:range :Resource ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+:022noYkY9FquvI_ol0MNMn a :Joist,
+        owl:NamedIndividual ;
+    :hasGeometricInformation :022noYkY9FquvI_ol0MNMn_geom ;
+    :hasIntersection :conn_022noYkY9FquvI_ol0MNMn_1Ee1Anlmj8ahGVEqsLT1YL,
+        :conn_0FHobzFAf6ShZz5Y5jz4t8_022noYkY9FquvI_ol0MNMn,
+        :conn_0xW5zuQJT7v9UEVzbUQxM9_022noYkY9FquvI_ol0MNMn,
+        :conn_1G3QKZwab1AwhQvitifQLt_022noYkY9FquvI_ol0MNMn,
+        :conn_23sLJmCyTFBPPvE8On6mBC_022noYkY9FquvI_ol0MNMn,
+        :conn_2D6VSgD2T0WPIEFSfzBUS3_022noYkY9FquvI_ol0MNMn,
+        :conn_3Fs1eku6T63wlXnfuJLunu_022noYkY9FquvI_ol0MNMn,
+        :conn_3WImLSEo93nB_h_ucBqzsg_022noYkY9FquvI_ol0MNMn ;
+    :hasProjectInformation :022noYkY9FquvI_ol0MNMn_proj .
+
+:0FHobzFAf6ShZz5Y5jz4t8 a :Joist,
+        owl:NamedIndividual ;
+    :hasGeometricInformation :0FHobzFAf6ShZz5Y5jz4t8_geom ;
+    :hasIntersection :conn_0FHobzFAf6ShZz5Y5jz4t8_022noYkY9FquvI_ol0MNMn,
+        :conn_0FHobzFAf6ShZz5Y5jz4t8_1Ee1Anlmj8ahGVEqsLT1YL,
+        :conn_0FHobzFAf6ShZz5Y5jz4t8_1G3QKZwab1AwhQvitifQLt,
+        :conn_0FHobzFAf6ShZz5Y5jz4t8_3Fs1eku6T63wlXnfuJLunu,
+        :conn_0xW5zuQJT7v9UEVzbUQxM9_0FHobzFAf6ShZz5Y5jz4t8,
+        :conn_23sLJmCyTFBPPvE8On6mBC_0FHobzFAf6ShZz5Y5jz4t8,
+        :conn_2D6VSgD2T0WPIEFSfzBUS3_0FHobzFAf6ShZz5Y5jz4t8,
+        :conn_3WImLSEo93nB_h_ucBqzsg_0FHobzFAf6ShZz5Y5jz4t8 ;
+    :hasProjectInformation :0FHobzFAf6ShZz5Y5jz4t8_proj .
+
+:0xW5zuQJT7v9UEVzbUQxM9 a :Structural_element,
+        owl:NamedIndividual ;
+    :hasGeometricInformation :0xW5zuQJT7v9UEVzbUQxM9_geom ;
+    :hasIntersection :conn_0xW5zuQJT7v9UEVzbUQxM9_022noYkY9FquvI_ol0MNMn,
+        :conn_0xW5zuQJT7v9UEVzbUQxM9_0FHobzFAf6ShZz5Y5jz4t8,
+        :conn_0xW5zuQJT7v9UEVzbUQxM9_1Ee1Anlmj8ahGVEqsLT1YL,
+        :conn_0xW5zuQJT7v9UEVzbUQxM9_1G3QKZwab1AwhQvitifQLt,
+        :conn_0xW5zuQJT7v9UEVzbUQxM9_23sLJmCyTFBPPvE8On6mBC,
+        :conn_0xW5zuQJT7v9UEVzbUQxM9_3Fs1eku6T63wlXnfuJLunu,
+        :conn_0xW5zuQJT7v9UEVzbUQxM9_3WImLSEo93nB_h_ucBqzsg,
+        :conn_2D6VSgD2T0WPIEFSfzBUS3_0xW5zuQJT7v9UEVzbUQxM9 ;
+    :hasProjectInformation :0xW5zuQJT7v9UEVzbUQxM9_proj .
+
+:1Ee1Anlmj8ahGVEqsLT1YL a :Joist,
+        owl:NamedIndividual ;
+    :hasGeometricInformation :1Ee1Anlmj8ahGVEqsLT1YL_geom ;
+    :hasIntersection :conn_022noYkY9FquvI_ol0MNMn_1Ee1Anlmj8ahGVEqsLT1YL,
+        :conn_0FHobzFAf6ShZz5Y5jz4t8_1Ee1Anlmj8ahGVEqsLT1YL,
+        :conn_0xW5zuQJT7v9UEVzbUQxM9_1Ee1Anlmj8ahGVEqsLT1YL,
+        :conn_1G3QKZwab1AwhQvitifQLt_1Ee1Anlmj8ahGVEqsLT1YL,
+        :conn_23sLJmCyTFBPPvE8On6mBC_1Ee1Anlmj8ahGVEqsLT1YL,
+        :conn_2D6VSgD2T0WPIEFSfzBUS3_1Ee1Anlmj8ahGVEqsLT1YL,
+        :conn_3Fs1eku6T63wlXnfuJLunu_1Ee1Anlmj8ahGVEqsLT1YL,
+        :conn_3WImLSEo93nB_h_ucBqzsg_1Ee1Anlmj8ahGVEqsLT1YL ;
+    :hasProjectInformation :1Ee1Anlmj8ahGVEqsLT1YL_proj .
+
+:1G3QKZwab1AwhQvitifQLt a :Joist,
+        owl:NamedIndividual ;
+    :hasGeometricInformation :1G3QKZwab1AwhQvitifQLt_geom ;
+    :hasIntersection :conn_0FHobzFAf6ShZz5Y5jz4t8_1G3QKZwab1AwhQvitifQLt,
+        :conn_0xW5zuQJT7v9UEVzbUQxM9_1G3QKZwab1AwhQvitifQLt,
+        :conn_1G3QKZwab1AwhQvitifQLt_022noYkY9FquvI_ol0MNMn,
+        :conn_1G3QKZwab1AwhQvitifQLt_1Ee1Anlmj8ahGVEqsLT1YL,
+        :conn_1G3QKZwab1AwhQvitifQLt_3Fs1eku6T63wlXnfuJLunu,
+        :conn_23sLJmCyTFBPPvE8On6mBC_1G3QKZwab1AwhQvitifQLt,
+        :conn_2D6VSgD2T0WPIEFSfzBUS3_1G3QKZwab1AwhQvitifQLt,
+        :conn_3WImLSEo93nB_h_ucBqzsg_1G3QKZwab1AwhQvitifQLt ;
+    :hasProjectInformation :1G3QKZwab1AwhQvitifQLt_proj .
+
+:23sLJmCyTFBPPvE8On6mBC a :Joist,
+        owl:NamedIndividual ;
+    :hasGeometricInformation :23sLJmCyTFBPPvE8On6mBC_geom ;
+    :hasIntersection :conn_0xW5zuQJT7v9UEVzbUQxM9_23sLJmCyTFBPPvE8On6mBC,
+        :conn_23sLJmCyTFBPPvE8On6mBC_022noYkY9FquvI_ol0MNMn,
+        :conn_23sLJmCyTFBPPvE8On6mBC_0FHobzFAf6ShZz5Y5jz4t8,
+        :conn_23sLJmCyTFBPPvE8On6mBC_1Ee1Anlmj8ahGVEqsLT1YL,
+        :conn_23sLJmCyTFBPPvE8On6mBC_1G3QKZwab1AwhQvitifQLt,
+        :conn_23sLJmCyTFBPPvE8On6mBC_3Fs1eku6T63wlXnfuJLunu,
+        :conn_2D6VSgD2T0WPIEFSfzBUS3_23sLJmCyTFBPPvE8On6mBC,
+        :conn_3WImLSEo93nB_h_ucBqzsg_23sLJmCyTFBPPvE8On6mBC ;
+    :hasProjectInformation :23sLJmCyTFBPPvE8On6mBC_proj .
+
+:2D6VSgD2T0WPIEFSfzBUS3 a :Structural_element,
+        owl:NamedIndividual ;
+    :hasGeometricInformation :2D6VSgD2T0WPIEFSfzBUS3_geom ;
+    :hasIntersection :conn_2D6VSgD2T0WPIEFSfzBUS3_022noYkY9FquvI_ol0MNMn,
+        :conn_2D6VSgD2T0WPIEFSfzBUS3_0FHobzFAf6ShZz5Y5jz4t8,
+        :conn_2D6VSgD2T0WPIEFSfzBUS3_0xW5zuQJT7v9UEVzbUQxM9,
+        :conn_2D6VSgD2T0WPIEFSfzBUS3_1Ee1Anlmj8ahGVEqsLT1YL,
+        :conn_2D6VSgD2T0WPIEFSfzBUS3_1G3QKZwab1AwhQvitifQLt,
+        :conn_2D6VSgD2T0WPIEFSfzBUS3_23sLJmCyTFBPPvE8On6mBC,
+        :conn_2D6VSgD2T0WPIEFSfzBUS3_3Fs1eku6T63wlXnfuJLunu,
+        :conn_2D6VSgD2T0WPIEFSfzBUS3_3WImLSEo93nB_h_ucBqzsg ;
+    :hasProjectInformation :2D6VSgD2T0WPIEFSfzBUS3_proj .
+
+:3Fs1eku6T63wlXnfuJLunu a :Joist,
+        owl:NamedIndividual ;
+    :hasGeometricInformation :3Fs1eku6T63wlXnfuJLunu_geom ;
+    :hasIntersection :conn_0FHobzFAf6ShZz5Y5jz4t8_3Fs1eku6T63wlXnfuJLunu,
+        :conn_0xW5zuQJT7v9UEVzbUQxM9_3Fs1eku6T63wlXnfuJLunu,
+        :conn_1G3QKZwab1AwhQvitifQLt_3Fs1eku6T63wlXnfuJLunu,
+        :conn_23sLJmCyTFBPPvE8On6mBC_3Fs1eku6T63wlXnfuJLunu,
+        :conn_2D6VSgD2T0WPIEFSfzBUS3_3Fs1eku6T63wlXnfuJLunu,
+        :conn_3Fs1eku6T63wlXnfuJLunu_022noYkY9FquvI_ol0MNMn,
+        :conn_3Fs1eku6T63wlXnfuJLunu_1Ee1Anlmj8ahGVEqsLT1YL,
+        :conn_3WImLSEo93nB_h_ucBqzsg_3Fs1eku6T63wlXnfuJLunu ;
+    :hasProjectInformation :3Fs1eku6T63wlXnfuJLunu_proj .
+
+:3WImLSEo93nB_h_ucBqzsg a :Joist,
+        owl:NamedIndividual ;
+    :hasGeometricInformation :3WImLSEo93nB_h_ucBqzsg_geom ;
+    :hasIntersection :conn_0xW5zuQJT7v9UEVzbUQxM9_3WImLSEo93nB_h_ucBqzsg,
+        :conn_2D6VSgD2T0WPIEFSfzBUS3_3WImLSEo93nB_h_ucBqzsg,
+        :conn_3WImLSEo93nB_h_ucBqzsg_022noYkY9FquvI_ol0MNMn,
+        :conn_3WImLSEo93nB_h_ucBqzsg_0FHobzFAf6ShZz5Y5jz4t8,
+        :conn_3WImLSEo93nB_h_ucBqzsg_1Ee1Anlmj8ahGVEqsLT1YL,
+        :conn_3WImLSEo93nB_h_ucBqzsg_1G3QKZwab1AwhQvitifQLt,
+        :conn_3WImLSEo93nB_h_ucBqzsg_23sLJmCyTFBPPvE8On6mBC,
+        :conn_3WImLSEo93nB_h_ucBqzsg_3Fs1eku6T63wlXnfuJLunu ;
+    :hasProjectInformation :3WImLSEo93nB_h_ucBqzsg_proj .
+
+:Joist a owl:Class ;
+    rdfs:subClassOf :Structural_element .
+
+:Operation a owl:Class ;
+    rdfs:subClassOf :Process .
+
+:Project_information a owl:Class ;
+    rdfs:subClassOf :Attribute .
+
+:Structural_element a owl:Class ;
+    rdfs:subClassOf :Product .
+
+:Perpendicular a owl:Class ;
+    rdfs:subClassOf :Connection .
+
+:Geometric_Information a owl:Class ;
+    rdfs:subClassOf :Attribute .
+
+:Lateral a owl:Class ;
+    rdfs:subClassOf :Connection .
+
+:Connection a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onClass :Structural_element ;
+            owl:onProperty :connectsElement ;
+            owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
+        :Attribute .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( :Stud :Track :Joist :Nogging :Fastener ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( :Angled :Crossing :Double_Angled :Lateral :Perpendicular ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( :Geometric_Information :Project_information :Structural_element ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( :Product :Process :Resource ) .
+
