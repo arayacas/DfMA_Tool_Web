@@ -55,7 +55,7 @@ try:
 except Exception:
     pass
 
-st.title("Semantic Connections & Ontology")
+st.title("Ontology Display")
 
 # --- HELPER FUNCTION: EXTRACT LABELS ---
 def get_label(g, node):
