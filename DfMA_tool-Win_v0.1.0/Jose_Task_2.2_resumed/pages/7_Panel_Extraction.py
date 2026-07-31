@@ -324,6 +324,6 @@ if os.path.exists("extracted_panel.ifc"):
             RelatingMaterial=steel_material
         )
 
-    # 5. Save the fixed file!
-    ifc_file.write("extracted_panel_with_materials.ifc")
-    print("Materials successfully injected!")
+        # 5. Save the fixed file!
+        ifc_file.write("extracted_panel_with_materials.ifc")
+        print("Materials successfully injected!")
