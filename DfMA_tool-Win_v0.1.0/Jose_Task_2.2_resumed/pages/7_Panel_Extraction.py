@@ -80,7 +80,7 @@ st.markdown("#### BIM .ifc Big Building")
 def load_ifc(file_path):
     return ifcopenshell.open(file_path)
 
-@st.cache_data(show_spinner="Calculating Ghost Building Layout. This takes about 60 seconds...")
+@st.cache_data(show_spinner="Calculating Ghost Building Layout. This may take about 5 minutes...")
 def get_all_panel_bounds(_model, _panel_names_dict): # 🛠️ Includes the underscore fix!
     """Calculates the global bounding box for every panel to create the Ghost Building."""
     settings = ifcopenshell.geom.settings()
@@ -132,7 +132,7 @@ if 'current_ifcbig_path' in st.session_state and os.path.exists(st.session_state
         panel_dict = {panel.Name: panel for panel in all_panels if panel.Name}
         
         if not panel_dict:
-            st.warning("⚠️ No 'IfcElementAssembly' groupings found in this file.")
+            st.warning(" No 'IfcElementAssembly' groupings found in this file.")
         else:
             # --- 4. STREAMLIT UI ---
             st.sidebar.markdown("### Panel Selection")
@@ -302,25 +302,25 @@ import ifcopenshell
 import ifcopenshell.guid
 
 # 1. Load the panel with missing materials
-ifc_file = ifcopenshell.open("extracted_panel.ifc")
-
+if os.path.exists("extracted_panel.ifc"):
+    ifc_file = ifcopenshell.open("extracted_panel.ifc")
 # 2. Create the Material entity safely
-steel_material = ifc_file.createIfcMaterial("Steel")
+    steel_material = ifc_file.createIfcMaterial("Steel")
 
 # 3. Find all the physical parts (Adjust "IfcBeam" to "IfcBuildingElementPart" or "IfcMember" if needed)
-members = ifc_file.by_type("IfcElement") 
+    members = ifc_file.by_type("IfcElement") 
 
 # 4. Link the material to every member
-for member in members:
-    ifc_file.createIfcRelAssociatesMaterial(
-        GlobalId=ifcopenshell.guid.new(),
-        OwnerHistory=None,
-        Name="MaterialLink",
-        Description=None,
-        RelatedObjects=[member],
-        RelatingMaterial=steel_material
-    )
+    for member in members:
+        ifc_file.createIfcRelAssociatesMaterial(
+            GlobalId=ifcopenshell.guid.new(),
+            OwnerHistory=None,
+            Name="MaterialLink",
+            Description=None,
+            RelatedObjects=[member],
+            RelatingMaterial=steel_material
+        )
 
-# 5. Save the fixed file!
-ifc_file.write("extracted_panel_with_materials.ifc")
-print("✅ Materials successfully injected!")
+    # 5. Save the fixed file!
+    ifc_file.write("extracted_panel_with_materials.ifc")
+    print("Materials successfully injected!")
