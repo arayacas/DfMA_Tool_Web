@@ -24,10 +24,26 @@ import ifcopenshell.geom
 import pyvista as pv
 from stpyvista import stpyvista
 import numpy as np
+import os
+from PIL import Image
+import sys
 
-# --- DYNAMIC PATH RESOLUTION ---
+# --- DYNAMIC PATH RESOLUTION (FOR NESTED PAGES) ---
+# 1. Get the absolute path to the 'pages' folder
 current_dir = os.path.dirname(os.path.abspath(__file__))
-images_dir = os.path.join(current_dir, "..", "Images")
+
+# 2. Go up TWO levels:
+#    First ".." escapes the 'pages' folder.
+#    Second ".." escapes 'Jose_Task_2.2_resumed' into 'DfMA_tool-Win_v0.1.0'
+#    Then enter the 'Images' folder.
+images_dir = os.path.join(current_dir, "..", "..", "Images")
+
+# 3. Path hack to allow importing UI_Helpers from the parent directory
+parent_dir = os.path.abspath(os.path.join(current_dir, '..'))
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
+
+import UI_Helpers
 
 # --- PAGE SETUP ---
 logo_path = os.path.join(images_dir, "smart_logo.jpeg")
@@ -38,21 +54,8 @@ except Exception:
 
 st.set_page_config(
     layout="wide",
-    page_title="DifeMA",
+    page_title="Objective Functions",
     page_icon=logo_img
-)
-
-# Side bar format (external to Streamlit)
-st.markdown(
-    """
-    <style>
-    /* Target the sidebar navigation menu items */
-    [data-testid="stSidebarNav"] span {
-        font-size: 30px !important; 
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
 )
 
 lablogo_path = os.path.join(images_dir, "horizontal_smart.png")
