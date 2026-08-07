@@ -65,19 +65,20 @@ except Exception:
 if 'config_path' not in st.session_state:
     st.session_state['config_path'] = None
 
-# --- 1. INITIALIZE WEB-SAFE PARAMETERS ---
-if "design_params" not in st.session_state:
-    st.session_state["design_params"] = {
+# --- 1. INITIALIZE WEB-SAFE PARAMETERS & PRESETS ---
+# Define our robot hardware presets in a dictionary
+ROBOT_PRESETS = {
+    "Default": {
         "max_length": 6.00,
         "max_height": 3.00,
         "hole_tol": 0.010,
         "track_cont_tol": 0.020,
         "track_hole_tol": 0.20,
         "max_weight": 50.00,     
-        "allowed_holes_mm": "3, 12", # Storing as a string for easy text_input
+        "allowed_holes_mm": "3, 12",
         "hole_size_tol_mm": 2.0,
         "max_parts": 50,
-        "stud_spacing_mm": "600, 100", #Another String 
+        "stud_spacing_mm": "600, 100",
         "stud_tol_mm": 50, 
         "joist_depth_tolerance_mm": 100,
         "part_max_length_mm": 5000,
@@ -87,32 +88,163 @@ if "design_params" not in st.session_state:
         "slanted_beam_angle" : 45,
         "total_assembly_payload_limit_kg": 150,
         "CoG_radius_tolerance_mm" : 250,
-        "hole_border_clearance_mm": 20,
-    }
-
-if st.button("Reset to Default Parameters"):
-    st.session_state["design_params"] = {
-        "max_length": 6.00,
-        "max_height": 3.00,
+        # Hardware specific fallbacks
+        "repeatability_mm": 0.0,
+        "axis_limits_deg": None
+    },
+"ABB IRB 2600-20/1.65": {
+        "max_length": 1.65,
+        "max_height": 1.65,
         "hole_tol": 0.010,
         "track_cont_tol": 0.020,
         "track_hole_tol": 0.20,
-        "max_weight": 50.00,     
-        "allowed_holes_mm": "14, 34", # Storing as a string for easy text_input
+        "max_weight": 20.00,             # Matched to 20kg payload
+        "allowed_holes_mm": "3, 12",
         "hole_size_tol_mm": 2.0,
         "max_parts": 50,
-        "stud_spacing_mm": "600, 100", #Another String 
+        "stud_spacing_mm": "600, 100",
         "stud_tol_mm": 50, 
         "joist_depth_tolerance_mm": 100,
-        "part_max_length_mm": 5000,
-        "part_max_height_mm": 5000,
-        "part_max_depth_mm" : 5000,
+        "part_max_length_mm": 4000,      # Matched to 1650mm reach
+        "part_max_height_mm": 1650,
+        "part_max_depth_mm" : 1650,
         "hole_border_clearance_mm": 20,
-        "slanted_beam_angle" : 26,
-        "total_assembly_payload_limit_kg": 100,
-        "CoG_radius_tolerance_mm" : 250
+        "slanted_beam_angle" : 45,
+        "total_assembly_payload_limit_kg": 100.0,
+        "CoG_radius_tolerance_mm" : 250,
+        # Hardware specific additions
+        "repeatability_mm": 0.04,
+        "axis_limits_deg": {
+            "J1": [-180, 180],
+            "J2": [-95, 155],
+            "J3": [-180, 75],
+            "J4": [-400, 400],
+            "J5": [-120, 120],
+            "J6": [-400, 400]
+        }
+    },
+"ABB IRB 2600-20/1.65 + ABB IRBT 2005 Linear Unit": {
+        "max_length": 4.00,
+        "max_height": 1.65,
+        "hole_tol": 0.010,
+        "track_cont_tol": 0.020,
+        "track_hole_tol": 0.20,
+        "max_weight": 20.00,             # Matched to 20kg payload
+        "allowed_holes_mm": "3, 12",
+        "hole_size_tol_mm": 2.0,
+        "max_parts": 50,
+        "stud_spacing_mm": "600, 100",
+        "stud_tol_mm": 50, 
+        "joist_depth_tolerance_mm": 100,
+        "part_max_length_mm": 4000,      # Matched to 1650mm reach
+        "part_max_height_mm": 1650,
+        "part_max_depth_mm" : 1650,
+        "hole_border_clearance_mm": 20,
+        "slanted_beam_angle" : 45,
+        "total_assembly_payload_limit_kg": 100.0,
+        "CoG_radius_tolerance_mm" : 250,
+        # Hardware specific additions
+        "repeatability_mm": 0.04,
+        "axis_limits_deg": {
+            "J1": [-180, 180],
+            "J2": [-95, 155],
+            "J3": [-180, 75],
+            "J4": [-400, 400],
+            "J5": [-120, 120],
+            "J6": [-400, 400]
+        }
+    },
+
+"DOBOT CR10": {
+        "max_length": 4000,
+        "max_height": 1.525,
+        "hole_tol": 0.010,
+        "track_cont_tol": 0.020,
+        "track_hole_tol": 0.20,
+        "max_weight": 10.00,             # Matched to 10kg payload
+        "allowed_holes_mm": "3, 12",
+        "hole_size_tol_mm": 2.0,
+        "max_parts": 50,
+        "stud_spacing_mm": "600, 100",
+        "stud_tol_mm": 50, 
+        "joist_depth_tolerance_mm": 100,
+        "part_max_length_mm": 1525,      # Matched to absolute maximum reach
+        "part_max_height_mm": 1525,
+        "part_max_depth_mm" : 1525,
+        "hole_border_clearance_mm": 20,
+        "slanted_beam_angle" : 45,
+        "total_assembly_payload_limit_kg": 100.0,
+        "CoG_radius_tolerance_mm" : 250,
+        # Hardware specific additions
+        "is_cobot": True,
+        "working_radius_mm": 1300,       # Optimal safe working zone
+        "repeatability_mm": 0.03,
+        "axis_limits_deg": {
+            "J1": [-360, 360],
+            "J2": [-360, 360],
+            "J3": [-160, 160],
+            "J4": [-360, 360],
+            "J5": [-360, 360],
+            "J6": [-360, 360]
+        }
+    },
+"KUKA KR 250 R2700-2": {
+        "max_length": 2.701,             # 2.7 meter reach
+        "max_height": 2.701,
+        "hole_tol": 0.010,
+        "track_cont_tol": 0.020,
+        "track_hole_tol": 0.20,
+        "max_weight": 250.00,            # Matched to KR 250 payload limit
+        "allowed_holes_mm": "3, 12",
+        "hole_size_tol_mm": 2.0,
+        "max_parts": 50,
+        "stud_spacing_mm": "600, 100",
+        "stud_tol_mm": 50, 
+        "joist_depth_tolerance_mm": 100,
+        "part_max_length_mm": 4200,      # Matched to our edge-mounted maximum width calculation
+        "part_max_height_mm": 2701,
+        "part_max_depth_mm" : 2400,      # Constrained to the safe effective reach for tooling
+        "hole_border_clearance_mm": 20,
+        "slanted_beam_angle" : 45,
+        "total_assembly_payload_limit_kg": 250.0,
+        "CoG_radius_tolerance_mm" : 250,
+        # Hardware specific additions
+        "effective_reach_mm": 2400,      # Safety limit factoring in the nail gun/gripper
+        "repeatability_mm": 0.05,
+        "axis_limits_deg": {
+            "J1": [-185, 185],
+            "J2": [-140, -5],
+            "J3": [-120, 168],
+            "J4": [-350, 350],
+            "J5": [-122.5, 122.5],
+            "J6": [-350, 350]
+        }
     }
-    st.rerun()
+}
+# Ensure session state is initialized on first load
+if "design_params" not in st.session_state:
+    st.session_state["design_params"] = ROBOT_PRESETS["Default"].copy()
+
+# --- HARDWARE SELECTION UI ---
+st.markdown("Hardware Presets")
+st.write("Select the robotic system you are analyzing this panel for:")
+
+col_preset, col_btn = st.columns([3, 1])
+
+with col_preset:
+    selected_hardware = st.selectbox(
+        "Available Configurations:", 
+        options=list(ROBOT_PRESETS.keys()),
+        label_visibility="collapsed"
+    )
+
+with col_btn:
+    if st.button("Apply Preset"):
+        st.session_state["design_params"] = ROBOT_PRESETS[selected_hardware].copy()
+        st.rerun()
+
+# Just a visual confirmation of the currently active hardware
+st.caption(f"**Currently Active Parameter Set:** {selected_hardware} (Payload: {st.session_state['design_params']['max_weight']}kg)")
 
 # --- 2. INITIALIZE PINNED RULES (For your new dashboard system) ---
 if "pinned_rules" not in st.session_state:
@@ -155,6 +287,9 @@ with col1:
             with tempfile.NamedTemporaryFile(delete=False, suffix=".ifc") as tmp_file:
                 tmp_file.write(ifcfile.getbuffer())
                 st.session_state['current_ifc_path'] = tmp_file.name
+
+                # ---> NEW LINE: Save the original filename! <---
+                st.session_state['original_ifc_name'] = ifcfile.name
                 
             st.rerun()
 

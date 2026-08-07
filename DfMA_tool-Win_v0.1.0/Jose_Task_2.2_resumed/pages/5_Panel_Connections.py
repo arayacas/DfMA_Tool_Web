@@ -19,6 +19,7 @@ import streamlit as st
 import os
 from PIL import Image
 import sys
+import numpy as np
 
 # --- DYNAMIC PATH RESOLUTION (FOR NESTED PAGES) ---
 # 1. Get the absolute path to the 'pages' folder
@@ -94,6 +95,57 @@ import engine
 st.set_page_config(page_title="Panel Connections", layout="wide")
 st.title("Panel Connections")
 
+def get_overlap_center(min1, max1, min2, max2, buffer):
+                    # ... your existing get_overlap_center code ...
+                    return None
+
+# ==========================================
+# NEW: TOPOLOGICAL LOOP HOLE SCANNER
+# ==========================================
+
+                
+def find_loop_holes_in_mesh(mesh, joint_bounds):
+    try:
+        # 1. Extract true physical sharp edges FIRST (No artificial box slicing!)
+        edges = mesh.extract_feature_edges(feature_angle=45, boundary_edges=True)
+        if edges.n_points == 0: return []
+        
+        # 2. Group the edges into separate, disconnected loops
+        connected = edges.connectivity()
+        
+        found = []
+        if 'RegionId' in connected.point_data:
+            region_ids = np.unique(connected.point_data['RegionId'])
+            
+            for rid in region_ids:
+                # Isolate a single loop
+                loop = connected.threshold([rid, rid], scalars='RegionId')
+                
+                # 3. NOW we check if the center of this physical loop is inside our Joint Box
+                hx, hy, hz = loop.center
+                if (joint_bounds[0] <= hx <= joint_bounds[1] and
+                    joint_bounds[2] <= hy <= joint_bounds[3] and
+                    joint_bounds[4] <= hz <= joint_bounds[5]):
+                    
+                    # Measure the loop
+                    lb = loop.bounds
+                    dx, dy, dz = lb[1]-lb[0], lb[3]-lb[2], lb[5]-lb[4]
+                    max_dim = max(dx, dy, dz)
+                    
+                    # 4. If the loop is between 1mm and 15mm across, it's a hole!
+                    if 0.001 < max_dim < 0.015:
+                        min_dim = min(dx, dy, dz)
+                        h_dir = (1,0,0) if min_dim == dx else ((0,1,0) if min_dim == dy else (0,0,1))
+                        
+                        found.append({
+                            "x": hx, "y": hy, "z": hz,
+                            "dir": h_dir,
+                            "diam": max_dim,
+                            "length": 0.04 
+                        })
+        return found
+    except Exception as e:
+        return []
 if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['current_ifc_path']):
     ifcfile_path = st.session_state['current_ifc_path']
 
@@ -101,6 +153,9 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
     
     with st.spinner("Analyzing structural connections..."):
         try:
+            # --- INITIALIZE DATA TRACKERS EXPLICITLY ---
+            as_designed_data = []
+            connection_table_data = []
             # 3. Set up the 3D Plotter
             all_elements = Find_elements.get_elements(ifcfile_path)
             plotter = pv.Plotter(window_size=[800, 600])
@@ -325,12 +380,23 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                 st.markdown("#### Joint Recommendation Parameters")
                 col1, col2 = st.columns(2)
                 with col1:
-                    connection_type = st.radio("Connection Method (For joints without pre-drilled holes)", ["Fastening", "Welding"])
+                    # Added "Self-Drilling Screws" to the list!
+                    connection_type = st.radio("Connection Method", ["Fastening", "Welding", "Self-Drilling Screws"])
                 with col2:
-                    inflate_size = st.slider("Connection Zone Tolerance (mm)", min_value=0.0, max_value=150.0, value=25.0, step=5.0)
+                    st.markdown("**Connection Zone Tolerance (mm)**")
+                    # Split into 3 distinct dimensions
+                    tol_col1, tol_col2, tol_col3 = st.columns(3)
+                    with tol_col1:
+                        inflate_x = st.number_input("X Tol", value=25.0, step=5.0)
+                    with tol_col2:
+                        inflate_y = st.number_input("Y Tol", value=25.0, step=5.0)
+                    with tol_col3:
+                        inflate_z = st.number_input("Z Tol", value=25.0, step=5.0)
                 
-                tol = inflate_size / 1000.0  
-                
+                # Convert all to meters
+                tol_x = inflate_x / 1000.0  
+                tol_y = inflate_y / 1000.0  
+                tol_z = inflate_z / 1000.0
                 import pandas as pd
                 import ifcopenshell
                 
@@ -396,33 +462,59 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                         b1 = bounds_list[i]
                         b2 = bounds_list[j]
                         
-                        cx = get_overlap_center(b1[0], b1[1], b2[0], b2[1], tol/2)
-                        cy = get_overlap_center(b1[2], b1[3], b2[2], b2[3], tol/2)
-                        cz = get_overlap_center(b1[4], b1[5], b2[4], b2[5], tol/2)
+                        cx = get_overlap_center(b1[0], b1[1], b2[0], b2[1], tol_x/2)
+                        cy = get_overlap_center(b1[2], b1[3], b2[2], b2[3], tol_y/2)
+                        cz = get_overlap_center(b1[4], b1[5], b2[4], b2[5], tol_z/2)
                         
                         if cx is not None and cy is not None and cz is not None:
-                            box_size = max(0.06, tol * 2)
+                            # 1. Independent Box Sizes
+                            box_size_x = max(0.06, tol_x * 2)
+                            box_size_y = max(0.06, tol_y * 2)
+                            box_size_z = max(0.06, tol_z * 2)
 
-                            ox = max(0.0001, min(b1[1]+tol, b2[1]+tol) - max(b1[0]-tol, b2[0]-tol))
-                            oy = max(0.0001, min(b1[3]+tol, b2[3]+tol) - max(b1[2]-tol, b2[2]-tol))
-                            oz = max(0.0001, min(b1[5]+tol, b2[5]+tol) - max(b1[4]-tol, b2[4]-tol))
+                            # 2. Independent Overlap Volumes
+                            ox = max(0.0001, min(b1[1]+tol_x, b2[1]+tol_x) - max(b1[0]-tol_x, b2[0]-tol_x))
+                            oy = max(0.0001, min(b1[3]+tol_y, b2[3]+tol_y) - max(b1[2]-tol_y, b2[2]-tol_y))
+                            oz = max(0.0001, min(b1[5]+tol_z, b2[5]+tol_z) - max(b1[4]-tol_z, b2[4]-tol_z))
                             min_overlap = min(ox, oy, oz)
-                            
+
+                            # ... (Keep your box_size and min_overlap math here) ...
                             if min_overlap == ox: bolt_dir = (1, 0, 0)
                             elif min_overlap == oy: bolt_dir = (0, 1, 0)
                             else: bolt_dir = (0, 0, 1)
 
-                            # --- UPDATED: Check against our new geometric hole_data list ---
+                            # --- NEW: SEARCH THE MESHES FOR LOOP HOLES ---
+                            # Define the bounds of our connection zone
+                            j_bounds = [
+                                cx - box_size_x/2, cx + box_size_x/2,
+                                cy - box_size_y/2, cy + box_size_y/2,
+                                cz - box_size_z/2, cz + box_size_z/2
+                            ]
+                            
+                            # Scan both colliding panels for holes
+                            mesh1 = panel_meshes[i]
+                            mesh2 = panel_meshes[j]
+                            raw_holes = find_loop_holes_in_mesh(mesh1, j_bounds) + find_loop_holes_in_mesh(mesh2, j_bounds)
+                            
+                            # Deduplicate (Sheet metal has a top and bottom rim for every hole. 
+                            # This merges rims that are less than 5mm apart so we don't spawn double screws!)
                             local_holes = []
-                            for h in hole_data:
-                                dist = ((cx-h["x"])**2 + (cy-h["y"])**2 + (cz-h["z"])**2)**0.5
-                                if dist <= (tol * 2):  
+                            for h in raw_holes:
+                                is_dup = False
+                                for uh in local_holes:
+                                    dist = ((h["x"]-uh["x"])**2 + (h["y"]-uh["y"])**2 + (h["z"]-uh["z"])**2)**0.5
+                                    if dist < 0.005: 
+                                        is_dup = True
+                                        break
+                                if not is_dup:
                                     local_holes.append(h)
                                     
                             detected_joints.append({
                                 "gid": f"J-{conn_id:03d}",
                                 "cx": cx, "cy": cy, "cz": cz,
-                                "box_size": box_size,
+                                "box_size_x": box_size_x, 
+                                "box_size_y": box_size_y,
+                                "box_size_z": box_size_z,
                                 "bolt_dir": bolt_dir,
                                 "local_holes": local_holes
                             })
@@ -474,11 +566,16 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                     cx, cy, cz = j["cx"], j["cy"], j["cz"]
                     bolt_dir = j["bolt_dir"]
                     local_holes = j["local_holes"]
-                    box_size = j["box_size"]
+                    
+                    # Unpack rectangular sizes
+                    box_size_x = j["box_size_x"]
+                    box_size_y = j["box_size_y"]
+                    box_size_z = j["box_size_z"]
                     
                     ovr = st.session_state.manual_overrides.get(gid, {"rx": 0, "ry": 0, "rz": 0, "tx": 0.0, "ty": 0.0, "tz": 0.0})
                     
-                    zone_mesh = pv.Cube(center=(cx, cy, cz), x_length=box_size, y_length=box_size, z_length=box_size)
+                    # Draw a true rectangular wireframe zone
+                    zone_mesh = pv.Cube(center=(cx, cy, cz), x_length=box_size_x, y_length=box_size_y, z_length=box_size_z)
                     plotter.add_mesh(zone_mesh, color="lime", style="wireframe", opacity=0.1)
 
                     bolt_color = "lime" if (selected_gid == gid and highlight_selected) else "gold"
@@ -522,21 +619,24 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
 
                         t = 0.005 # 5mm sheet metal thickness
                         bracket_mesh = None
-                        
+
                         # Build the faces of the "cube" that actually contain holes
                         if x_holes:
                             avg_x = sum(h["x"] for h in x_holes) / len(x_holes)
-                            leg = pv.Cube(center=(avg_x - cx, 0, 0), x_length=t, y_length=box_size, z_length=box_size)
+                            # Normal is X, so it stretches across Y and Z
+                            leg = pv.Cube(center=(avg_x - cx, 0, 0), x_length=t, y_length=box_size_y, z_length=box_size_z)
                             bracket_mesh = leg if bracket_mesh is None else bracket_mesh + leg
                             
                         if y_holes:
                             avg_y = sum(h["y"] for h in y_holes) / len(y_holes)
-                            leg = pv.Cube(center=(0, avg_y - cy, 0), x_length=box_size, y_length=t, z_length=box_size)
+                            # Normal is Y, so it stretches across X and Z
+                            leg = pv.Cube(center=(0, avg_y - cy, 0), x_length=box_size_x, y_length=t, z_length=box_size_z)
                             bracket_mesh = leg if bracket_mesh is None else bracket_mesh + leg
                             
                         if z_holes:
                             avg_z = sum(h["z"] for h in z_holes) / len(z_holes)
-                            leg = pv.Cube(center=(0, 0, avg_z - cz), x_length=box_size, y_length=box_size, z_length=t)
+                            # Normal is Z, so it stretches across X and Y
+                            leg = pv.Cube(center=(0, 0, avg_z - cz), x_length=box_size_x, y_length=box_size_y, z_length=t)
                             bracket_mesh = leg if bracket_mesh is None else bracket_mesh + leg
 
                         # Render and log the resulting bracket
@@ -565,10 +665,41 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                                 "Override Trans X (mm)": ovr["tx"], "Override Trans Y (mm)": ovr["ty"], "Override Trans Z (mm)": ovr["tz"],
                                 "Override Rot X (deg)": ovr["rx"], "Override Rot Y (deg)": ovr["ry"], "Override Rot Z (deg)": ovr["rz"]
                             })
+
+                    elif connection_type == "Self-Drilling Screws":
+                        # NO pre-drilled holes found, so we calculate two arbitrary screws through the center!
+                        bolt1 = pv.Cylinder(center=(0,0,0), direction=bolt_dir, radius=0.003, height=0.04)
+                        bolt2 = pv.Cylinder(center=(0,0,0), direction=bolt_dir, radius=0.003, height=0.04)
+                        
+                        if ovr["rx"] != 0: bolt1.rotate_x(ovr["rx"], inplace=True); bolt2.rotate_x(ovr["rx"], inplace=True)
+                        if ovr["ry"] != 0: bolt1.rotate_y(ovr["ry"], inplace=True); bolt2.rotate_y(ovr["ry"], inplace=True)
+                        if ovr["rz"] != 0: bolt1.rotate_z(ovr["rz"], inplace=True); bolt2.rotate_z(ovr["rz"], inplace=True)
+                        
+                        # Space them apart slightly based on the perpendicular axis
+                        shift = 0.015
+                        s_dir = (1,0,0) if bolt_dir[2] != 0 else (0,0,1) 
+                        
+                        bolt1.translate((cx + s_dir[0]*shift + ovr["tx"]/1000.0, cy + s_dir[1]*shift + ovr["ty"]/1000.0, cz + s_dir[2]*shift + ovr["tz"]/1000.0), inplace=True)
+                        bolt2.translate((cx - s_dir[0]*shift + ovr["tx"]/1000.0, cy - s_dir[1]*shift + ovr["ty"]/1000.0, cz - s_dir[2]*shift + ovr["tz"]/1000.0), inplace=True)
+                        
+                        plotter.add_mesh(bolt1, color=bolt_color, smooth_shading=True)
+                        plotter.add_mesh(bolt2, color=bolt_color, smooth_shading=True)
+                        recommended_fasteners += 2
+                        
+                        connection_table_data.append({
+                            "GlobalId": f"{gid}-Screw",
+                            "Part Type": "Fastener (Self-Drilling)",
+                            "Name": "Generated Tek-Screw",
+                            "Base Loc X (m)": round(cx, 4), "Base Loc Y (m)": round(cy, 4), "Base Loc Z (m)": round(cz, 4),
+                            "IFC Axis X": round(bolt_dir[0], 4), "IFC Axis Y": round(bolt_dir[1], 4), "IFC Axis Z": round(bolt_dir[2], 4),
+                            "Override Trans X (mm)": ovr["tx"], "Override Trans Y (mm)": ovr["ty"], "Override Trans Z (mm)": ovr["tz"],
+                            "Override Rot X (deg)": ovr["rx"], "Override Rot Y (deg)": ovr["ry"], "Override Rot Z (deg)": ovr["rz"]
+                        })
                             
                     elif connection_type == "Welding":
-                        # ... (Keep your existing Welding fallback code here exactly the same) ...
-                        weld_dims = (0.005, box_size, box_size) if bolt_dir[0] != 0 else ((box_size, 0.005, box_size) if bolt_dir[1] != 0 else (box_size, box_size, 0.005))
+                        # Map the 5mm weld plate to the independent rectangular dimensions
+                        weld_dims = (0.005, box_size_y, box_size_z) if bolt_dir[0] != 0 else ((box_size_x, 0.005, box_size_z) if bolt_dir[1] != 0 else (box_size_x, box_size_y, 0.005))
+                        
                         weld_mesh = pv.Cube(center=(0,0,0), x_length=weld_dims[0], y_length=weld_dims[1], z_length=weld_dims[2])
                         
                         if ovr["rx"] != 0: weld_mesh.rotate_x(ovr["rx"], inplace=True)
@@ -578,7 +709,6 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                         weld_mesh.translate((cx + ovr["tx"]/1000.0, cy + ovr["ty"]/1000.0, cz + ovr["tz"]/1000.0), inplace=True)
                         plotter.add_mesh(weld_mesh, color="purple", opacity=0.9, smooth_shading=True)
                         recommended_welds += 1
-                        
                         connection_table_data.append({
                             "GlobalId": gid,
                             "Part Type": "Weld Bead",
@@ -597,44 +727,21 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
             # --- RENDER 3D MODEL ---
             stpyvista(plotter)
             
-            # --- NEW: RENDER THE NATIVE DATA TABLE ---
-            if 'as_designed_data' in locals() and len(as_designed_data) > 0:
-                st.markdown("---")
-                st.markdown("### Native Connection Data & Export")
-                
-                # Convert the tracked data into a Pandas DataFrame
-                df_as_designed = pd.DataFrame(as_designed_data)
-                
-                # Display the interactive table on the screen
-                st.dataframe(df_as_designed, use_container_width=True)
-                
-                # Generate the CSV for the Robot Programmer
-                csv_native = df_as_designed.to_csv(index=False).encode('utf-8')
-                
-                st.download_button(
-                    label="Download As-Designed Orientations & Coordinates (CSV)",
-                    data=csv_native,
-                    file_name='native_connections_bom.csv',
-                    mime='text/csv',
-                )
+            # --- RENDER THE NATIVE DATA TABLE ---
+            st.markdown("---")
+            st.markdown("### Native Connection Data & Export")
+            df_as_designed = pd.DataFrame(as_designed_data)
+            st.dataframe(df_as_designed, use_container_width=True)
+            if not df_as_designed.empty:
+                st.download_button("Download As-Designed Orientations (CSV)", df_as_designed.to_csv(index=False).encode('utf-8'), 'native_connections.csv', 'text/csv')
             
-            # --- NEW: RENDER THE DATA TABLE ---
-            if 'connection_table_data' in locals() and len(connection_table_data) > 0:
-                st.markdown("---")
-                st.markdown("### Generated Connection Coordinates & BOM")
-                df_connections = pd.DataFrame(connection_table_data)
-                
-                # Render clean dataframe
-                st.dataframe(df_connections, use_container_width=True)
-                
-                # Optional: Add a download button so the robot programmer can export the CSV!
-                csv = df_connections.to_csv(index=False).encode('utf-8')
-                st.download_button(
-                    label="Download Connection Elements & Coordinates (CSV)",
-                    data=csv,
-                    file_name='panel_connections_bom.csv',
-                    mime='text/csv',
-                )
+            # --- RENDER THE GENERATED DATA TABLE ---
+            st.markdown("---")
+            st.markdown("### Generated Connection Coordinates & BOM")
+            df_connections = pd.DataFrame(connection_table_data)
+            st.dataframe(df_connections, use_container_width=True)
+            if not df_connections.empty:
+                st.download_button("Download Generated Connections (CSV)", df_connections.to_csv(index=False).encode('utf-8'), 'generated_connections.csv', 'text/csv')
         except Exception as e:
             st.error(f"Error during Connection Analysis: {e}")
         

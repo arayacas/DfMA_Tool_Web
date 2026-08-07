@@ -77,6 +77,7 @@ except Exception:
     pass
 
 st.title("3D Panel Visualizer")
+assemble_flat = st.toggle("🔄 Evaluate Panel Laying Down (Rotate 90°)", value=False)
 
 # --- 3. LOAD CLOUD-SAFE CONSTRAINTS ---
 # Instead of a hardcoded folder, we grab the unique temp file path generated on Start.py
@@ -97,9 +98,13 @@ default_allowed_holes_mm = params["allowed_holes_mm"]
 default_hole_size_tol_mm = params ["hole_size_tol_mm"]
 default_part_max_length_mm = params["part_max_length_mm"]
 
-
-max_height = params["max_height"]
-max_length = params["max_length"]
+if assemble_flat:
+    max_length = params["max_height"]
+    max_height = params["max_length"]
+else:
+    max_height = params["max_height"]
+    max_length = params["max_length"]
+    
 hole_tol = params["hole_tol"]
 track_hole_tol = params["track_hole_tol"]
 track_cont_tol = params["track_cont_tol"]
