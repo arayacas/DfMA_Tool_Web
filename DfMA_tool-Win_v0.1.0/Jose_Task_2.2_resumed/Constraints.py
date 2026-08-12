@@ -484,11 +484,12 @@ def check_track_hole_alignment(elements, tolerance_m=0.02):
     }
 
 # Rule 6: Check for max individual element weight. 
-def check_max_weight(elements, max_weight_kg=50.0, density_kg_m3=7850):
+def check_max_weight(elements, max_weight_kg=20.0, density_kg_m3=7850, analytical_area_m2=0.000357):
     """
     Calculates the mass of each steel element (Volume * Density).
     Checks IFC Property Sets first, then falls back to PyVista geometric volume.
-    Fails any element that exceeds the manual lifting limit.
+    Includes an analytical sanity check based on SSMA true cross-section area.
+    Fails any element that exceeds the ABB 2600 robot payload limit.
     """
     settings = ifcopenshell.geom.settings()
     settings.set(settings.USE_WORLD_COORDS, True)
@@ -502,7 +503,6 @@ def check_max_weight(elements, max_weight_kg=50.0, density_kg_m3=7850):
         # --- PATH A: Try to find "Smart Data" (IFC Quantities) ---
         try:
             psets = ifcopenshell.util.element.get_psets(element)
-            # Look in standard Quantity Take-Off (QTO) sets
             if "BaseQuantities" in psets and "NetVolume" in psets["BaseQuantities"]:
                 vol_m3 = psets["BaseQuantities"]["NetVolume"]
             elif "Qto_WallBaseQuantities" in psets and "NetVolume" in psets["Qto_WallBaseQuantities"]:
@@ -510,7 +510,7 @@ def check_max_weight(elements, max_weight_kg=50.0, density_kg_m3=7850):
         except Exception:
             pass
 
-        # --- PATH B: Fallback to "Dumb Geometry" (PyVista) ---
+        # --- PATH B: High-Detail Geometry (PyVista) ---
         if vol_m3 is None:
             try:
                 shape = ifcopenshell.geom.create_shape(settings, element)
@@ -522,9 +522,23 @@ def check_max_weight(elements, max_weight_kg=50.0, density_kg_m3=7850):
                 pv_faces[:, 0] = 3
                 pv_faces[:, 1:] = np.array(faces).reshape((-1, 3))
                 
-                # Create a cleaned, closed mesh and calculate its spatial volume
+                # Create a cleaned, closed mesh
                 mesh = pv.PolyData(verts, pv_faces.flatten()).clean()
+                
+                # Since the IFC is highly detailed (true C-shapes), this is highly accurate
                 vol_m3 = mesh.volume
+
+                # --- PATH C (Sanity Check): The Analytical Override ---
+                # Calculate length via the bounding box's longest dimension
+                bounds = mesh.bounds
+                length_m = max(bounds[1]-bounds[0], bounds[3]-bounds[2], bounds[5]-bounds[4])
+                analytical_vol = length_m * analytical_area_m2
+                
+                # If PyVista volume is wildly off from the math (e.g. > 50% difference), 
+                # it means the mesh might be a solid block after all. Let's use the math one!
+                if abs(vol_m3 - analytical_vol) / analytical_vol > 0.5:
+                    vol_m3 = analytical_vol
+
             except Exception:
                 pass
 
@@ -537,19 +551,19 @@ def check_max_weight(elements, max_weight_kg=50.0, density_kg_m3=7850):
                 if element not in violating_elements:
                     violating_elements.append(element)
 
-    # FORMAT THE REPORT
+    # --- FORMAT THE REPORT ---
     if len(weight_data) == 0:
         return {"passed": True, "message": "Could not calculate volume for any elements.", "violating_elements": []}
 
-    # Find the heaviest piece for the report
+    # Find the heaviest piece for the UI report
     heaviest_piece = max(weight_data, key=lambda x: x["mass_kg"])
     max_mass = heaviest_piece["mass_kg"]
 
     if len(violating_elements) == 0:
-        message = f"Passed: Heaviest piece is {max_mass:.1f} kg (Limit: {max_weight_kg} kg)."
+        message = f"Passed: Heaviest piece is {max_mass:.2f} kg (Limit: {max_weight_kg} kg)."
         passed = True
     else:
-        message = f"Failed: Found {len(violating_elements)} oversized piece(s)! Heaviest is {max_mass:.1f} kg. Your parts are too heavy for your robot to carry, consider using shorter parts or spiting a member into smaller members for assembly (increases number of parts)."
+        message = f"Failed: Found {len(violating_elements)} oversized piece(s)! Heaviest is {max_mass:.2f} kg. Your parts are too heavy for your robot to carry, consider using shorter parts or splitting a member into smaller members for assembly (increases number of parts)."
         passed = False
 
     return {
@@ -1084,78 +1098,103 @@ def check_slanted_beam_angle(elements, max_angle_degrees=45.0, tolerance=2.0):
         "angle_details": angle_details
     }
 
-def check_total_assembly_payload(elements, max_payload_kg=100.0):
+def check_total_assembly_payload(elements, max_payload_kg=100.0, density_kg_m3=7850, analytical_area_m2=0.000357):
     """
     Rule X (DfMA): Total Assembly Payload
-    Calculates the cumulative weight of the entire panel to ensure it does not 
-    exceed the hoisting/crane limits.
+    Calculates the cumulative weight of the entire panel. 
+    Excludes elements that triggered the 'Analytical Override' from the final pass/fail 
+    logic, but flags their estimated weight to the user for manual review.
     """
     settings = ifcopenshell.geom.settings()
     settings.set(settings.USE_WORLD_COORDS, True)
     
     total_weight_kg = 0.0
+    total_analytical_weight_kg = 0.0  # New tracker for override members
     payload_details = []
     
-    for e in elements:
-        weight = 0.0
-        found_weight = False
+    for element in elements:
+        vol_m3 = None
+        calc_method = "Unknown"
         
-        # --- 1. SMART CHECK: Look for embedded IFC Properties ---
+        # --- PATH A: Smart Data (IFC Quantities) ---
         try:
-            psets = ifcopenshell.util.element.get_psets(e)
-            for pset_name, pset_data in psets.items():
-                if isinstance(pset_data, dict):
-                    # Search for any property containing 'weight' or 'mass'
-                    for key, val in pset_data.items():
-                        if ('weight' in key.lower() or 'mass' in key.lower()) and isinstance(val, (int, float)):
-                            weight = float(val)
-                            found_weight = True
-                            break
-                if found_weight: break
+            psets = ifcopenshell.util.element.get_psets(element)
+            if "BaseQuantities" in psets and "NetVolume" in psets["BaseQuantities"]:
+                vol_m3 = psets["BaseQuantities"]["NetVolume"]
+                calc_method = "IFC Property (NetVolume)"
+            elif "Qto_WallBaseQuantities" in psets and "NetVolume" in psets["Qto_WallBaseQuantities"]:
+                vol_m3 = psets["Qto_WallBaseQuantities"]["NetVolume"]
+                calc_method = "IFC Property (Qto_WallBaseQuantities)"
         except Exception:
             pass
-                
-        # --- 2. FALLBACK: Linear Meter Estimation ---
-        # If the architect didn't include weights, we estimate based on length
-        if not found_weight:
+
+        # --- PATH B & C: High-Detail Geometry & Analytical Override ---
+        if vol_m3 is None:
             try:
-                shape = ifcopenshell.geom.create_shape(settings, e)
+                shape = ifcopenshell.geom.create_shape(settings, element)
                 verts = np.array(shape.geometry.verts).reshape((-1, 3))
+                faces = shape.geometry.faces
                 
-                min_c = verts.min(axis=0)
-                max_c = verts.max(axis=0)
+                num_triangles = len(faces) // 3
+                pv_faces = np.empty((num_triangles, 4), dtype=int)
+                pv_faces[:, 0] = 3
+                pv_faces[:, 1:] = np.array(faces).reshape((-1, 3))
                 
-                # Find the longest dimension (the length of the stud/track) in meters
-                length_m = np.max(max_c - min_c)
+                mesh = pv.PolyData(verts, pv_faces.flatten()).clean()
+                vol_m3 = mesh.volume
+                calc_method = "PyVista 3D Mesh Volume"
+
+                # Path C: Sanity Check 
+                bounds = mesh.bounds
+                length_m = max(bounds[1]-bounds[0], bounds[3]-bounds[2], bounds[5]-bounds[4])
+                analytical_vol = length_m * analytical_area_m2
                 
-                # Standard LGS estimation: ~2.5 kg per linear meter of steel
-                weight = length_m * 2.5 
+                # If mesh volume is crazy, it's likely a solid bounding box.
+                if abs(vol_m3 - analytical_vol) / analytical_vol > 0.5:
+                    vol_m3 = analytical_vol
+                    calc_method = f"Analytical Override ({length_m:.2f}m length)"
+
             except Exception:
-                weight = 0.0
-                
-        total_weight_kg += weight
+                vol_m3 = 0.0
+                calc_method = "Failed to calculate"
+
+        # --- CALCULATE MASS ---
+        weight = vol_m3 * density_kg_m3 if vol_m3 else 0.0
+        
+        # --- DIVERT OVERRIDE WEIGHTS ---
+        if "Analytical Override" in calc_method:
+            total_analytical_weight_kg += weight
+        else:
+            total_weight_kg += weight
         
         # Record the part for our data table
         payload_details.append({
-            "Element ID": e.GlobalId,
-            "Type": e.Name if e.Name else "Unknown",
+            "Element ID": element.GlobalId,
+            "Type": element.Name if hasattr(element, 'Name') and element.Name else "Unknown",
             "Weight (kg)": round(weight, 2),
-            "Calculation Method": "IFC Property" if found_weight else "Linear Estimate (2.5kg/m)"
+            "Calculation Method": calc_method
         })
         
+    # --- EVALUATE PASS/FAIL (Based strictly on reliable weights) ---
     passed = total_weight_kg <= max_payload_kg
     
     if passed:
-        message = f"Passed: Total assembled panel weight is {total_weight_kg:.1f} kg. (Safe limit: {max_payload_kg} kg)."
+        message = f"Passed: Official assembled panel weight is {total_weight_kg:.1f} kg. (Safe limit: {max_payload_kg} kg)."
     else:
-        message = f"Failed: Panel is too heavy to hoist safely! Total weight is {total_weight_kg:.1f} kg. (Limit: {max_payload_kg} kg). Consider using less elements/parts to relieve the Panel's weight. Otherwise, make a smaller panel by divding your panel in smaller assembly sequences by using Revit or Equivalent Software."
+        message = f"Failed: Panel is too heavy to hoist safely! Official weight is {total_weight_kg:.1f} kg. (Limit: {max_payload_kg} kg). Consider using fewer elements or splitting the panel into smaller assembly sequences."
+        
+    # --- APPEND NOTIFICATION IF OVERRIDES EXIST ---
+    if total_analytical_weight_kg > 0:
+        warning = f"\n\n⚠️ Note: An estimated {total_analytical_weight_kg:.1f} kg was excluded from this official payload. Those members triggered the 'Analytical Override' (likely modeled as low-LOD solid blocks rather than thin-walled steel). Please check the 'Numerical Data' table to verify them."
+        message += warning
         
     return {
         "passed": passed,
         "message": message,
-        "violating_elements": elements if not passed else [], # If it fails, the WHOLE panel paints red
+        "violating_elements": elements if not passed else [],
         "payload_details": payload_details,
-        "total_weight": total_weight_kg
+        "total_weight": total_weight_kg,
+        "total_excluded_weight": total_analytical_weight_kg # Added to dict in case you want to use it for Streamlit UI metrics!
     }
 
 def check_hole_border_clearance(elements, min_clearance_mm=20.0):

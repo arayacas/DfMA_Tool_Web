@@ -154,9 +154,70 @@ ROBOT_PRESETS = {
             "J6": [-400, 400]
         }
     },
-
-"DOBOT CR10": {
-        "max_length": 4000,
+"ABB IRB 2600-20/1.65 + Dobot CR10": {
+        "max_length": 1.65,
+        "max_height": 4.00,
+        "hole_tol": 0.010,
+        "track_cont_tol": 0.020,
+        "track_hole_tol": 0.20,
+        "max_weight": 20.00,             # Matched to 20kg payload
+        "allowed_holes_mm": "3, 12",
+        "hole_size_tol_mm": 2.0,
+        "max_parts": 50,
+        "stud_spacing_mm": "600, 100",
+        "stud_tol_mm": 50, 
+        "joist_depth_tolerance_mm": 100,
+        "part_max_length_mm": 4000,      # Matched to 1650mm reach
+        "part_max_height_mm": 1650,
+        "part_max_depth_mm" : 1650,
+        "hole_border_clearance_mm": 20,
+        "slanted_beam_angle" : 45,
+        "total_assembly_payload_limit_kg": 100.0,
+        "CoG_radius_tolerance_mm" : 250,
+        # Hardware specific additions
+        "repeatability_mm": 0.04,
+        "axis_limits_deg": {
+            "J1": [-180, 180],
+            "J2": [-95, 155],
+            "J3": [-180, 75],
+            "J4": [-400, 400],
+            "J5": [-120, 120],
+            "J6": [-400, 400]
+        }
+    },
+"ABB IRB 2600-20/1.65 + ABB IRBT 2005 Linear Unit + Dobot CR10": {
+        "max_length": 4.00,
+        "max_height": 4.00,
+        "hole_tol": 0.010,
+        "track_cont_tol": 0.020,
+        "track_hole_tol": 0.20,
+        "max_weight": 20.00,             # Matched to 20kg payload
+        "allowed_holes_mm": "3, 12",
+        "hole_size_tol_mm": 2.0,
+        "max_parts": 50,
+        "stud_spacing_mm": "600, 100",
+        "stud_tol_mm": 50, 
+        "joist_depth_tolerance_mm": 100,
+        "part_max_length_mm": 4000,      # Matched to 1650mm reach
+        "part_max_height_mm": 1650,
+        "part_max_depth_mm" : 1650,
+        "hole_border_clearance_mm": 20,
+        "slanted_beam_angle" : 45,
+        "total_assembly_payload_limit_kg": 100.0,
+        "CoG_radius_tolerance_mm" : 250,
+        # Hardware specific additions
+        "repeatability_mm": 0.04,
+        "axis_limits_deg": {
+            "J1": [-180, 180],
+            "J2": [-95, 155],
+            "J3": [-180, 75],
+            "J4": [-400, 400],
+            "J5": [-120, 120],
+            "J6": [-400, 400]
+        }
+    },
+"DOBOT CR10 (Helper Robot)": {
+        "max_length": 1.525,
         "max_height": 1.525,
         "hole_tol": 0.010,
         "track_cont_tol": 0.020,
@@ -189,8 +250,8 @@ ROBOT_PRESETS = {
         }
     },
 "KUKA KR 250 R2700-2": {
-        "max_length": 2.701,             # 2.7 meter reach
-        "max_height": 2.701,
+        "max_length": 2.700,             # 2.7 meter reach
+        "max_height": 2.700,
         "hole_tol": 0.010,
         "track_cont_tol": 0.020,
         "track_hole_tol": 0.20,
@@ -219,7 +280,39 @@ ROBOT_PRESETS = {
             "J5": [-122.5, 122.5],
             "J6": [-350, 350]
         }
-    }
+    },
+"KUKA KR 250 R2700-2 + Dobot CR10": {
+        "max_length": 2.700,             # 2.7 meter reach
+        "max_height": 4.000,
+        "hole_tol": 0.010,
+        "track_cont_tol": 0.020,
+        "track_hole_tol": 0.20,
+        "max_weight": 250.00,            # Matched to KR 250 payload limit
+        "allowed_holes_mm": "3, 12",
+        "hole_size_tol_mm": 2.0,
+        "max_parts": 50,
+        "stud_spacing_mm": "600, 100",
+        "stud_tol_mm": 50, 
+        "joist_depth_tolerance_mm": 100,
+        "part_max_length_mm": 4200,      # Matched to our edge-mounted maximum width calculation
+        "part_max_height_mm": 2701,
+        "part_max_depth_mm" : 2400,      # Constrained to the safe effective reach for tooling
+        "hole_border_clearance_mm": 20,
+        "slanted_beam_angle" : 45,
+        "total_assembly_payload_limit_kg": 250.0,
+        "CoG_radius_tolerance_mm" : 250,
+        # Hardware specific additions
+        "effective_reach_mm": 2400,      # Safety limit factoring in the nail gun/gripper
+        "repeatability_mm": 0.05,
+        "axis_limits_deg": {
+            "J1": [-185, 185],
+            "J2": [-140, -5],
+            "J3": [-120, 168],
+            "J4": [-350, 350],
+            "J5": [-122.5, 122.5],
+            "J6": [-350, 350]
+        }
+    },
 }
 # Ensure session state is initialized on first load
 if "design_params" not in st.session_state:

@@ -2,6 +2,7 @@
 Description: 
     This script runs the DfMA tool through streamlit (Web Deployment Version)
     Extracts isolated IfcElementAssembly panels from massive building files.
+    *UPDATED: Now utilizes IfcPatch to natively convert all files to Metric upon upload.*
 
 ------
 Dependencies:
@@ -9,6 +10,7 @@ Streamlit
 IfcOpenShell
 stPyVista
 trame
+ifcpatch
 ------
 Author: Jose Pablo Araya Castillo
 Date: May 12, 2026
@@ -18,14 +20,12 @@ import streamlit as st
 import os
 import tempfile
 from PIL import Image
-import UI_Helpers
-import ifcopenshell
+import ifcopenshell 
+import ifcpatch 
 import ifcopenshell.geom
 import pyvista as pv
 from stpyvista import stpyvista
 import numpy as np
-import os
-from PIL import Image
 import sys
 
 # --- DYNAMIC PATH RESOLUTION (FOR NESTED PAGES) ---
@@ -33,9 +33,6 @@ import sys
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # 2. Go up TWO levels:
-#    First ".." escapes the 'pages' folder.
-#    Second ".." escapes 'Jose_Task_2.2_resumed' into 'DfMA_tool-Win_v0.1.0'
-#    Then enter the 'Images' folder.
 images_dir = os.path.join(current_dir, "..", "..", "Images")
 
 # 3. Path hack to allow importing UI_Helpers from the parent directory
@@ -81,10 +78,19 @@ st.markdown("#### BIM .ifc Big Building")
 # --- CACHE FUNCTIONS ---
 @st.cache_resource
 def load_ifc(file_path):
-    return ifcopenshell.open(file_path)
+    model = ifcopenshell.open(file_path)
+    
+    # 🛠️ IfcPatch Execution: Force the entire model to Metric upstream
+    patched_model = ifcpatch.execute({
+        "file": model,
+        "recipe": "ConvertLengthUnit",
+        "arguments": ["METER"] 
+    })
+    
+    return patched_model if patched_model else model
 
 @st.cache_data(show_spinner="Calculating Ghost Building Layout. This may take about 5 minutes...")
-def get_all_panel_bounds(_model, _panel_names_dict): # 🛠️ Includes the underscore fix!
+def get_all_panel_bounds(_model, _panel_names_dict): 
     """Calculates the global bounding box for every panel to create the Ghost Building."""
     settings = ifcopenshell.geom.settings()
     settings.set(settings.USE_WORLD_COORDS, True)
@@ -117,7 +123,7 @@ def get_all_panel_bounds(_model, _panel_names_dict): # 🛠️ Includes the unde
 
 # --- UPLOAD & RENDER LOGIC ---
 if 'current_ifcbig_path' in st.session_state and os.path.exists(st.session_state['current_ifcbig_path']):
-    st.success("Big IFC Loaded Successfully!")
+    st.success("Big IFC Loaded Successfully and Patching to Metric!")
     
     if st.button("Upload Different Big IFC"):
         try:
@@ -174,15 +180,59 @@ if 'current_ifcbig_path' in st.session_state and os.path.exists(st.session_state
             isolated_ifc_data = extract_panel_to_ifc_string(ifc_model, active_panel)
             panel_bounds = get_all_panel_bounds(ifc_model, panel_dict)
 
+            # ==========================================
+            # 🛠️ 5.5 GENERATE COMBINED MESH FOR VIEWER & STL
+            # ==========================================
+            settings = ifcopenshell.geom.settings()
+            settings.set(settings.USE_WORLD_COORDS, True)
+            
+            combined_mesh = pv.PolyData()
+            
+            for part in panel_members:
+                try:
+                    shape = ifcopenshell.geom.create_shape(settings, part)
+                    verts = shape.geometry.verts
+                    faces = shape.geometry.faces
+                    vertices = np.array(verts, dtype=np.float32).reshape((-1, 3))
+                    faces_raw = np.array(faces, dtype=np.int32).reshape((-1, 3))
+                    padding = np.full((faces_raw.shape[0], 1), 3, dtype=np.int32) 
+                    faces_pv = np.hstack((padding, faces_raw)).flatten()
+                    
+                    mesh = pv.PolyData(vertices, faces_pv)
+                    # Merge all sub-components into one big PyVista object
+                    combined_mesh = combined_mesh.merge(mesh) if combined_mesh.n_points > 0 else mesh
+                except Exception: 
+                    pass
+
+            # PROCESS FOR PHYSICS SIMULATION (Center only)
+            stl_data = None
+            if combined_mesh.n_points > 0:
+                sim_mesh = combined_mesh.copy()
+                
+                # 1. Solve Global Origin Problem: Center mesh at (0, 0, 0)
+                center_pt = sim_mesh.center
+                sim_mesh.translate([-center_pt[0], -center_pt[1], -center_pt[2]], inplace=True)
+                
+                # NOTE: The mesh.scale() step was removed here because IfcPatch 
+                # already guaranteed the raw extracted geometry is in Metric Meters!
+
+                # 3. Save as binary STL to temporary file
+                with tempfile.NamedTemporaryFile(suffix=".stl", delete=False) as tmp_stl:
+                    sim_mesh.save(tmp_stl.name)
+                    with open(tmp_stl.name, "rb") as f:
+                        stl_data = f.read()
+                os.remove(tmp_stl.name)
+
+
             st.markdown("---")
             
             # ==========================================
             # TOP ROW: STATS & ISOLATED VIEWER
             # ==========================================
-            left_col, right_col = st.columns([1, 2]) # Tweaked ratio slightly to fit 3D better
+            left_col, right_col = st.columns([1, 2]) 
             
             with left_col:
-                st.markdown(f"###Panel: {selected_panel_name}")
+                st.markdown(f"### Panel: {selected_panel_name}")
                 st.write(f"**Total Sub-components:** {len(panel_members)}")
                 
                 # Show completion progress
@@ -194,8 +244,11 @@ if 'current_ifcbig_path' in st.session_state and os.path.exists(st.session_state
                     if panel_id not in st.session_state['extracted_panels']:
                         st.session_state['extracted_panels'].append(panel_id)
 
+                st.markdown("#### Exports")
+                
+                # Original IFC Download (Now inherently Metric!)
                 st.download_button(
-                    label=f"Download {selected_panel_name}.ifc",
+                    label=f"📦 Download {selected_panel_name}.ifc (Metric)",
                     data=isolated_ifc_data,
                     file_name=f"{selected_panel_name}.ifc",
                     mime="application/octet-stream",
@@ -203,48 +256,40 @@ if 'current_ifcbig_path' in st.session_state and os.path.exists(st.session_state
                     args=(selected_panel_name,) 
                 )
 
+                # NEW: Simulation STL Download (appears below the IFC button)
+                if stl_data:
+                    st.download_button(
+                        label=f"🤖 Download STL for Simulation (Centered)",
+                        data=stl_data,
+                        file_name=f"{selected_panel_name}_Sim.stl",
+                        mime="application/octet-stream",
+                        help="Exports a centered, metric (meters) STL perfect for Gazebo, MuJoCo, or Isaac Sim."
+                    )
+
             with right_col:
                 st.markdown("### Isolated Panel View")
                 # PLOTTER 1: The Isolated Panel
                 plotter_iso = pv.Plotter(window_size=[800, 800])
-                settings = ifcopenshell.geom.settings()
-                settings.set(settings.USE_WORLD_COORDS, True)
                 
-                for part in panel_members:
-                    try:
-                        shape = ifcopenshell.geom.create_shape(settings, part)
-                        verts = shape.geometry.verts
-                        faces = shape.geometry.faces
-                        vertices = np.array(verts, dtype=np.float32).reshape((-1, 3))
-                        faces_raw = np.array(faces, dtype=np.int32).reshape((-1, 3))
-                        padding = np.full((faces_raw.shape[0], 1), 3, dtype=np.int32) 
-                        faces_pv = np.hstack((padding, faces_raw)).flatten()
-                        
-                        mesh = pv.PolyData(vertices, faces_pv)
-                        plotter_iso.add_mesh(mesh, color="lightblue", show_edges=True)
-                    except Exception: pass
+                # We plot the ORIGINAL un-scaled/un-centered combined_mesh here 
+                # so it remains visually consistent with the Ghost Building!
+                if combined_mesh.n_points > 0:
+                    plotter_iso.add_mesh(combined_mesh, color="lightblue", show_edges=True)
 
                 plotter_iso.view_isometric() 
-                # UNIQUE KEY added to prevent component collision
                 stpyvista(plotter_iso, key="isolated_viewer")
-
 
             st.markdown("---")
             
             # ==========================================
             # BOTTOM ROW: MACRO GHOST BUILDING
             # ==========================================
-            st.markdown("###Whole Building Context")
+            st.markdown("### Whole Building Context")
             st.info("Macro View: Rotate the building below to see where your active panel (blue) fits into the overall structure. Extracted panels are marked in green.")
             
             # PLOTTER 2: The Ghost Building Context
             plotter_macro = pv.Plotter(window_size=[1200, 1200])
             
-            # 🛠️ NEW: Lists to hold the coordinates and text for our labels
-            label_coords = []
-            label_texts = []
-
-            # Draw the Ghost Boxes
             for p_name, bounds in panel_bounds.items():
                 ghost_box = pv.Box(bounds=bounds)
                 if p_name == selected_panel_name:
@@ -254,32 +299,23 @@ if 'current_ifcbig_path' in st.session_state and os.path.exists(st.session_state
                 else:
                     plotter_macro.add_mesh(ghost_box, color="lightgrey", opacity=0.05, show_edges=True)
 
-                # Calculate the exact 3D center of the bounding box
                 center_x = (bounds[0] + bounds[1]) / 2.0
                 center_y = (bounds[2] + bounds[3]) / 2.0
                 center_z = (bounds[4] + bounds[5]) / 2.0
                 
-                # WEB FIX: Forge the text out of physical 3D geometry!
                 try:
-                    # Create physical 3D letters (PolyData)
                     text_mesh = pv.Text3D(str(p_name), depth=0.05)
-                    
-                    # SCALE FACTOR: IFC building units are usually either strictly meters or mm. 
-                    # Tweak this number! If the text is massive, change to 0.1. If you can't see it, change to 50.0.
                     scale_factor = 0.1 
                     text_mesh.points *= scale_factor 
                     
-                    # Move the physical text exactly to the center of the ghost box
                     text_mesh.translate([
                         center_x - text_mesh.center[0], 
                         center_y - text_mesh.center[1], 
                         center_z - text_mesh.center[2]
                     ], inplace=True)
                     
-                    # Add the physical text and a red anchor dot
                     plotter_macro.add_mesh(text_mesh, color="black")
                     plotter_macro.add_mesh(pv.Sphere(radius=scale_factor*0.1, center=[center_x, center_y, center_z]), color="red")
-                    
                 except Exception:
                     pass
 
@@ -294,7 +330,7 @@ else:
     ifcbigfile = st.file_uploader("Drop a Big IFC file here", type=["ifc"]) 
 
     if ifcbigfile is not None:
-        st.info("Saving and processing Geometry... Please wait.")
+        st.info("Saving, Patcing, and processing Geometry... Please wait.")
         with tempfile.NamedTemporaryFile(delete=False, suffix=".ifc") as tmp_file:
             tmp_file.write(ifcbigfile.getbuffer())
             st.session_state['current_ifcbig_path'] = tmp_file.name

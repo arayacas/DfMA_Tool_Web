@@ -1,12 +1,21 @@
+"""
+Description: 
+    This script runs the DfMA tool through streamlit (Web Deployment Version)
+    Extracts isolated IfcElementAssembly panels from massive building files.
+    *UPDATED: Includes .ZIP STL Export for Robotics Simulation.*
+"""
+
 import streamlit as st
 import os
 import sys
 import json
 import pyvista as pv
 from stpyvista import stpyvista
-import UI_Helpers
 import platform
-import engine
+import tempfile
+import zipfile
+import io
+from PIL import Image
 
 # --- 1. PATH HACK FOR IMPORTS ---
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -15,24 +24,13 @@ if parent_dir not in sys.path:
 
 import Find_elements
 import Constraints
-
-import streamlit as st
-import os
-from PIL import Image
-import sys
+import engine
 
 # --- DYNAMIC PATH RESOLUTION (FOR NESTED PAGES) ---
-# 1. Get the absolute path to the 'pages' folder
 current_dir = os.path.dirname(os.path.abspath(__file__))
-
-# 2. Go up TWO levels:
-#    First ".." escapes the 'pages' folder.
-#    Second ".." escapes 'Jose_Task_2.2_resumed' into 'DfMA_tool-Win_v0.1.0'
-#    Then enter the 'Images' folder.
 images_dir = os.path.join(current_dir, "..", "..", "Images")
 
-# 3. Path hack to allow importing UI_Helpers from the parent directory
-parent_dir = os.path.abspath(os.path.join(current_dir, '..'))
+# Path hack to allow importing UI_Helpers from the parent directory
 if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
 
@@ -70,30 +68,20 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-lablogo_path = os.path.join(images_dir, "horizontal_smart.png")
-try:
-    UI_Helpers.add_floating_lab_logo(lablogo_path, url="https://rafiqahmads.com/")
-except Exception:
-    pass
-
 st.title("3D Panel Visualizer")
 assemble_flat = st.toggle("🔄 Evaluate Panel Laying Down (Rotate 90°)", value=False)
 
 # --- 3. LOAD CLOUD-SAFE CONSTRAINTS ---
-# Instead of a hardcoded folder, we grab the unique temp file path generated on Start.py
 config_path = st.session_state.get('config_path', None)
-#Initialize Params[], set current rule values to the ones stored in params[]
 params = st.session_state["design_params"]
 
-#Defaults for rules, avoid crash if params is not loaded.
+# Defaults for rules
 default_max_length = params["max_length"]
 default_max_height = params["max_length"]
 default_hole_tol = params["hole_tol"]
 default_track_cont_tol = params["track_cont_tol"]
 default_track_hole_tol = params["track_hole_tol"]
 default_max_weight = params["max_weight"]
-
-# Defaults for the Hole Sizer (in millimeters)
 default_allowed_holes_mm = params["allowed_holes_mm"]
 default_hole_size_tol_mm = params ["hole_size_tol_mm"]
 default_part_max_length_mm = params["part_max_length_mm"]
@@ -122,9 +110,8 @@ hole_border_clearance_mm = params["hole_border_clearance_mm"]
 slanted_beam_angle = params["slanted_beam_angle"]
 total_assembly_payload_limit_kg = params["total_assembly_payload_limit_kg"]
 CoG_radius_tolerance_mm = params["CoG_radius_tolerance_mm"]
-hole_border_clearance_mm = params["hole_border_clearance_mm"]
 
-#Pinned[] has the pinned rules from page#2.
+# Pinned rules
 pinned = st.session_state["pinned_rules"]
 
 # --- 4. THE GATEWAY CHECK ---
@@ -144,124 +131,73 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
             
             with left_col:
                 st.markdown("### Quick Access Parameters")
-                
-                # Fetch the pinned list safely
                 pinned = st.session_state.get("pinned_rules", [])
-                
-                # Create the two balanced columns
                 mini_left_col, mini_right_col = st.columns([2, 2])
 
-                # --- LEFT COLUMN (9 Parameters) ---
                 with mini_left_col:
                     if "max_length" in pinned:
                         params["max_length"] = st.number_input("Max Operational Length (m)", value=params["max_length"], step=0.5)
-                        
                     if "max_height" in pinned:
                         params["max_height"] = st.number_input("Max Operational Height (m)", value=params["max_height"], step=0.5)
-                        
                     if "total_assembly_payload_limit_kg" in pinned:
                         params["total_assembly_payload_limit_kg"] = st.number_input("Max Assembly Weight (kg)", value=params["total_assembly_payload_limit_kg"])
-                        
                     if "max_weight" in pinned:
                         params["max_weight"] = st.number_input("Max Element Weight (kg)", value=params["max_weight"], step=5.0)
-                        
                     if "part_max_length_mm" in pinned:
                         params["part_max_length_mm"] = st.number_input("Max Element Length (mm)", value=params["part_max_length_mm"])
-                        
                     if "part_max_height_mm" in pinned:
                         params["part_max_height_mm"] = st.number_input("Max Element Height (mm)", value=params["part_max_height_mm"])
-                        
                     if "part_max_depth_mm" in pinned:
                         params["part_max_depth_mm"] = st.number_input("Max Element Depth (mm)", value=params["part_max_depth_mm"])
-                        
                     if "max_parts" in pinned:
                         params["max_parts"] = st.number_input("Total Assembly Parts", value=params["max_parts"])
-                        
                     if "slanted_beam_angle" in pinned:
                         params["slanted_beam_angle"] = st.number_input("Slanted Beam Angle (°)", value=params["slanted_beam_angle"])
 
-                # --- RIGHT COLUMN (9 Parameters) ---
                 with mini_right_col:
                     if "allowed_holes_mm" in pinned:
                         params["allowed_holes_mm"] = st.text_input("Allowed Hole Sizes (mm)", value=params["allowed_holes_mm"])
-                        
                     if "hole_size_tol_mm" in pinned:
                         params["hole_size_tol_mm"] = st.number_input("Hole Tolerance (mm)", value=params["hole_size_tol_mm"], step=0.5)
-                        
                     if "hole_tol" in pinned:
                         params["hole_tol"] = st.number_input("Stud Hole Alignment Tol", value=params["hole_tol"], step=0.005)
-                        
                     if "track_hole_tol" in pinned:
                         params["track_hole_tol"] = st.number_input("Vertical Drop Hole Tol", value=params["track_hole_tol"], step=0.005)
-                        
                     if "track_cont_tol" in pinned:
                         params["track_cont_tol"] = st.number_input("Track Continuity Length (m)", value=params["track_cont_tol"], step=0.005)
-                        
                     if "stud_spacing_mm" in pinned:
                         params["stud_spacing_mm"] = st.text_input("Stud Spacing (mm)", value=params["stud_spacing_mm"])
-                        
                     if "stud_tol_mm" in pinned:
                         params["stud_tol_mm"] = st.number_input("Stud Spacing Tolerance (mm)", value=params["stud_tol_mm"])
-                        
                     if "hole_border_clearance_mm" in pinned:
                         params["hole_border_clearance_mm"] = st.number_input("Hole-Border Clearance (mm)", value=params["hole_border_clearance_mm"])
-                        
                     if "CoG_radius_tolerance_mm" in pinned:
                         params["CoG_radius_tolerance_mm"] = st.number_input("Center of Gravity Tol (mm)", value=params["CoG_radius_tolerance_mm"])
 
                 # -- RULES ENGINE --
-                # Notice we are now explicitly passing the parameters here!
                 size_rule_report = Constraints.check_max_dimensions(all_elements, max_length_mm= max_length, max_height_mm= max_height)
-                
                 alignedhole_rule_report = Constraints.check_hole_alignment(all_elements, tolerance_m = hole_tol)
                 customhole_rule_report = Constraints.check_custom_holes(all_elements)
                 track_rule_report = Constraints.check_track_continuity(all_elements, tolerance_m = track_cont_tol)
                 track_hole_report = Constraints.check_track_hole_alignment(all_elements, tolerance_m = track_hole_tol)
                 weight_report = Constraints.check_max_weight(all_elements, max_weight_kg = max_weight)
 
-                #Correction of Hole size Design Parameter:
-
-                 # --- Convert UI mm to Engine meters ---
+                # Correction of Hole size Design Parameter:
                 try:
                     allowed_sizes_list_m = [float(x.strip()) / 1000.0 for x in allowed_holes_mm.split(",")]
                 except ValueError:
                     allowed_sizes_list_m = [0.034] 
                 
                 hole_size_tol_m = hole_size_tol / 1000.0
-
-                hole_size_report = Constraints.check_hole_sizes(
-                    all_elements, 
-                    allowed_sizes_m = allowed_sizes_list_m, 
-                    tolerance_m = hole_size_tol_m
-                )
+                hole_size_report = Constraints.check_hole_sizes(all_elements, allowed_sizes_m = allowed_sizes_list_m, tolerance_m = hole_size_tol_m)
                 part_count_report = Constraints.check_part_count(all_elements, max_parts = max_parts)
                 stud_spacing_report = Constraints.check_stud_spacing(all_elements, stud_spacing_mm, stud_tol_mm)
                 joist_uniformity_report = Constraints.check_joist_uniformity(all_elements, joist_depth_tolerance_mm)
-                part_size_report = Constraints.check_part_max_dimensions(
-                    all_elements, 
-                    max_length_mm=params.get("part_max_length_mm", 1000.0),
-                    max_height_mm=params.get("part_max_height_mm", 1000.0),
-                    max_depth_mm=params.get("part_max_depth_mm", 300.0)
-                )
-                cog_report = Constraints.check_center_of_gravity(
-                    all_elements, 
-                    tolerance_mm=params.get("CoG_radius_tolerance_mm", 250.0)
-                )
-
-                slanted_beam_report = Constraints.check_slanted_beam_angle(
-                    all_elements, 
-                    max_angle_degrees=params.get("slanted_beam_angle", 45.0)
-                )
-
-                payload_report = Constraints.check_total_assembly_payload(
-                    all_elements, 
-                    max_payload_kg=params.get("total_assembly_payload_limit_kg", 100.0)
-                )
-
-                clearance_report = Constraints.check_hole_border_clearance(
-                    all_elements, 
-                    min_clearance_mm=params.get("hole_border_clearance_mm", 20.0)
-                )
+                part_size_report = Constraints.check_part_max_dimensions(all_elements, max_length_mm=params.get("part_max_length_mm", 1000.0), max_height_mm=params.get("part_max_height_mm", 1000.0), max_depth_mm=params.get("part_max_depth_mm", 300.0))
+                cog_report = Constraints.check_center_of_gravity(all_elements, tolerance_mm=params.get("CoG_radius_tolerance_mm", 250.0))
+                slanted_beam_report = Constraints.check_slanted_beam_angle(all_elements, max_angle_degrees=params.get("slanted_beam_angle", 45.0))
+                payload_report = Constraints.check_total_assembly_payload(all_elements, max_payload_kg=params.get("total_assembly_payload_limit_kg", 100.0))
+                clearance_report = Constraints.check_hole_border_clearance(all_elements, min_clearance_mm=params.get("hole_border_clearance_mm", 20.0))
 
                 # -- WARNINGS & ERROR PART PAINT--
                 red_parts = (size_rule_report.get("violating_elements", []) 
@@ -270,7 +206,6 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                             + track_hole_report.get("violating_elements", [])
                             + weight_report.get("violating_elements", [])
                             + hole_size_report.get("violating_elements", [])
-                            # --- ADD THE NEW RULES TO THE RED PAINT BUCKET ---
                             + part_count_report.get("violating_elements", [])
                             + stud_spacing_report.get("violating_elements", [])
                             + joist_uniformity_report.get("violating_elements", [])
@@ -278,9 +213,7 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                             + cog_report.get("violating_elements", [])
                             + slanted_beam_report.get("violating_elements", [])
                             + payload_report.get("violating_elements", [])
-                            + clearance_report.get("violating_elements", [])
-
-                            )
+                            + clearance_report.get("violating_elements", []))
                 
                 orange_parts = customhole_rule_report.get("warning_elements", [])     
 
@@ -293,13 +226,14 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                     st.markdown("### 3D Panel Viewer")
                 with header_col2:
                     show_alignment = st.toggle("Show Alignment Lines", value=False)
-                
-                plotter = pv.Plotter(window_size=[800, 800])
+                # 🛠️ FIX 1: Add off_screen=True and crank up the resolution!
+                plotter = pv.Plotter(window_size=[800, 800], off_screen=True)
+
                 panel_meshes = Find_elements.get_3d_meshes(all_elements)
                 fasteners = engine.get_fasteners_table(summary)
                 fastener_meshes = Find_elements.get_3d_meshes(fasteners)
 
-                #Panel 3d Meshes
+                # Panel 3d Meshes
                 for element, mesh in zip(all_elements, panel_meshes):
                     if element in red_parts: part_color = "red"
                     elif element in orange_parts: part_color = "orange"
@@ -316,43 +250,33 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                 with st.spinner("Extracting Fasteners & Ontology..."):
                     try:
                         summary, _ = engine.analyse(st.session_state['current_ifc_path'])
-                        
-                        # Filter for all elements the engine classified as a Fastener
                         fasteners_and_connectors = [e for e in summary["elements"] if e["cls"] == "Fastener"]
                         
                         to_meters = 1000.0 
                         bolts_plotted = 0
-                        connectors_plotted = 0
                         
                         for f in fasteners_and_connectors:
                             pos = f.get("pos")
-                            name = f.get("name", "").lower() # Convert to lowercase for easy searching
+                            name = f.get("name", "").lower()
                             
                             if pos:
                                 x = pos[0] / to_meters
                                 y = pos[1] / to_meters
                                 z = pos[2] / to_meters
                                 
-                                # IF IT IS A BOLT/SCREW
                                 if "bolt" in name or "screw" in name:
-                                    # 1. Fetch the exact direction axis (fallback to Z-up if missing)
                                     axis = f.get("axis")
                                     bolt_dir = (axis[0], axis[1], axis[2]) if axis else (0, 0, 1)
-                                    
-                                    # 2. Fetch the actual dimensions of the bolt
-                                    # We use width for diameter, and length for the height.
                                     bolt_diam = (f.get("width") or 12.0) / to_meters
                                     bolt_len = (f.get("length") or 30.0) / to_meters
                                     
-                                    # 3. Create the cylinder pointing perfectly down the hole
                                     mesh = pv.Cylinder(
                                         center=(x, y, z), 
-                                        direction=bolt_dir,    # <-- Instantly aligns it!
+                                        direction=bolt_dir,
                                         radius=bolt_diam / 2.0, 
                                         height=bolt_len
                                     )
                                     
-                                    # Draw it!
                                     plotter.add_mesh(mesh, color="gold", smooth_shading=True)
                                     bolts_plotted += 1
                             
@@ -360,8 +284,8 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
 
                     except Exception as e:
                         st.warning(f"Could not render semantic fasteners: {e}")
-                # --- DRAW LASER ALIGNMENT LINES ---
                 
+                # --- DRAW LASER ALIGNMENT LINES ---
                 if show_alignment:
                     bounds = plotter.bounds 
                     xmin, xmax, ymin, ymax, zmin, zmax = bounds
@@ -383,16 +307,13 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                             
                 # --- DRAW CENTER OF GRAVITY (CoG) ---
                 if "cog_coords" in cog_report and "geom_coords" in cog_report:
-                    # Draw Geometric Center (Blue Sphere)
                     geom_center = cog_report["geom_coords"]
                     plotter.add_mesh(pv.Sphere(radius=0.03, center=geom_center), color="blue")
                     
-                    # Draw CoG (Green Sphere if pass, Red if fail)
                     cog_center = cog_report["cog_coords"]
                     cog_color = "green" if cog_report["passed"] else "red"
                     plotter.add_mesh(pv.Sphere(radius=0.04, center=cog_center), color=cog_color)
                     
-                    # Draw a line connecting them to visualize the offset
                     line = pv.Line(geom_center, cog_center)
                     plotter.add_mesh(line, color="yellow", line_width=3)
 
@@ -411,11 +332,80 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                 plotter.set_background([1.0, 0.99, 0.94])
                 plotter.view_isometric()
 
-                backend_engine = "panel" if platform.system() == "Windows" else "trame"
+                with st.spinner("Snapping High-Quality Screenshot..."):
+                    try:
+                        # Because off_screen=True is set, this will now work perfectly
+                        img_array = plotter.screenshot(transparent_background=False, return_img=True)
+                        render_img = Image.fromarray(img_array)
+                        
+                        img_buffer = io.BytesIO()
+                        render_img.save(img_buffer, format="PNG")
+                        img_buffer.seek(0)
+                        
+                        img_base_name = "Panel" 
+                        if 'original_ifc_name' in st.session_state:
+                            original_name = st.session_state['original_ifc_name']
+                            img_base_name = original_name[:-4] if original_name.lower().endswith('.ifc') else original_name
+                                
+                        export_img_name = f"{img_base_name}_Render.png"
+                    except Exception as e:
+                        img_buffer = None
+                        st.error(f"Failed to capture image: {e}")
 
+                backend_engine = "panel" if platform.system() == "Windows" else "trame"
                 stpyvista(plotter, backend=backend_engine)
 
-            # -- UI: PRINT THE REPORTS --
+            # ==========================================
+            # 📦 PREPARE SIMULATION STL ZIP FILE
+            # ==========================================
+            with st.spinner("Packaging Individual Parts for Simulation..."):
+                zip_buffer = io.BytesIO()
+                
+                with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
+                    for element, mesh in zip(all_elements, panel_meshes):
+                        if mesh.n_points > 0:
+                            sim_mesh = mesh.copy()
+                            center_pt = sim_mesh.center
+                            sim_mesh.translate([-center_pt[0], -center_pt[1], -center_pt[2]], inplace=True)
+                            
+                            el_name = str(element.Name).replace("/", "_").replace("\\", "_") if hasattr(element, 'Name') and element.Name else "Member"
+                            el_id = str(element.GlobalId) if hasattr(element, 'GlobalId') else "UnknownID"
+                            file_name = f"{el_name}_{el_id}.stl"
+                            
+                            with tempfile.NamedTemporaryFile(suffix=".stl", delete=False) as tmp:
+                                sim_mesh.save(tmp.name)
+                                with open(tmp.name, "rb") as f:
+                                    zip_file.writestr(file_name, f.read())
+                            os.remove(tmp.name)
+
+            # ==========================================
+            # -- UI: EXPORTS & REPORTS --
+            # ==========================================
+            st.markdown("---")
+            st.markdown("Panel Exports")
+            
+            export_col1, export_col2 = st.columns(2)
+            
+            with export_col1:
+                st.info("The physics simulator needs each steel member to be an independent object. Download this ZIP to get perfectly centered, metric `.stl` files of every single element in this panel.")
+                st.download_button(
+                    label="📦 Download All Individual Members (.ZIP)",
+                    data=zip_buffer.getvalue(),
+                    file_name="Panel_Simulation_Parts.zip",
+                    mime="application/zip"
+                )
+                
+            with export_col2:
+                st.info("Download a high-resolution PNG image of the 3D visualizer, including all warning trackers and structural alignment lines.")
+                # It will automatically find the img_buffer we created higher up!
+                if img_buffer:
+                    st.download_button(
+                        label="📸 Download High-Quality Render (.PNG)",
+                        data=img_buffer,
+                        file_name=export_img_name,
+                        mime="image/png"
+                    )
+            
             st.markdown("---")
             st.markdown("### DfMA Report")
             

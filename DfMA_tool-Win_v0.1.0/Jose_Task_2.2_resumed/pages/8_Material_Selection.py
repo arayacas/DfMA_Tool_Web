@@ -96,38 +96,29 @@ import ifcopenshell.util.element
 def calculate_geometric_thickness(member):
     """
     Bypasses missing text data by physically measuring the 3D geometry of the member.
-    Generates a bounding box and returns the absolute smallest dimension (the thickness).
+    Generates a bounding box and returns the absolute smallest dimension.
+    NOTE: IfcOpenShell ALWAYS returns this in SI Meters due to USE_WORLD_COORDS.
     """
     try:
-        # 1. Initialize the geometry engine
         settings = ifcopenshell.geom.settings()
         settings.set(settings.USE_WORLD_COORDS, True)
         
-        # 2. Generate the physical 3D shape in memory
         shape = ifcopenshell.geom.create_shape(settings, member)
-        
-        # 3. Extract the raw vertices and group them into (X, Y, Z) coordinates
         verts = np.array(shape.geometry.verts).reshape((-1, 3))
         
-        # 4. Calculate the bounding box dimensions (Max point minus Min point)
-        # This returns an array of [Width, Depth, Height]
         dimensions = verts.max(axis=0) - verts.min(axis=0)
-        
-        # 5. The material thickness is inherently the smallest physical dimension of the bounding box
         thickness = np.min(dimensions)
         
-        # Clean up microscopic floating point errors (e.g., turning 0.04510003 into 0.0451)
-        return round(thickness, 4)
+        return thickness # Returns in raw Meters
         
     except Exception as e:
-        # If the member has no physical 3D geometry (like a virtual group), return None
         return None
 
 # --- HELPER FUNCTION: EXTRACT THICKNESS ---
-def get_thickness(member):
+def get_thickness(member, is_imperial):
     """
-    Hunts for thickness text. If missing, calculates it from raw 3D geometry.
-    Note: Returns the raw unit of the file (inches for this specific file).
+    Hunts for thickness text or geometry and forces it into the correct unit 
+    (Inches or Millimeters) based on the file's current state.
     """
     # 1. Try to read the text Property Sets first (fastest)
     try:
@@ -137,40 +128,49 @@ def get_thickness(member):
                 if 'thickness' in prop_name.lower():
                     if isinstance(prop_val, str):
                         clean_val = ''.join(c for c in prop_val if c.isdigit() or c == '.')
-                        return float(clean_val)
-                    return float(prop_val)
+                        val = float(clean_val)
+                    else:
+                        val = float(prop_val)
+                    
+                    # 🛠️ SMART CONVERTER FOR GHOST METADATA
+                    # If file is Metric, but text is < 0.5 (e.g., 0.045), it's leftover imperial text.
+                    if not is_imperial and val < 0.5:
+                        val = val * 25.4 # Convert to mm
+                        
+                    # If file is Imperial, but text is > 0.5 (e.g., 1.143), it's leftover metric text.
+                    if is_imperial and val > 0.5:
+                        val = val / 25.4 # Convert to inches
+                        
+                    return round(val, 4)
     except Exception: pass
     
-    # 2. If text is wiped out (Anonymized), calculate via Hardcore Math!
-    calculated_thickness = calculate_geometric_thickness(member)
-    if calculated_thickness is not None:
-        return calculated_thickness
-        
+    # 2. Fallback to Geometry (Raw Meters)
+    geom_thickness_meters = calculate_geometric_thickness(member)
+    if geom_thickness_meters is not None:
+        if is_imperial:
+            return round(geom_thickness_meters * 39.3701, 4) # Convert Meters to Inches
+        else:
+            return round(geom_thickness_meters * 1000.0, 4)  # Convert Meters to mm
+            
     return None
 
 def detect_imperial_units(ifc_file):
     """
     Scans the IFC file's Unit Assignment to see if the primary length unit is in inches or feet.
-    Returns True if Imperial, False if Metric (or assumed Metric).
     """
     try:
-        # Grab the main project definition
         projects = ifc_file.by_type("IfcProject")
-        if not projects:
-            return False
+        if not projects: return False
             
         project = projects[0]
-        
-        # Look through the units assigned to the context
         if hasattr(project, 'UnitsInContext') and project.UnitsInContext:
             for unit in project.UnitsInContext.Units:
-                # We only care about Length conversions (like inches)
                 if unit.is_a('IfcConversionBasedUnit') and unit.UnitType == 'LENGTHUNIT':
                     unit_name = unit.Name.lower()
                     if 'inch' in unit_name or 'foot' in unit_name:
                         return True
     except Exception as e:
-        pass # If it fails, default to metric
+        pass 
         
     return False
 
@@ -183,84 +183,72 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
     # 1. THE BODY: IFC GEOMETRY DATA
     # ==========================================
     try:
-        # Load the raw IFC file using ifcopenshell to check units
         raw_ifc = ifcopenshell.open(ifcfile_path)
         
-        # Check and set the unit flag in session state!
-        if 'is_imperial' not in st.session_state:
-            st.session_state['is_imperial'] = detect_imperial_units(raw_ifc)
+        # 🛠️ FIX 1: Evaluate units UNCONDITIONALLY every single time the file loads
+        st.session_state['is_imperial'] = detect_imperial_units(raw_ifc)
+        current_is_imperial = st.session_state['is_imperial']
             
-        # Display a warning so the user knows what's happening
-        if st.session_state['is_imperial']:
-            st.warning("**Imperial Units Detected (Inches).**DfMA checks will adapt accordingly.")
+        if current_is_imperial:
+            st.warning("**Imperial Units Detected (Inches).** DfMA checks will adapt accordingly.")
         else:
             st.success("**Metric Units Detected (mm/m).**")
 
-        # Load the elements (Assuming 'engine' is defined earlier in your script)
         summary, model = engine.analyse(ifcfile_path)
         all_elements = Find_elements.get_elements(ifcfile_path)
         vertical_studs, horizontal_tracks = Find_elements.sort_framing_by_orientation(all_elements)
         
-        # Summary Metrics
         st.write(f"### Panel Composition")
         st.write(f"Total Structural Members: **{len(all_elements)}**")
         st.write(f"Vertical Studs: **{len(vertical_studs)}** | Horizontal Tracks: **{len(horizontal_tracks)}**")
         
         st.markdown("---")
 
-        """
-        Table Display, each tab has a different table tracking different rules numerically. 
-        """
-
         # ==========================================
-        # 1. The Thickness Table (Replaced Coordinates)
+        # 1. The Thickness Table 
         # ==========================================
         st.write("### Member Thickness Data")
         
         thickness_data = []
         for member in all_elements:
-            # Safely get the name and GlobalId
             name = member.Name if hasattr(member, 'Name') and member.Name else "Unnamed Member"
             guid = member.GlobalId if hasattr(member, 'GlobalId') else "N/A"
             ifc_type = member.is_a()
             
-            # Extract thickness
-            thickness = get_thickness(member)
+            # 🛠️ FIX 2: Pass the unit state into the thickness extractor
+            thickness = get_thickness(member, current_is_imperial)
             
             thickness_data.append({
                 "GlobalId": guid,
                 "Name": name,
                 "Type": ifc_type,
-                "Thickness Metric/Imperial": thickness if thickness is not None else "Not Found"
+                "Thickness": thickness if thickness is not None else "Not Found"
             })
         
-        # Convert to DataFrame and display
         df_thickness = pd.DataFrame(thickness_data)
         st.dataframe(df_thickness, use_container_width=True)
 
-    # ==========================================
+        # ==========================================
         # 2. THE VISUALIZER: THICKNESS HIGHLIGHTING
         # ==========================================
         st.markdown("---")
         
-        # We need two columns just like your sample
         left_col, right_col = st.columns([1, 2])
         
-        # Determine our threshold based on the file units
-        if st.session_state.get('is_imperial', False):
+        if current_is_imperial:
             threshold = 0.045
             unit_label = "in"
         else:
             threshold = 1.143
             unit_label = "mm"
 
-        # Sort the members into groups for coloring
-        thick_parts = [] # Grade 50 (Orange)
-        thin_parts = []  # Grade 33 (Blue)
-        unknown_parts = [] # Error/Grey
+        thick_parts = [] 
+        thin_parts = []  
+        unknown_parts = [] 
         
         for member in all_elements:
-            thickness = get_thickness(member)
+            # 🛠️ FIX 3: Pass unit state into the sorting loop
+            thickness = get_thickness(member, current_is_imperial)
             if thickness is None:
                 unknown_parts.append(member)
             elif thickness >= threshold:
@@ -366,7 +354,7 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                             if member.is_a("IfcElementAssembly") or member.is_a("IfcVirtualElement"):
                                 continue
                                 
-                            thickness = get_thickness(member)
+                            thickness = get_thickness(member, is_imperial)
                             
                             if thickness is None:
                                 unknown_list.append(member)
