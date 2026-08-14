@@ -1,0 +1,250 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.8.13)  13 AUG 2026 14:47
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**/home/arayacas/SMART_Lab/Web_DfMA_Tool/DfMA_tool-Win_v0.1.0/Results/table.tex
+(/home/arayacas/SMART_Lab/Web_DfMA_Tool/DfMA_tool-Win_v0.1.0/Results/table.tex
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count187
+\c@section=\count188
+\c@subsection=\count189
+\c@subsubsection=\count190
+\c@paragraph=\count191
+\c@subparagraph=\count192
+\c@figure=\count193
+\c@table=\count194
+\abovecaptionskip=\skip48
+\belowcaptionskip=\skip49
+\bibindent=\dimen140
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks17
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+ (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen141
+\Gin@req@width=\dimen142
+) (/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen143
+\lightrulewidth=\dimen144
+\cmidrulewidth=\dimen145
+\belowrulesep=\dimen146
+\belowbottomsep=\dimen147
+\aboverulesep=\dimen148
+\abovetopsep=\dimen149
+\cmidrulesep=\dimen150
+\cmidrulekern=\dimen151
+\defaultaddspace=\dimen152
+\@cmidla=\count195
+\@cmidlb=\count196
+\@aboverulesep=\dimen153
+\@belowrulesep=\dimen154
+\@thisruleclass=\count197
+\@lastruleclass=\count198
+\@thisrulewidth=\dimen155
+) (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks18
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (/usr/share/texlive/texmf-dist/tex/latex/graphics/rotating.sty
+Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
+ (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
+)
+\c@r@tfl@t=\count199
+\rotFPtop=\skip50
+\rotFPbot=\skip51
+\rot@float@box=\box51
+\rot@mess@toks=\toks19
+) (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+ (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+ (/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+))
+\Gm@cnth=\count266
+\Gm@cntv=\count267
+\c@Gm@tempcnt=\count268
+\Gm@bindingoffset=\dimen156
+\Gm@wd@mp=\dimen157
+\Gm@odd@mp=\dimen158
+\Gm@even@mp=\dimen159
+\Gm@layoutwidth=\dimen160
+\Gm@layoutheight=\dimen161
+\Gm@layouthoffset=\dimen162
+\Gm@layoutvoffset=\dimen163
+\Gm@dimlist=\toks20
+) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count269
+\l__pdf_internal_box=\box52
+) (./table.aux)
+\openout1 = `table.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+ (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count270
+\scratchdimen=\dimen164
+\scratchbox=\box53
+\nofMPsegments=\count271
+\nofMParguments=\count272
+\everyMPshowfont=\toks21
+\MPscratchCnt=\count273
+\MPscratchDim=\dimen165
+\MPnumerator=\count274
+\makeMPintoPDFobject=\count275
+\everyMPtoPDFconversion=\toks22
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+ (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(71.13188pt, 469.47049pt, 56.9055pt)
+* v-part:(T,H,B)=(99.58464pt, 645.87756pt, 99.58464pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=469.47049pt
+* \textheight=645.87756pt
+* \oddsidemargin=-1.1381pt
+* \evensidemargin=-1.1381pt
+* \topmargin=-9.68535pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=14.22636pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+LaTeX Font Info:    Trying to load font information for U+msa on input line 29.
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 29.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+<images/1E-2_Render (1).png, id=1, 803.0pt x 803.0pt>
+File: images/1E-2_Render (1).png Graphic file (type png)
+<use images/1E-2_Render (1).png>
+Package pdftex.def Info: images/1E-2_Render (1).png  used on input line 47.
+(pdftex.def)             Requested size: 45.21616pt x 45.21274pt.
+<images/1E-4_Render.png, id=2, 803.0pt x 803.0pt>
+File: images/1E-4_Render.png Graphic file (type png)
+<use images/1E-4_Render.png>
+Package pdftex.def Info: images/1E-4_Render.png  used on input line 48.
+(pdftex.def)             Requested size: 45.21616pt x 45.21274pt.
+<images/1E-11_Render.png, id=3, 803.0pt x 803.0pt>
+File: images/1E-11_Render.png Graphic file (type png)
+<use images/1E-11_Render.png>
+Package pdftex.def Info: images/1E-11_Render.png  used on input line 49.
+(pdftex.def)             Requested size: 45.21616pt x 45.21274pt.
+<images/2E-1_Render.png, id=4, 803.0pt x 803.0pt>
+File: images/2E-1_Render.png Graphic file (type png)
+<use images/2E-1_Render.png>
+Package pdftex.def Info: images/2E-1_Render.png  used on input line 50.
+(pdftex.def)             Requested size: 45.21616pt x 45.21274pt.
+<images/2E-7_Render.png, id=5, 803.0pt x 803.0pt>
+File: images/2E-7_Render.png Graphic file (type png)
+<use images/2E-7_Render.png>
+Package pdftex.def Info: images/2E-7_Render.png  used on input line 51.
+(pdftex.def)             Requested size: 45.21616pt x 45.21274pt.
+<images/2E-26_Render.png, id=6, 803.0pt x 803.0pt>
+File: images/2E-26_Render.png Graphic file (type png)
+<use images/2E-26_Render.png>
+Package pdftex.def Info: images/2E-26_Render.png  used on input line 52.
+(pdftex.def)             Requested size: 45.21616pt x 45.21274pt.
+<images/3E-11 (1)_Render.png, id=7, 803.0pt x 803.0pt>
+File: images/3E-11 (1)_Render.png Graphic file (type png)
+<use images/3E-11 (1)_Render.png>
+Package pdftex.def Info: images/3E-11 (1)_Render.png  used on input line 53.
+(pdftex.def)             Requested size: 45.21616pt x 45.21274pt.
+<images/3E-19_Render.png, id=8, 803.0pt x 803.0pt>
+File: images/3E-19_Render.png Graphic file (type png)
+<use images/3E-19_Render.png>
+Package pdftex.def Info: images/3E-19_Render.png  used on input line 54.
+(pdftex.def)             Requested size: 45.21616pt x 45.21274pt.
+<images/3E-20_Render.png, id=9, 803.0pt x 803.0pt>
+File: images/3E-20_Render.png Graphic file (type png)
+<use images/3E-20_Render.png>
+Package pdftex.def Info: images/3E-20_Render.png  used on input line 55.
+(pdftex.def)             Requested size: 45.21616pt x 45.21274pt.
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./images/1E-2_Render (1).png (PNG copy)> <./images/1E-4_Render.png (PNG copy)> <./images/1E-11_Render.png (PNG copy)> <./images/2E-1_Render.png (PNG copy)> <./images/2E-7_Render.png (PNG copy)> <./images/2E-26_Render.png (PNG copy)> <./images/3E-11 (1)_Render.png (PNG copy)> <./images/3E-19_Render.png (PNG copy)> <./images/3E-20_Render.png (PNG copy)>] (./table.aux)
+ ***********
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
+ ***********
+ ) 
+Here is how much of TeX's memory you used:
+ 2655 strings out of 474222
+ 41262 string characters out of 5748733
+ 1937975 words of memory out of 5000000
+ 24914 multiletter control sequences out of 15000+600000
+ 560076 words of font info for 45 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 57i,15n,65p,298b,415s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on table.pdf (1 page, 1209262 bytes).
+PDF statistics:
+ 37 PDF objects out of 1000 (max. 8388607)
+ 16 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+

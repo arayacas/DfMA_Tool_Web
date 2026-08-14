@@ -195,7 +195,7 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                 joist_uniformity_report = Constraints.check_joist_uniformity(all_elements, joist_depth_tolerance_mm)
                 part_size_report = Constraints.check_part_max_dimensions(all_elements, max_length_mm=params.get("part_max_length_mm", 1000.0), max_height_mm=params.get("part_max_height_mm", 1000.0), max_depth_mm=params.get("part_max_depth_mm", 300.0))
                 cog_report = Constraints.check_center_of_gravity(all_elements, tolerance_mm=params.get("CoG_radius_tolerance_mm", 250.0))
-                slanted_beam_report = Constraints.check_slanted_beam_angle(all_elements, max_angle_degrees=params.get("slanted_beam_angle", 45.0))
+                slanted_beam_report = Constraints.check_slanted_beam_angle(all_elements, 360.00)
                 payload_report = Constraints.check_total_assembly_payload(all_elements, max_payload_kg=params.get("total_assembly_payload_limit_kg", 100.0))
                 clearance_report = Constraints.check_hole_border_clearance(all_elements, min_clearance_mm=params.get("hole_border_clearance_mm", 20.0))
 
@@ -348,6 +348,7 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                             img_base_name = original_name[:-4] if original_name.lower().endswith('.ifc') else original_name
                                 
                         export_img_name = f"{img_base_name}_Render.png"
+                        export_zip_name = f"{img_base_name}_STL_Members.zip"
                     except Exception as e:
                         img_buffer = None
                         st.error(f"Failed to capture image: {e}")
@@ -389,9 +390,9 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
             with export_col1:
                 st.info("The physics simulator needs each steel member to be an independent object. Download this ZIP to get perfectly centered, metric `.stl` files of every single element in this panel.")
                 st.download_button(
-                    label="📦 Download All Individual Members (.ZIP)",
+                    label="Download All Individual Members (.ZIP)",
                     data=zip_buffer.getvalue(),
-                    file_name="Panel_Simulation_Parts.zip",
+                    file_name=export_zip_name,
                     mime="application/zip"
                 )
                 
@@ -400,7 +401,7 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                 # It will automatically find the img_buffer we created higher up!
                 if img_buffer:
                     st.download_button(
-                        label="📸 Download High-Quality Render (.PNG)",
+                        label="Download High-Quality Render (.PNG)",
                         data=img_buffer,
                         file_name=export_img_name,
                         mime="image/png"

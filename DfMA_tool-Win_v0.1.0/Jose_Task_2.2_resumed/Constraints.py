@@ -15,18 +15,20 @@ def check_max_dimensions(elements, max_length_mm=6.00, max_height_mm=3.00):
         dict: A report containing the pass/fail status and the violating elements.
     """
     # --- 1. RUN THE MATH ---
+    import numpy as np
+    import ifcopenshell.geom
+    
     settings = ifcopenshell.geom.settings()
     settings.set(settings.USE_WORLD_COORDS, True)
     
     violating_elements = []
     
-    # Find the absolute min and max coordinates of the ENTIRE panel
-    global_min_x = float('inf')
-    global_max_x = float('-inf')
-    global_min_z = float('inf')
-    global_max_z = float('-inf')
+    # Find the absolute min and max coordinates of the ENTIRE panel (All 3 Axes!)
+    global_min_x, global_max_x = float('inf'), float('-inf')
+    global_min_y, global_max_y = float('inf'), float('-inf')
+    global_min_z, global_max_z = float('inf'), float('-inf')
 
-    # Analyze every element to find the global boundaries
+    # Analyze every element to find the global 3D boundaries
     for element in elements:
         try:
             shape = ifcopenshell.geom.create_shape(settings, element)
@@ -38,25 +40,46 @@ def check_max_dimensions(elements, max_length_mm=6.00, max_height_mm=3.00):
             
             if min_coords[0] < global_min_x: global_min_x = min_coords[0]
             if max_coords[0] > global_max_x: global_max_x = max_coords[0]
+            
+            if min_coords[1] < global_min_y: global_min_y = min_coords[1]
+            if max_coords[1] > global_max_y: global_max_y = max_coords[1]
+            
             if min_coords[2] < global_min_z: global_min_z = min_coords[2]
             if max_coords[2] > global_max_z: global_max_z = max_coords[2]
             
         except Exception:
             pass
 
-    # Calculate the total physical size of the panel
-    actual_length = global_max_x - global_min_x
-    actual_height = global_max_z - global_min_z
+    # Calculate the raw physical size across all 3 axes
+    dim_x = global_max_x - global_min_x
+    dim_y = global_max_y - global_min_y
+    dim_z = global_max_z - global_min_z
+    
+    # --- SMART SORTING (ROTATION PROOFING) ---
+    # We pair the sizes with their axis index (0=X, 1=Y, 2=Z) and sort them from largest to smallest
+    axes_sizes = [
+        (0, dim_x, global_min_x), 
+        (1, dim_y, global_min_y), 
+        (2, dim_z, global_min_z)
+    ]
+    axes_sizes.sort(key=lambda item: item[1], reverse=True)
+    
+    # Largest dimension is Length, Middle is Height, Smallest is Thickness
+    len_axis, actual_length, len_min = axes_sizes[0]
+    height_axis, actual_height, height_min = axes_sizes[1]
+    thick_axis, actual_thickness, thick_min = axes_sizes[2]
 
-    # Check against the constraints
+    # --- 2. EVALUATE CONSTRAINTS ---
     passed = True
-    message = "Panel meets size constraints."
+    
+    # Dynamically include all 3 dimensions in the UI message
+    message = f"Panel meets size constraints! Actual dimensions: {actual_length:.1f}mm L x {actual_height:.1f}mm H x {actual_thickness:.1f}mm W. (Limits: {max_length_mm}mm x {max_height_mm}mm)."
     
     if actual_length > max_length_mm or actual_height > max_height_mm:
         passed = False
-        message = f"Panel exceeds limits! Actual: {actual_length:.1f}mm L x {actual_height:.1f}mm H. (Limits: {max_length_mm}mm x {max_height_mm}mm). This panel might be too big for your current work station, consider spliting the panel in smaller parts or assemble a smaller panel instead."
+        message = f"Panel exceeds limits! Actual: {actual_length:.1f}mm L x {actual_height:.1f}mm H x {actual_thickness:.1f}mm W. (Limits: {max_length_mm}mm x {max_height_mm}mm). This panel might be too big for your current work station, consider splitting the panel in smaller parts or assemble a smaller panel instead."
         
-        # Find exactly WHICH elements are sticking out
+        # Find exactly WHICH elements are sticking out along the specific violating axes
         for element in elements:
              try:
                  shape = ifcopenshell.geom.create_shape(settings, element)
@@ -64,8 +87,9 @@ def check_max_dimensions(elements, max_length_mm=6.00, max_height_mm=3.00):
                  vertices = np.array(verts).reshape((-1, 3))
                  max_coords = vertices.max(axis=0)
                  
-                 if (max_coords[0] - global_min_x) > max_length_mm or \
-                    (max_coords[2] - global_min_z) > max_height_mm:
+                 # Check the dynamically assigned length and height axes
+                 if (max_coords[len_axis] - len_min) > max_length_mm or \
+                    (max_coords[height_axis] - height_min) > max_height_mm:
                      violating_elements.append(element)
              except Exception:
                  pass
@@ -75,6 +99,7 @@ def check_max_dimensions(elements, max_length_mm=6.00, max_height_mm=3.00):
         "message": message,
         "actual_length": actual_length,
         "actual_height": actual_height,
+        "actual_thickness": actual_thickness,
         "violating_elements": violating_elements
     }
 #RULE 2
