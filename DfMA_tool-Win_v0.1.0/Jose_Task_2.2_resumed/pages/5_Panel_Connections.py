@@ -5,6 +5,8 @@ import numpy as np
 import pandas as pd
 import pyvista as pv
 import ifcopenshell
+import io
+import platform
 
 from PIL import Image
 from stpyvista import stpyvista
@@ -2047,9 +2049,8 @@ if (
                 "## Consolidated Connection Model"
             )
 
-            stpyvista(
-                plotter
-            )
+            backend_engine = "panel" if platform.system() == "Windows" else "trame"
+            stpyvista(plotter, backend=backend_engine)
 
             # =================================================
             # SUMMARY

@@ -8,6 +8,7 @@ import io
 import zipfile
 import tempfile
 from PIL import Image
+import platform
 
 # --- DYNAMIC PATH RESOLUTION (FOR NESTED PAGES) ---
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -357,7 +358,8 @@ if has_ifc and has_ont:
                             st.warning("No drill operations or holes required for this specific member.")
                             
                         plotter.view_isometric()
-                        stpyvista(plotter, key=f"viewer_{sel_element.GlobalId}")
+                        backend_engine = "panel" if platform.system() == "Windows" else "trame"
+                        stpyvista(plotter, key=f"viewer_{sel_element.GlobalId}", backend=backend_engine)
 
             else:
                 st.warning("No connections fell within the bounds of the panel members. Try adjusting your Calibration offsets above.")

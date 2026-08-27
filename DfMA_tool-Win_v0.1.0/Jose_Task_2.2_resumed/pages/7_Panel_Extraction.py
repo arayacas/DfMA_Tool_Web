@@ -27,6 +27,7 @@ import pyvista as pv
 from stpyvista import stpyvista
 import numpy as np
 import sys
+import platform
 
 # --- DYNAMIC PATH RESOLUTION (FOR NESTED PAGES) ---
 # 1. Get the absolute path to the 'pages' folder
@@ -276,8 +277,9 @@ if 'current_ifcbig_path' in st.session_state and os.path.exists(st.session_state
                 if combined_mesh.n_points > 0:
                     plotter_iso.add_mesh(combined_mesh, color="lightblue", show_edges=True)
 
-                plotter_iso.view_isometric() 
-                stpyvista(plotter_iso, key="isolated_viewer")
+                plotter_iso.view_isometric()
+                backend_engine = "panel" if platform.system() == "Windows" else "trame"
+                stpyvista(plotter_iso, key="isolated_viewer", backend=backend_engine)
 
             st.markdown("---")
             
@@ -320,7 +322,8 @@ if 'current_ifcbig_path' in st.session_state and os.path.exists(st.session_state
                     pass
 
             plotter_macro.view_isometric() 
-            stpyvista(plotter_macro, key="macro_viewer")
+            backend_engine = "panel" if platform.system() == "Windows" else "trame"
+            stpyvista(plotter_macro, key="macro_viewer", backend=backend_engine)
 
     except Exception as e:
         st.error(f"Error loading IFC file: {e}")

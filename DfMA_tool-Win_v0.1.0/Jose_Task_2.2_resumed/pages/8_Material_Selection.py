@@ -32,6 +32,7 @@ import pandas as pd
 import numpy as np
 import ifcopenshell.geom
 import ifcopenshell.util.element
+import platform
 
 # --- DYNAMIC PATH RESOLUTION (FOR NESTED PAGES) ---
 # 1. Get the absolute path to the 'pages' folder
@@ -305,7 +306,8 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
             
             # Reset camera and render via stpyvista
             plotter.view_isometric()
-            stpyvista(plotter, key="thickness_viewer")
+            backend_engine = "panel" if platform.system() == "Windows" else "trame"
+            stpyvista(plotter, key="thickness_viewer", backend=backend_engine)
 
         
                 # --- MAIN INJECTION LOGIC ---
