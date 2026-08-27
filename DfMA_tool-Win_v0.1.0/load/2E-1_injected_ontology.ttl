@@ -1,0 +1,1011 @@
+@prefix : <http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> a owl:AnnotationProperty .
+
+<http://webprotege.stanford.edu/R7P1NaoIEsengd5f70LFjrE> a owl:Class ;
+    rdfs:label "Bolting" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <http://webprotege.stanford.edu/RkbhOGMHuz3tCcBIQmbPVt> ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/RBvSLooVN1JOIfjbRCqKd1R> ],
+        :Operation .
+
+<http://webprotege.stanford.edu/RBM7AJOIrdwQTcORVNYjGNV> a owl:Class ;
+    rdfs:label "Cutting" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <http://webprotege.stanford.edu/RkbhOGMHuz3tCcBIQmbPVt> ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/RCMqa6LBPhDsiWslh25ZcUs> ],
+        :Operation .
+
+<http://webprotege.stanford.edu/RC2CcluCDT8QT30OrhH3x8J> a owl:Class ;
+    rdfs:label "Milling" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <http://webprotege.stanford.edu/RkbhOGMHuz3tCcBIQmbPVt> ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/R9CDcXX1y7Fokvmx9yRUSpz> ],
+        :Operation .
+
+<http://www.semanticweb.org/mmari/ontologies/2026/0/BIM_Ontology> a owl:Ontology ;
+    owl:versionInfo "corrected: reified attributes, property-type fixes, disjointness, SWRL" .
+
+:011FZItvH0bO0yon_SM3Z_ a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-30"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:02a7uF4T15e8b6rwHHIwy8 a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-2"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:03fM6h5gH4vgp_WJd2kA1E a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-8"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:05UjYCxwb79BDVPt1LDkPa a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-19"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0742Z2hCv5pPQRV8RptaPs a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-9"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0D2iQTidfEOxVxAH1SkZtg a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-31"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0DxAM143TCHvM7rNqTUhes a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-29"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0NKuKkqTPAoe0Ps6gZ0KCq a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-4"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0Ql6j6cW5BX98xXSxRTb9d a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-9"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0VRqy_7O95rwj_r9n_1RaE a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-28"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0W3vga_QL42eRJOQI3R_mB a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-11"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0YQrqooqbBCAW4deIKWPuK a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-17"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0_m3C7Wbv1AvjTWMMOHxkv a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-29"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0cupkIYQP0ERDiEYduHax3 a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-3"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0f3vSCWxr6KRyvcv4sKMAh a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-6"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0fR7P9xADEsRE2dsIcPBtU a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-25"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0gM_TAGoz8GgiqGoL1ptxv a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-3"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0iOasXyA98xxhLGqPtPpZg a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-15"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0ieRKIUDr0VvIDWDc6fQnL a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-10"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0lLq_C7Er9iw6bhMcy9tEW a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-27"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0qGmMacMT13urD1eI4Vyia a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-7"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0recqdSBbE_85p18MDK0CT a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-20"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0sY1Rcb2f9jeTQiaa1HfBe a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-19"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0uSTBt08r4huVPSqQL_GzG a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-22"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0xPs5R57T6Su_Q__xRMBNQ a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-28"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:0xSjAz10bFX9VqffMfkP8B a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-18"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:14D21cZ3r8ew4pSR_cmmuA a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-18"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:17p5l1pDT4SRCGtomfM89L a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-30"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:18HdYlStb82Rb7BVmYHKRQ a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-32"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:1F5KqFMQLCMvEmKUU9eGsc a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-4"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:1HcKepaU14KBuPwk6a4E83 a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-10"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:1K7zZEkun4BB2wtQr7x4eh a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-22"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:1NBLJKw0f4pejkcOKJV_XG a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-6"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:1PGdkvfAf9_vXAT0vpqnch a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-12"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:1Pw7KiQd94Wx51LoYMShtf a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-14"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:1UqSZUuYH2IArty1okzWGb a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-22"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:1XRMLPSIDE7BxxnCj3cbQD a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-5"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:1cx8o_B5f5HgNSg88mCzkS a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-17"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:1dR4DIW4X8MRjEodIsPfcS a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-12"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:25SSbyeJ96fQ0AEcTCNR2b a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-18"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:27oqTcO5XB6vR48KQnmOwk a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-26"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2C1WMxzKfFowTWC7mBh336 a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-25"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2D95pFm6v6nukjDe9POAUW a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-15"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2FFPvbYdz3kALHnv5UxOft a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-20"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2JJyBETHf3jA3QUkzbbu8L a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-9"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2NdNnlFi132xJ2peCfCZQl a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-5"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2Ubuxf6c91qQPj4YAshi1L a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-6"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2VHnKlw19CBfFL1fhb6G9A a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-20"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2VL8Kw_JrAduK0R4aa9Bi6 a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-14"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2VykLc2d95Ug6JgvXMtboP a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-13"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2Y_0jCUBvAVOFCOVRSX1ra a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-2"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2_SZjHdJn0jwbbiQM4XMmZ a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-31"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2cKH4E4bz6FgKAF_AOKc7f a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-17"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2esmsVZ3L6DP92oXCks0if a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-5"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2fgicU9gHF4hwXp6Vy_zU_ a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-1"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2g4u_z8GP3IR9_X9C89Sv3 a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-19"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2gYBmw3zvF3hcbnMPmYvVP a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-7"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2k6j_eKKbEu9QdKkMP4gB4 a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-27"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2pX2qUrFj1M9gYPYGM0UF1 a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-23"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2rCtN_pu10kONlLR5uzMqi a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-13"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2rqtqj4_j9fw8bjzPfJx1U a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-33"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2sUVZmYg58bPIBQ8WYfa88 a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-1"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:2wC7j7ujr0o9bOuBV_FKpr a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-11"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:30BTfnCnP88ex0WtxT1aUQ a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-28"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:31dx_mcwL7mPrebhNOOZ_3 a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-12"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:31i1qKHpr7m8F0Ca_4pjGp a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-26"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3352P5jPHBMe2TfKdS31ro a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-26"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:33shfO3Uz1HhAU9y_dlqFf a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-21"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:34Ox6EBqb3BP4LxDfFOo6E a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-24"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:36SuufIeDBOf2DIwavJJ_I a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-1"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3Bfcc_UC9EifTMcATOFMH3 a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-10"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3HGfHVSe110euiLgrdAPo_ a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-16"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3H_2fwq3X5_fqtKC0DZhhq a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-23"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3IZRl30Mn7Pvza2otd_iTU a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-29"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3KkbZUW1v1cOWs03MnOyQ6 a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-24"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3KrieGiAH5P90LMc81yLZt a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-21"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3N70QFk1nEEP1kVYin3UmL a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-14"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3WkxnAcAL3NPBwhUkfU24T a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-2"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3Xd7onx4r4lfrIIMlszrI8 a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-15"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3YjP0ooLD2cwqv3qdWFgxy a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-8"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3_APXbW5HAV9WHbBWglVMc a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-7"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3_uwNrk5P9IhTgSq0MckzB a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-11"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3eJKGkcqj7RBgcFypgwi2x a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-16"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3gMsotgyvC0hiMxjMr7hyR a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-3"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3iuH57IfT4GgTI4Fst0AX3 a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-13"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3ivZhffGn0TxP6E8GGQ22Q a :Wall,
+        owl:NamedIndividual ;
+    :hasName "3E-23"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3pVjbDpz15eRBEWF6NUs8l a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-24"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3q9aTTBN58W93XgWHJYGJ2 a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-25"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3rr6IFQkL7mgCJ1y9p21gM a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-27"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3tjwOXI3L96gKCxU17b9cH a :Wall,
+        owl:NamedIndividual ;
+    :hasName "1E-8"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:3zO3eR8k565QDHGHlSnrem a :Wall,
+        owl:NamedIndividual ;
+    :hasName "2E-16"^^xsd:string ;
+    :hasPredefinedType "NOTDEFINED"^^xsd:string .
+
+:Floor a owl:Class ;
+    rdfs:subClassOf :Building_element .
+
+:Roof a owl:Class ;
+    rdfs:subClassOf :Building_element .
+
+:hasAngleXY a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+:hasAttribute a owl:ObjectProperty ;
+    rdfs:domain :Structural_element ;
+    rdfs:range :Attribute .
+
+:hasAxesClose a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:float .
+
+:hasConnectionAngleDeg a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:float .
+
+:hasContactX a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:float .
+
+:hasContactY a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:float .
+
+:hasContactZ a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:float .
+
+:hasGapDistance a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:float .
+
+:hasGeometricInformation a owl:ObjectProperty ;
+    rdfs:domain :Structural_element ;
+    rdfs:range :Geometric_Information .
+
+:hasHeight a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+:hasLength a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+:hasLengthToWidthRatio a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+:hasName a owl:DatatypeProperty ;
+    rdfs:domain :Project_information ;
+    rdfs:range xsd:string .
+
+:hasNetCrossSectionalArea a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+:hasNumberofConnection a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:integer .
+
+:hasOverlapX a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:float .
+
+:hasOverlapY a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:float .
+
+:hasOverlapZ a owl:DatatypeProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range xsd:float .
+
+:hasProjectInformation a owl:ObjectProperty ;
+    rdfs:domain :Structural_element ;
+    rdfs:range :Project_information .
+
+:hasStorey a owl:DatatypeProperty ;
+    rdfs:domain :Project_information ;
+    rdfs:range xsd:string .
+
+:hasTag a owl:DatatypeProperty ;
+    rdfs:domain :Project_information ;
+    rdfs:range xsd:string .
+
+:hasThickness a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+:hasWidth a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+:hasX a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+:hasY a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+:hasZ a owl:DatatypeProperty ;
+    rdfs:domain :Geometric_Information ;
+    rdfs:range xsd:float .
+
+<http://webprotege.stanford.edu/R3Ur7mlrn2KZSEJYclCBNW> a owl:Class ;
+    rdfs:label "Welding_gun" ;
+    rdfs:subClassOf <http://webprotege.stanford.edu/RCBN6rq2jjiGhYBpYlQ6jO8> .
+
+<http://webprotege.stanford.edu/R9CDcXX1y7Fokvmx9yRUSpz> a owl:Class ;
+    rdfs:label "Milling_tool" ;
+    rdfs:subClassOf <http://webprotege.stanford.edu/RCBN6rq2jjiGhYBpYlQ6jO8> .
+
+<http://webprotege.stanford.edu/RBvSLooVN1JOIfjbRCqKd1R> a owl:Class ;
+    rdfs:label "Torque_wrench" ;
+    rdfs:subClassOf <http://webprotege.stanford.edu/RCBN6rq2jjiGhYBpYlQ6jO8> .
+
+<http://webprotege.stanford.edu/RCMqa6LBPhDsiWslh25ZcUs> a owl:Class ;
+    rdfs:label "Cutter" ;
+    rdfs:subClassOf <http://webprotege.stanford.edu/RCBN6rq2jjiGhYBpYlQ6jO8> .
+
+<http://webprotege.stanford.edu/RDokwKTiPLcW3OLZvoJ6gfI> a owl:Class ;
+    rdfs:label "Screwdriver" ;
+    rdfs:subClassOf <http://webprotege.stanford.edu/RCBN6rq2jjiGhYBpYlQ6jO8> .
+
+<http://webprotege.stanford.edu/Rg4dD1KFbLShzzVTEZmqEs> a owl:Class ;
+    rdfs:label "Electric_driller" ;
+    rdfs:subClassOf <http://webprotege.stanford.edu/RCBN6rq2jjiGhYBpYlQ6jO8> .
+
+:0PYVEKyPXCg90rj24UtSDE_geom a :Geometric_Information,
+        owl:NamedIndividual ;
+    :hasHeight "0.15239999999999998"^^xsd:float ;
+    :hasLength "0.3530168303966534"^^xsd:float ;
+    :hasThickness "0.0010921999999999998"^^xsd:float ;
+    :hasWidth "0.0508"^^xsd:float ;
+    :hasX "0.48339306217419775"^^xsd:float ;
+    :hasY "0.172165634663747"^^xsd:float ;
+    :hasZ "0.35301682000000056"^^xsd:float .
+
+:0PYVEKyPXCg90rj24UtSDE_proj a :Project_information,
+        owl:NamedIndividual ;
+    :hasName "600S200-43"^^xsd:string .
+
+:0TIO7edNX9ygZNZKdPkO5W_geom a :Geometric_Information,
+        owl:NamedIndividual ;
+    :hasHeight "0.15239999999999998"^^xsd:float ;
+    :hasLength "0.3530168303966534"^^xsd:float ;
+    :hasThickness "0.0010921999999999998"^^xsd:float ;
+    :hasWidth "0.0508"^^xsd:float ;
+    :hasX "0.01796051224209938"^^xsd:float ;
+    :hasY "0.6375981845961771"^^xsd:float ;
+    :hasZ "0.35301682000000056"^^xsd:float .
+
+:0TIO7edNX9ygZNZKdPkO5W_proj a :Project_information,
+        owl:NamedIndividual ;
+    :hasName "600S200-43"^^xsd:string .
+
+:0lA_x0bVL3dxry0IDeYcki_geom a :Geometric_Information,
+        owl:NamedIndividual ;
+    :hasHeight "0.15239999999999998"^^xsd:float ;
+    :hasLength "0.3530168303966534"^^xsd:float ;
+    :hasThickness "0.0010921999999999998"^^xsd:float ;
+    :hasWidth "0.0508"^^xsd:float ;
+    :hasX "0.19602486630008054"^^xsd:float ;
+    :hasY "0.45953383053806895"^^xsd:float ;
+    :hasZ "0.35301682000000056"^^xsd:float .
+
+:0lA_x0bVL3dxry0IDeYcki_proj a :Project_information,
+        owl:NamedIndividual ;
+    :hasName "600S200-43"^^xsd:string .
+
+:1VK03yhe10COKkSEOFZGsG_geom a :Geometric_Information,
+        owl:NamedIndividual ;
+    :hasHeight "0.15239999999999998"^^xsd:float ;
+    :hasLength "0.9271000108966656"^^xsd:float ;
+    :hasThickness "0.0010921999999999998"^^xsd:float ;
+    :hasWidth "0.0508"^^xsd:float ;
+    :hasX "0.6555586968377951"^^xsd:float ;
+    :hasY "0.0"^^xsd:float ;
+    :hasZ "0.32876235999969516"^^xsd:float .
+
+:1VK03yhe10COKkSEOFZGsG_proj a :Project_information,
+        owl:NamedIndividual ;
+    :hasName "600T200-43"^^xsd:string .
+
+:1oxoohAkHA2QlbjMPDICOu_geom a :Geometric_Information,
+        owl:NamedIndividual ;
+    :hasHeight "0.15239999999999998"^^xsd:float ;
+    :hasLength "0.3530168303966532"^^xsd:float ;
+    :hasThickness "0.0010921999999999998"^^xsd:float ;
+    :hasWidth "0.0508"^^xsd:float ;
+    :hasX "0.6375981845956451"^^xsd:float ;
+    :hasY "0.01796051224217443"^^xsd:float ;
+    :hasZ "0.0"^^xsd:float .
+
+:1oxoohAkHA2QlbjMPDICOu_proj a :Project_information,
+        owl:NamedIndividual ;
+    :hasName "600S200-43"^^xsd:string .
+
+:2Tog0W0k5AwBeS89XVDcOs_geom a :Geometric_Information,
+        owl:NamedIndividual ;
+    :hasHeight "0.15239999999999998"^^xsd:float ;
+    :hasLength "0.9271000108966072"^^xsd:float ;
+    :hasThickness "0.0013716"^^xsd:float ;
+    :hasWidth "0.0508"^^xsd:float ;
+    :hasX "0.0"^^xsd:float ;
+    :hasY "0.6555586968383018"^^xsd:float ;
+    :hasZ "0.023962359999694982"^^xsd:float .
+
+:2Tog0W0k5AwBeS89XVDcOs_proj a :Project_information,
+        owl:NamedIndividual ;
+    :hasName "600T200-54"^^xsd:string .
+
+:Angled a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty :requiresOperation ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/R7LNWON19hK5rcq7zo1SDRz> ],
+        [ a owl:Restriction ;
+            owl:onProperty :requiresOperation ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/R7OT1szixxpkoIRvfnFVgKp> ],
+        [ a owl:Restriction ;
+            owl:onProperty :requiresOperation ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/RCPhgnnd9fIEcRjVz1a68oh> ],
+        :Connection .
+
+:Crossing a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty :requiresOperation ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/R7LNWON19hK5rcq7zo1SDRz> ],
+        [ a owl:Restriction ;
+            owl:onProperty :requiresOperation ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/RCPhgnnd9fIEcRjVz1a68oh> ],
+        :Connection .
+
+:Double_Angled a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty :requiresOperation ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/R7LNWON19hK5rcq7zo1SDRz> ],
+        [ a owl:Restriction ;
+            owl:onProperty :requiresOperation ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/R7OT1szixxpkoIRvfnFVgKp> ],
+        [ a owl:Restriction ;
+            owl:onProperty :requiresOperation ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/RCPhgnnd9fIEcRjVz1a68oh> ],
+        :Connection .
+
+:Fastener a owl:Class ;
+    rdfs:subClassOf :Structural_element .
+
+:Joist a owl:Class ;
+    rdfs:subClassOf :Structural_element .
+
+:Lateral a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty :requiresOperation ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/R7LNWON19hK5rcq7zo1SDRz> ],
+        [ a owl:Restriction ;
+            owl:onProperty :requiresOperation ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/RCPhgnnd9fIEcRjVz1a68oh> ],
+        :Connection .
+
+:Nogging a owl:Class ;
+    rdfs:subClassOf :Structural_element .
+
+:connectsElement a owl:ObjectProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range :Structural_element ;
+    owl:inverseOf :hasIntersection .
+
+:hasIntersection a owl:ObjectProperty ;
+    rdfs:domain :Structural_element ;
+    rdfs:range :Connection .
+
+<http://webprotege.stanford.edu/R7OT1szixxpkoIRvfnFVgKp> a owl:Class ;
+    rdfs:label "Welding" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <http://webprotege.stanford.edu/RkbhOGMHuz3tCcBIQmbPVt> ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/R3Ur7mlrn2KZSEJYclCBNW> ],
+        :Operation .
+
+:0PYVEKyPXCg90rj24UtSDE a :Stud,
+        owl:NamedIndividual ;
+    :hasGeometricInformation :0PYVEKyPXCg90rj24UtSDE_geom ;
+    :hasIntersection :conn_0PYVEKyPXCg90rj24UtSDE_1VK03yhe10COKkSEOFZGsG,
+        :conn_0PYVEKyPXCg90rj24UtSDE_2Tog0W0k5AwBeS89XVDcOs ;
+    :hasProjectInformation :0PYVEKyPXCg90rj24UtSDE_proj .
+
+:0TIO7edNX9ygZNZKdPkO5W a :Stud,
+        owl:NamedIndividual ;
+    :hasGeometricInformation :0TIO7edNX9ygZNZKdPkO5W_geom ;
+    :hasIntersection :conn_0TIO7edNX9ygZNZKdPkO5W_1VK03yhe10COKkSEOFZGsG,
+        :conn_0TIO7edNX9ygZNZKdPkO5W_2Tog0W0k5AwBeS89XVDcOs ;
+    :hasProjectInformation :0TIO7edNX9ygZNZKdPkO5W_proj .
+
+:0lA_x0bVL3dxry0IDeYcki a :Stud,
+        owl:NamedIndividual ;
+    :hasGeometricInformation :0lA_x0bVL3dxry0IDeYcki_geom ;
+    :hasIntersection :conn_0lA_x0bVL3dxry0IDeYcki_1VK03yhe10COKkSEOFZGsG,
+        :conn_0lA_x0bVL3dxry0IDeYcki_2Tog0W0k5AwBeS89XVDcOs ;
+    :hasProjectInformation :0lA_x0bVL3dxry0IDeYcki_proj .
+
+:1oxoohAkHA2QlbjMPDICOu a :Stud,
+        owl:NamedIndividual ;
+    :hasGeometricInformation :1oxoohAkHA2QlbjMPDICOu_geom ;
+    :hasIntersection :conn_1oxoohAkHA2QlbjMPDICOu_1VK03yhe10COKkSEOFZGsG,
+        :conn_1oxoohAkHA2QlbjMPDICOu_2Tog0W0k5AwBeS89XVDcOs ;
+    :hasProjectInformation :1oxoohAkHA2QlbjMPDICOu_proj .
+
+:Process a owl:Class .
+
+:conn_0PYVEKyPXCg90rj24UtSDE_1VK03yhe10COKkSEOFZGsG a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :0PYVEKyPXCg90rj24UtSDE,
+        :1VK03yhe10COKkSEOFZGsG ;
+    :hasContactX "0.48339305692978496"^^xsd:float ;
+    :hasContactY "0.1721656327784703"^^xsd:float ;
+    :hasContactZ "0.32876235999969516"^^xsd:float ;
+    :hasGapDistance "0.0"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "1.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_0PYVEKyPXCg90rj24UtSDE_2Tog0W0k5AwBeS89XVDcOs a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :0PYVEKyPXCg90rj24UtSDE,
+        :2Tog0W0k5AwBeS89XVDcOs ;
+    :hasContactX "0.48339305674577904"^^xsd:float ;
+    :hasContactY "0.17216563259446446"^^xsd:float ;
+    :hasContactZ "0.023962359999694982"^^xsd:float ;
+    :hasGapDistance "0.0"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "1.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_0TIO7edNX9ygZNZKdPkO5W_1VK03yhe10COKkSEOFZGsG a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :0TIO7edNX9ygZNZKdPkO5W,
+        :1VK03yhe10COKkSEOFZGsG ;
+    :hasContactX "0.017960506998536185"^^xsd:float ;
+    :hasContactY "0.6375981827100641"^^xsd:float ;
+    :hasContactZ "0.32876235999969516"^^xsd:float ;
+    :hasGapDistance "0.0"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "1.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_0TIO7edNX9ygZNZKdPkO5W_2Tog0W0k5AwBeS89XVDcOs a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :0TIO7edNX9ygZNZKdPkO5W,
+        :2Tog0W0k5AwBeS89XVDcOs ;
+    :hasContactX "0.017960506814531173"^^xsd:float ;
+    :hasContactY "0.6375981825260593"^^xsd:float ;
+    :hasContactZ "0.023962359999694982"^^xsd:float ;
+    :hasGapDistance "0.0"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "1.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_0lA_x0bVL3dxry0IDeYcki_1VK03yhe10COKkSEOFZGsG a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :0lA_x0bVL3dxry0IDeYcki,
+        :1VK03yhe10COKkSEOFZGsG ;
+    :hasContactX "0.19602486105636197"^^xsd:float ;
+    :hasContactY "0.45953382865210535"^^xsd:float ;
+    :hasContactZ "0.32876235999969516"^^xsd:float ;
+    :hasGapDistance "0.0"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "1.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_0lA_x0bVL3dxry0IDeYcki_2Tog0W0k5AwBeS89XVDcOs a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :0lA_x0bVL3dxry0IDeYcki,
+        :2Tog0W0k5AwBeS89XVDcOs ;
+    :hasContactX "0.1960248608723566"^^xsd:float ;
+    :hasContactY "0.45953382846810004"^^xsd:float ;
+    :hasContactZ "0.023962359999694982"^^xsd:float ;
+    :hasGapDistance "0.0"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "1.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_1oxoohAkHA2QlbjMPDICOu_1VK03yhe10COKkSEOFZGsG a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :1VK03yhe10COKkSEOFZGsG,
+        :1oxoohAkHA2QlbjMPDICOu ;
+    :hasContactX "0.637598182713159"^^xsd:float ;
+    :hasContactY "0.017960506995733035"^^xsd:float ;
+    :hasContactZ "0.32876235999969516"^^xsd:float ;
+    :hasGapDistance "0.0"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "1.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:conn_1oxoohAkHA2QlbjMPDICOu_2Tog0W0k5AwBeS89XVDcOs a :Connection,
+        :Perpendicular,
+        owl:NamedIndividual ;
+    :connectsElement :1oxoohAkHA2QlbjMPDICOu,
+        :2Tog0W0k5AwBeS89XVDcOs ;
+    :hasContactX "0.6375981825291528"^^xsd:float ;
+    :hasContactY "0.017960506811726895"^^xsd:float ;
+    :hasContactZ "0.023962359999694982"^^xsd:float ;
+    :hasGapDistance "0.0"^^xsd:float ;
+    :hasOverlapX "1.0"^^xsd:float ;
+    :hasOverlapY "1.0"^^xsd:float ;
+    :hasOverlapZ "1.0"^^xsd:float .
+
+:Building_element a owl:Class ;
+    rdfs:subClassOf :Product .
+
+:Resource a owl:Class .
+
+:Track a owl:Class ;
+    rdfs:subClassOf :Structural_element .
+
+:1VK03yhe10COKkSEOFZGsG a :Track,
+        owl:NamedIndividual ;
+    :hasGeometricInformation :1VK03yhe10COKkSEOFZGsG_geom ;
+    :hasIntersection :conn_0PYVEKyPXCg90rj24UtSDE_1VK03yhe10COKkSEOFZGsG,
+        :conn_0TIO7edNX9ygZNZKdPkO5W_1VK03yhe10COKkSEOFZGsG,
+        :conn_0lA_x0bVL3dxry0IDeYcki_1VK03yhe10COKkSEOFZGsG,
+        :conn_1oxoohAkHA2QlbjMPDICOu_1VK03yhe10COKkSEOFZGsG ;
+    :hasProjectInformation :1VK03yhe10COKkSEOFZGsG_proj .
+
+:2Tog0W0k5AwBeS89XVDcOs a :Track,
+        owl:NamedIndividual ;
+    :hasGeometricInformation :2Tog0W0k5AwBeS89XVDcOs_geom ;
+    :hasIntersection :conn_0PYVEKyPXCg90rj24UtSDE_2Tog0W0k5AwBeS89XVDcOs,
+        :conn_0TIO7edNX9ygZNZKdPkO5W_2Tog0W0k5AwBeS89XVDcOs,
+        :conn_0lA_x0bVL3dxry0IDeYcki_2Tog0W0k5AwBeS89XVDcOs,
+        :conn_1oxoohAkHA2QlbjMPDICOu_2Tog0W0k5AwBeS89XVDcOs ;
+    :hasProjectInformation :2Tog0W0k5AwBeS89XVDcOs_proj .
+
+:Attribute a owl:Class ;
+    rdfs:subClassOf :Product .
+
+:Product a owl:Class .
+
+<http://webprotege.stanford.edu/R7LNWON19hK5rcq7zo1SDRz> a owl:Class ;
+    rdfs:label "Fastening" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <http://webprotege.stanford.edu/RkbhOGMHuz3tCcBIQmbPVt> ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/RDokwKTiPLcW3OLZvoJ6gfI> ],
+        :Operation .
+
+<http://webprotege.stanford.edu/RCPhgnnd9fIEcRjVz1a68oh> a owl:Class ;
+    rdfs:label "Drilling" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty <http://webprotege.stanford.edu/RkbhOGMHuz3tCcBIQmbPVt> ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/Rg4dD1KFbLShzzVTEZmqEs> ],
+        :Operation .
+
+:Stud a owl:Class ;
+    rdfs:subClassOf :Structural_element .
+
+<http://webprotege.stanford.edu/RCBN6rq2jjiGhYBpYlQ6jO8> a owl:Class ;
+    rdfs:label "Robot" ;
+    rdfs:subClassOf :Resource .
+
+<http://webprotege.stanford.edu/RkbhOGMHuz3tCcBIQmbPVt> a owl:ObjectProperty ;
+    rdfs:label "requiresResource" ;
+    rdfs:domain :Operation ;
+    rdfs:range :Resource ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+:Operation a owl:Class ;
+    rdfs:subClassOf :Process .
+
+:Perpendicular a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty :requiresOperation ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/R7LNWON19hK5rcq7zo1SDRz> ],
+        [ a owl:Restriction ;
+            owl:onProperty :requiresOperation ;
+            owl:someValuesFrom <http://webprotege.stanford.edu/RCPhgnnd9fIEcRjVz1a68oh> ],
+        :Connection .
+
+:Project_information a owl:Class ;
+    rdfs:subClassOf :Attribute .
+
+:Structural_element a owl:Class ;
+    rdfs:subClassOf :Product .
+
+:requiresOperation a owl:ObjectProperty ;
+    rdfs:domain :Connection ;
+    rdfs:range :Operation .
+
+:Geometric_Information a owl:Class ;
+    rdfs:subClassOf :Attribute .
+
+:Connection a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onClass :Structural_element ;
+            owl:onProperty :connectsElement ;
+            owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ],
+        :Attribute .
+
+:Wall a owl:Class ;
+    rdfs:subClassOf :Building_element .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( :Angled :Crossing :Double_Angled :Lateral :Perpendicular ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( :Fastener :Joist :Nogging :Stud :Track ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( :Geometric_Information :Project_information :Structural_element ) .
+
+[] a owl:AllDisjointClasses ;
+    owl:members ( :Process :Product :Resource ) .
+

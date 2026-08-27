@@ -155,23 +155,34 @@ def build_individual_tree(g):
                 
             prop_name = get_label(g, p)
             
+            # --- THE FIX: TARGET "REQUIRES OPERATION" DIRECTLY ---
+            is_operation = "requiresOperation" in str(p).split('#')[-1] or "requiresoperation" in str(p).split('#')[-1].lower()
+            
             if isinstance(o, Literal):
                 # It's a raw value (e.g., hasLength: 0.1)
                 val = str(o.value) if o.value is not None else str(o)
-                prop_nodes.append({"name": f"{prop_name}: {val}", "value": 1})
+                
+                if is_operation:
+                    prop_nodes.append({"name": f"🔴 REQUIRES OPERATION: {val}", "value": 1})
+                else:
+                    prop_nodes.append({"name": f"{prop_name}: {val}", "value": 1})
                 
             elif isinstance(o, URIRef):
-                # It links to another Individual (e.g., hasGeometricInfo -> GeoInfo_1)
+                # It links to another Individual or Class
                 obj_name = get_label(g, o)
-                sub_props = get_individual_properties(o, depth + 1, max_depth, seen.copy())
                 
-                if sub_props:
-                    prop_nodes.append({
-                        "name": f"{prop_name} -> {obj_name}",
-                        "children": sub_props
-                    })
+                if is_operation:
+                    prop_nodes.append({"name": f"🔴 REQUIRES OPERATION: {obj_name}", "value": 1})
                 else:
-                    prop_nodes.append({"name": f"{prop_name} -> {obj_name}", "value": 1})
+                    sub_props = get_individual_properties(o, depth + 1, max_depth, seen.copy())
+                    
+                    if sub_props:
+                        prop_nodes.append({
+                            "name": f"{prop_name} -> {obj_name}",
+                            "children": sub_props
+                        })
+                    else:
+                        prop_nodes.append({"name": f"{prop_name} -> {obj_name}", "value": 1})
                     
         return prop_nodes
 
@@ -231,7 +242,7 @@ if 'current_ontology_path' in st.session_state and os.path.exists(st.session_sta
         def get_echarts_options(data):
             return {
                 "tooltip": {"trigger": "item", "triggerOn": "mousemove"},
-                "animation": True, # <--- RESTORED: Let ECharts handle the fade-out
+                "animation": True, 
                 "series": [
                     {
                         "type": "tree",
@@ -254,8 +265,8 @@ if 'current_ontology_path' in st.session_state and os.path.exists(st.session_sta
                             }
                         },
                         "expandAndCollapse": True,
-                        "animationDuration": 500,       # <--- RESTORED: Smooth opening
-                        "animationDurationUpdate": 500, # <--- RESTORED: Smooth collapsing
+                        "animationDuration": 500,       
+                        "animationDurationUpdate": 500, 
                     }
                 ],
             }
