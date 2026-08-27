@@ -357,7 +357,7 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                 stpyvista(plotter, backend=backend_engine)
 
             # ==========================================
-            # 📦 PREPARE SIMULATION STL ZIP FILE
+            # PREPARE SIMULATION STL ZIP FILE
             # ==========================================
             with st.spinner("Packaging Individual Parts for Simulation..."):
                 zip_buffer = io.BytesIO()
