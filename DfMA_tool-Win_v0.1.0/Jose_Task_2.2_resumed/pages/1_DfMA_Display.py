@@ -25,6 +25,7 @@ if parent_dir not in sys.path:
 import Find_elements
 import Constraints
 import engine
+import Start
 
 # --- DYNAMIC PATH RESOLUTION (FOR NESTED PAGES) ---
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -92,7 +93,279 @@ if assemble_flat:
 else:
     max_height = params["max_height"]
     max_length = params["max_length"]
-    
+
+
+# Define our robot hardware presets in a dictionary
+ROBOT_PRESETS = {
+    "Default": {
+        "max_length": 6.00,
+        "max_height": 3.00,
+        "hole_tol": 0.010,
+        "track_cont_tol": 0.020,
+        "track_hole_tol": 0.20,
+        "max_weight": 50.00,     
+        "allowed_holes_mm": "3, 12",
+        "hole_size_tol_mm": 2.0,
+        "max_parts": 50,
+        "stud_spacing_mm": "600, 100",
+        "stud_tol_mm": 50, 
+        "joist_depth_tolerance_mm": 100,
+        "part_max_length_mm": 5000,
+        "part_max_height_mm": 5000,
+        "part_max_depth_mm" : 5000,
+        "hole_border_clearance_mm": 20,
+        "slanted_beam_angle" : 45,
+        "total_assembly_payload_limit_kg": 150,
+        "CoG_radius_tolerance_mm" : 250,
+        # Hardware specific fallbacks
+        "repeatability_mm": 0.0,
+        "axis_limits_deg": None
+    },
+"ABB IRB 2600-20/1.65": {
+        "max_length": 1.65,
+        "max_height": 1.65,
+        "hole_tol": 0.010,
+        "track_cont_tol": 0.020,
+        "track_hole_tol": 0.20,
+        "max_weight": 20.00,             # Matched to 20kg payload
+        "allowed_holes_mm": "3, 12",
+        "hole_size_tol_mm": 2.0,
+        "max_parts": 50,
+        "stud_spacing_mm": "600, 100",
+        "stud_tol_mm": 50, 
+        "joist_depth_tolerance_mm": 100,
+        "part_max_length_mm": 4000,      # Matched to 1650mm reach
+        "part_max_height_mm": 1650,
+        "part_max_depth_mm" : 1650,
+        "hole_border_clearance_mm": 20,
+        "slanted_beam_angle" : 45,
+        "total_assembly_payload_limit_kg": 100.0,
+        "CoG_radius_tolerance_mm" : 250,
+        # Hardware specific additions
+        "repeatability_mm": 0.04,
+        "axis_limits_deg": {
+            "J1": [-180, 180],
+            "J2": [-95, 155],
+            "J3": [-180, 75],
+            "J4": [-400, 400],
+            "J5": [-120, 120],
+            "J6": [-400, 400]
+        }
+    },
+"ABB IRB 2600-20/1.65 + ABB IRBT 2005 Linear Unit": {
+        "max_length": 4.00,
+        "max_height": 1.65,
+        "hole_tol": 0.010,
+        "track_cont_tol": 0.020,
+        "track_hole_tol": 0.20,
+        "max_weight": 20.00,             # Matched to 20kg payload
+        "allowed_holes_mm": "3, 12",
+        "hole_size_tol_mm": 2.0,
+        "max_parts": 50,
+        "stud_spacing_mm": "600, 100",
+        "stud_tol_mm": 50, 
+        "joist_depth_tolerance_mm": 100,
+        "part_max_length_mm": 4000,      # Matched to 1650mm reach
+        "part_max_height_mm": 1650,
+        "part_max_depth_mm" : 1650,
+        "hole_border_clearance_mm": 20,
+        "slanted_beam_angle" : 45,
+        "total_assembly_payload_limit_kg": 100.0,
+        "CoG_radius_tolerance_mm" : 250,
+        # Hardware specific additions
+        "repeatability_mm": 0.04,
+        "axis_limits_deg": {
+            "J1": [-180, 180],
+            "J2": [-95, 155],
+            "J3": [-180, 75],
+            "J4": [-400, 400],
+            "J5": [-120, 120],
+            "J6": [-400, 400]
+        }
+    },
+"ABB IRB 2600-20/1.65 + Dobot CR10": {
+        "max_length": 1.65,
+        "max_height": 4.00,
+        "hole_tol": 0.010,
+        "track_cont_tol": 0.020,
+        "track_hole_tol": 0.20,
+        "max_weight": 20.00,             # Matched to 20kg payload
+        "allowed_holes_mm": "3, 12",
+        "hole_size_tol_mm": 2.0,
+        "max_parts": 50,
+        "stud_spacing_mm": "600, 100",
+        "stud_tol_mm": 50, 
+        "joist_depth_tolerance_mm": 100,
+        "part_max_length_mm": 4000,      # Matched to 1650mm reach
+        "part_max_height_mm": 1650,
+        "part_max_depth_mm" : 1650,
+        "hole_border_clearance_mm": 20,
+        "slanted_beam_angle" : 45,
+        "total_assembly_payload_limit_kg": 100.0,
+        "CoG_radius_tolerance_mm" : 250,
+        # Hardware specific additions
+        "repeatability_mm": 0.04,
+        "axis_limits_deg": {
+            "J1": [-180, 180],
+            "J2": [-95, 155],
+            "J3": [-180, 75],
+            "J4": [-400, 400],
+            "J5": [-120, 120],
+            "J6": [-400, 400]
+        }
+    },
+"ABB IRB 2600-20/1.65 + ABB IRBT 2005 Linear Unit + Dobot CR10": {
+        "max_length": 4.00,
+        "max_height": 4.00,
+        "hole_tol": 0.010,
+        "track_cont_tol": 0.020,
+        "track_hole_tol": 0.20,
+        "max_weight": 20.00,             # Matched to 20kg payload
+        "allowed_holes_mm": "3, 12",
+        "hole_size_tol_mm": 2.0,
+        "max_parts": 50,
+        "stud_spacing_mm": "600, 100",
+        "stud_tol_mm": 50, 
+        "joist_depth_tolerance_mm": 100,
+        "part_max_length_mm": 4000,      # Matched to 1650mm reach
+        "part_max_height_mm": 1650,
+        "part_max_depth_mm" : 1650,
+        "hole_border_clearance_mm": 20,
+        "slanted_beam_angle" : 45,
+        "total_assembly_payload_limit_kg": 100.0,
+        "CoG_radius_tolerance_mm" : 250,
+        # Hardware specific additions
+        "repeatability_mm": 0.04,
+        "axis_limits_deg": {
+            "J1": [-180, 180],
+            "J2": [-95, 155],
+            "J3": [-180, 75],
+            "J4": [-400, 400],
+            "J5": [-120, 120],
+            "J6": [-400, 400]
+        }
+    },
+"DOBOT CR10 (Helper Robot)": {
+        "max_length": 1.525,
+        "max_height": 1.525,
+        "hole_tol": 0.010,
+        "track_cont_tol": 0.020,
+        "track_hole_tol": 0.20,
+        "max_weight": 10.00,             # Matched to 10kg payload
+        "allowed_holes_mm": "3, 12",
+        "hole_size_tol_mm": 2.0,
+        "max_parts": 50,
+        "stud_spacing_mm": "600, 100",
+        "stud_tol_mm": 50, 
+        "joist_depth_tolerance_mm": 100,
+        "part_max_length_mm": 1525,      # Matched to absolute maximum reach
+        "part_max_height_mm": 1525,
+        "part_max_depth_mm" : 1525,
+        "hole_border_clearance_mm": 20,
+        "slanted_beam_angle" : 45,
+        "total_assembly_payload_limit_kg": 100.0,
+        "CoG_radius_tolerance_mm" : 250,
+        # Hardware specific additions
+        "is_cobot": True,
+        "working_radius_mm": 1300,       # Optimal safe working zone
+        "repeatability_mm": 0.03,
+        "axis_limits_deg": {
+            "J1": [-360, 360],
+            "J2": [-360, 360],
+            "J3": [-160, 160],
+            "J4": [-360, 360],
+            "J5": [-360, 360],
+            "J6": [-360, 360]
+        }
+    },
+"KUKA KR 250 R2700-2": {
+        "max_length": 2.700,             # 2.7 meter reach
+        "max_height": 2.700,
+        "hole_tol": 0.010,
+        "track_cont_tol": 0.020,
+        "track_hole_tol": 0.20,
+        "max_weight": 250.00,            # Matched to KR 250 payload limit
+        "allowed_holes_mm": "3, 12",
+        "hole_size_tol_mm": 2.0,
+        "max_parts": 50,
+        "stud_spacing_mm": "600, 100",
+        "stud_tol_mm": 50, 
+        "joist_depth_tolerance_mm": 100,
+        "part_max_length_mm": 4200,      # Matched to our edge-mounted maximum width calculation
+        "part_max_height_mm": 2701,
+        "part_max_depth_mm" : 2400,      # Constrained to the safe effective reach for tooling
+        "hole_border_clearance_mm": 20,
+        "slanted_beam_angle" : 45,
+        "total_assembly_payload_limit_kg": 250.0,
+        "CoG_radius_tolerance_mm" : 250,
+        # Hardware specific additions
+        "effective_reach_mm": 2400,      # Safety limit factoring in the nail gun/gripper
+        "repeatability_mm": 0.05,
+        "axis_limits_deg": {
+            "J1": [-185, 185],
+            "J2": [-140, -5],
+            "J3": [-120, 168],
+            "J4": [-350, 350],
+            "J5": [-122.5, 122.5],
+            "J6": [-350, 350]
+        }
+    },
+"KUKA KR 250 R2700-2 + Dobot CR10": {
+        "max_length": 2.700,             # 2.7 meter reach
+        "max_height": 4.000,
+        "hole_tol": 0.010,
+        "track_cont_tol": 0.020,
+        "track_hole_tol": 0.20,
+        "max_weight": 250.00,            # Matched to KR 250 payload limit
+        "allowed_holes_mm": "3, 12",
+        "hole_size_tol_mm": 2.0,
+        "max_parts": 50,
+        "stud_spacing_mm": "600, 100",
+        "stud_tol_mm": 50, 
+        "joist_depth_tolerance_mm": 100,
+        "part_max_length_mm": 4200,      # Matched to our edge-mounted maximum width calculation
+        "part_max_height_mm": 2701,
+        "part_max_depth_mm" : 2400,      # Constrained to the safe effective reach for tooling
+        "hole_border_clearance_mm": 20,
+        "slanted_beam_angle" : 45,
+        "total_assembly_payload_limit_kg": 250.0,
+        "CoG_radius_tolerance_mm" : 250,
+        # Hardware specific additions
+        "effective_reach_mm": 2400,      # Safety limit factoring in the nail gun/gripper
+        "repeatability_mm": 0.05,
+        "axis_limits_deg": {
+            "J1": [-185, 185],
+            "J2": [-140, -5],
+            "J3": [-120, 168],
+            "J4": [-350, 350],
+            "J5": [-122.5, 122.5],
+            "J6": [-350, 350]
+        }
+    },
+}
+
+
+# Ensure session state is initialized on first load
+if "design_params" not in st.session_state:
+    st.session_state["design_params"] = ROBOT_PRESETS["Default"].copy()
+
+# --- HARDWARE SELECTION UI (SIDEBAR) ---
+st.sidebar.markdown("---")
+st.sidebar.markdown("###Robotic Cell Presets")
+st.sidebar.write("Select the robotic system you are analyzing this panel for:")
+
+selected_hardware = st.sidebar.selectbox(
+    "Available Configurations:", 
+    options=list(ROBOT_PRESETS.keys()),
+    label_visibility="collapsed"
+)
+
+if st.sidebar.button("Apply Preset"):
+    st.session_state["design_params"] = ROBOT_PRESETS[selected_hardware].copy()
+    st.rerun()
+
+# Just a visual confirmation of the currently active hardware
+st.sidebar.caption(f"**Currently Active Parameter Set:** {selected_hardware} \n(Payload: {st.session_state['design_params']['max_weight']}kg)")
 hole_tol = params["hole_tol"]
 track_hole_tol = params["track_hole_tol"]
 track_cont_tol = params["track_cont_tol"]
@@ -120,7 +393,15 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
     st.info("Scanning for physical parts...")
     
     try:
-        all_elements = Find_elements.get_elements(ifcfile_path)
+        raw_elements = Find_elements.get_elements(ifcfile_path)
+        # Exclude IfcFastener / IfcMechanicalFastener / Fastener proxies from structural members
+        all_elements = [
+            el for el in raw_elements
+            if not el.is_a("IfcFastener")
+            and not el.is_a("IfcMechanicalFastener")
+            and not el.is_a("IfcDiscreteAccessory")
+            and getattr(el, "ObjectType", "") not in ("FASTENER", "SERVICEHOLELINE")
+        ]
         summary, model = engine.analyse(ifcfile_path)
         
         if len(all_elements) > 0:
@@ -221,75 +502,158 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
             # RIGHT COLUMN: 3D VIEWER
             # ==========================================
             with right_col:
-                header_col1, header_col2 = st.columns([3, 1])
+                header_col1, header_col2, header_col3 = st.columns([2, 1, 1])
                 with header_col1:
                     st.markdown("### 3D Panel Viewer")
                 with header_col2:
                     show_alignment = st.toggle("Show Alignment Lines", value=False)
-                # 🛠️ FIX 1: Add off_screen=True and crank up the resolution!
+                with header_col3:
+                    show_names = st.toggle("Show Member Names", value=True)
+
                 plotter = pv.Plotter(window_size=[800, 800], off_screen=True)
 
                 panel_meshes = Find_elements.get_3d_meshes(all_elements)
-                fasteners = engine.get_fasteners_table(summary)
-                fastener_meshes = Find_elements.get_3d_meshes(fasteners)
 
-                # Panel 3d Meshes
-                for element, mesh in zip(all_elements, panel_meshes):
-                    if element in red_parts: part_color = "red"
-                    elif element in orange_parts: part_color = "orange"
-                    else: part_color = "lightgrey"
+                # Panel 3D Meshes & Member Name Labels
+                for idx, (element, mesh) in enumerate(zip(all_elements, panel_meshes)):
+                    if mesh is None or mesh.n_points == 0:
+                        continue
+
+                    if element in red_parts:
+                        part_color = "red"
+                    elif element in orange_parts:
+                        part_color = "orange"
+                    else:
+                        part_color = "lightgrey"
+                    
+                    mesh_opacity = 0.65 if show_names else 1.0
                                     
                     plotter.add_mesh(
                         mesh,
                         color=part_color,
+                        opacity=mesh_opacity,
                         show_edges=True,
                         edge_color="grey",
                         ambient=0.2,
                     )
 
+                    # --- 3D MEMBER NAME GENERATION ---
+                    if show_names:
+                        b = mesh.bounds
+                        center_x = (b[0] + b[1]) / 2.0
+                        center_y = (b[2] + b[3]) / 2.0
+                        center_z = (b[4] + b[5]) / 2.0
+                        
+                        gid = getattr(element, "GlobalId", "") or f"M{idx+1}"
+                        label_text = gid[-4:] if len(gid) >= 4 else gid
+                        
+                        try:
+                            text_mesh = pv.Text3D(str(label_text), depth=0.1)
+                            scale_factor = 0.035
+                            text_mesh.points *= scale_factor
+                            
+                            y_front_offset = b[2] - 0.02
+                            text_mesh.translate([
+                                center_x - text_mesh.center[0],
+                                y_front_offset - text_mesh.center[1],
+                                center_z - text_mesh.center[2]
+                            ], inplace=True)
+                            
+                            plotter.add_mesh(text_mesh, color="black")
+                            plotter.add_mesh(
+                                pv.Sphere(radius=scale_factor * 0.25, center=[center_x, center_y, center_z]),
+                                color="red"
+                            )
+                        except Exception:
+                            pass
+
+                # Lock structural panel bounds BEFORE adding fasteners so alignment lines stay tight
+                structural_bounds = plotter.bounds
+
+                # --- EXTRACT & RENDER FASTENERS (NRC V2 + ENGINE FALLBACK) ---
                 with st.spinner("Extracting Fasteners & Ontology..."):
                     try:
-                        summary, _ = engine.analyse(st.session_state['current_ifc_path'])
-                        fasteners_and_connectors = [e for e in summary["elements"] if e["cls"] == "Fastener"]
-                        
-                        to_meters = 1000.0 
+                        import ifcopenshell.util.unit
+                        import ifcopenshell.util.placement
+                        import ifcopenshell.util.element
+
+                        # Automatically detect whether file is in Millimeters (0.001) or already Metric Meters (1.0)
+                        unit_scale = ifcopenshell.util.unit.calculate_unit_scale(model)
                         bolts_plotted = 0
+
+                        # 1. Native IfcFastener / IfcMechanicalFastener (handles 624McRobert V2 NRC screws accurately)
+                        ifc_fasteners = model.by_type("IfcFastener") + model.by_type("IfcMechanicalFastener")
                         
-                        for f in fasteners_and_connectors:
-                            pos = f.get("pos")
-                            name = f.get("name", "").lower()
-                            
-                            if pos:
-                                x = pos[0] / to_meters
-                                y = pos[1] / to_meters
-                                z = pos[2] / to_meters
-                                
-                                if "bolt" in name or "screw" in name:
+                        if len(ifc_fasteners) > 0:
+                            for fast_el in ifc_fasteners:
+                                try:
+                                    # Extract full 4x4 world transformation matrix
+                                    mat = ifcopenshell.util.placement.get_local_placement(fast_el.ObjectPlacement)
+                                    # Extrusion direction is the local Z-axis (3rd column of rotation matrix)
+                                    bolt_dir = np.array([mat[0, 2], mat[1, 2], mat[2, 2]], dtype=float)
+                                    norm = np.linalg.norm(bolt_dir)
+                                    bolt_dir = bolt_dir / norm if norm > 1e-9 else np.array([0.0, 0.0, 1.0])
+
+                                    # Read Pset_NRC_FastenerEnrichment if present
+                                    psets = ifcopenshell.util.element.get_psets(fast_el)
+                                    nrc_pset = psets.get("Pset_NRC_FastenerEnrichment", {})
+
+                                    diam_raw = nrc_pset.get("PrototypeNominalDiameter", 4.826 if unit_scale < 0.01 else 0.004826)
+                                    len_raw = nrc_pset.get("PrototypeNominalLength", 19.05 if unit_scale < 0.01 else 0.01905)
+
+                                    bolt_diam = float(diam_raw) * unit_scale
+                                    bolt_len = float(len_raw) * unit_scale
+
+                                    # Base origin in meters + shift half-length along extrusion axis so cylinder matches IFC Sweep
+                                    base_pos = np.array([mat[0, 3], mat[1, 3], mat[2, 3]], dtype=float) * unit_scale
+                                    center_pos = base_pos + bolt_dir * (bolt_len / 2.0)
+
+                                    cyl = pv.Cylinder(
+                                        center=center_pos,
+                                        direction=bolt_dir,
+                                        radius=max(bolt_diam / 2.0, 0.002),
+                                        height=max(bolt_len, 0.01)
+                                    )
+                                    plotter.add_mesh(cyl, color="gold", smooth_shading=True)
+                                    bolts_plotted += 1
+                                except Exception:
+                                    pass
+                        else:
+                            # 2. Fallback to engine.analyse() for IfcBuildingElementProxy bolts
+                            fasteners_and_connectors = [e for e in summary.get("elements", []) if e.get("cls") == "Fastener"]
+                            for f in fasteners_and_connectors:
+                                pos = f.get("pos")
+                                name = f.get("name", "").lower()
+                                if pos and ("bolt" in name or "screw" in name):
+                                    x = pos[0] * unit_scale
+                                    y = pos[1] * unit_scale
+                                    z = pos[2] * unit_scale
+
                                     axis = f.get("axis")
                                     bolt_dir = (axis[0], axis[1], axis[2]) if axis else (0, 0, 1)
-                                    bolt_diam = (f.get("width") or 12.0) / to_meters
-                                    bolt_len = (f.get("length") or 30.0) / to_meters
-                                    
-                                    mesh = pv.Cylinder(
-                                        center=(x, y, z), 
+                                    default_d = 12.0 if unit_scale < 0.01 else 0.012
+                                    default_l = 30.0 if unit_scale < 0.01 else 0.030
+                                    bolt_diam = (f.get("width") or default_d) * unit_scale
+                                    bolt_len = (f.get("length") or default_l) * unit_scale
+
+                                    cyl = pv.Cylinder(
+                                        center=(x, y, z),
                                         direction=bolt_dir,
-                                        radius=bolt_diam / 2.0, 
-                                        height=bolt_len
+                                        radius=max(bolt_diam / 2.0, 0.002),
+                                        height=max(bolt_len, 0.01)
                                     )
-                                    
-                                    plotter.add_mesh(mesh, color="gold", smooth_shading=True)
+                                    plotter.add_mesh(cyl, color="gold", smooth_shading=True)
                                     bolts_plotted += 1
-                            
-                        st.success(f"Successfully rendered {bolts_plotted} bolts")
+
+                        st.success(f"Successfully rendered {bolts_plotted} fasteners")
 
                     except Exception as e:
-                        st.warning(f"Could not render semantic fasteners: {e}")
+                        st.warning(f"Could not render fasteners: {e}")
                 
                 # --- DRAW LASER ALIGNMENT LINES ---
-                if show_alignment:
-                    bounds = plotter.bounds 
-                    xmin, xmax, ymin, ymax, zmin, zmax = bounds
-                    y_center = (ymin + ymax) / 2  
+                if show_alignment and structural_bounds is not None:
+                    xmin, xmax, ymin, ymax, zmin, zmax = structural_bounds
+                    y_center = (ymin + ymax) / 2.0
                     
                     if "rows" in alignedhole_rule_report:
                         for row in alignedhole_rule_report["rows"]:
@@ -329,26 +693,23 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                     sphere = pv.Sphere(radius=0.02, center=(loc[0], loc[1], loc[2]))
                     plotter.add_mesh(sphere, color="red")
 
-                plotter.set_background([1.0, 0.99, 0.94])
                 plotter.view_isometric()
+
+                img_base_name = "Panel"
+                if 'original_ifc_name' in st.session_state:
+                    original_name = st.session_state['original_ifc_name']
+                    img_base_name = original_name[:-4] if original_name.lower().endswith('.ifc') else original_name
+                export_img_name = f"{img_base_name}_Render.png"
+                export_zip_name = f"{img_base_name}_STL_Members.zip"
 
                 with st.spinner("Snapping High-Quality Screenshot..."):
                     try:
-                        # Because off_screen=True is set, this will now work perfectly
                         img_array = plotter.screenshot(transparent_background=False, return_img=True)
                         render_img = Image.fromarray(img_array)
                         
                         img_buffer = io.BytesIO()
                         render_img.save(img_buffer, format="PNG")
                         img_buffer.seek(0)
-                        
-                        img_base_name = "Panel" 
-                        if 'original_ifc_name' in st.session_state:
-                            original_name = st.session_state['original_ifc_name']
-                            img_base_name = original_name[:-4] if original_name.lower().endswith('.ifc') else original_name
-                                
-                        export_img_name = f"{img_base_name}_Render.png"
-                        export_zip_name = f"{img_base_name}_STL_Members.zip"
                     except Exception as e:
                         img_buffer = None
                         st.error(f"Failed to capture image: {e}")
@@ -364,7 +725,7 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                 
                 with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
                     for element, mesh in zip(all_elements, panel_meshes):
-                        if mesh.n_points > 0:
+                        if mesh is not None and mesh.n_points > 0:
                             sim_mesh = mesh.copy()
                             center_pt = sim_mesh.center
                             sim_mesh.translate([-center_pt[0], -center_pt[1], -center_pt[2]], inplace=True)
@@ -398,7 +759,6 @@ if 'current_ifc_path' in st.session_state and os.path.exists(st.session_state['c
                 
             with export_col2:
                 st.info("Download a high-resolution PNG image of the 3D visualizer, including all warning trackers and structural alignment lines.")
-                # It will automatically find the img_buffer we created higher up!
                 if img_buffer:
                     st.download_button(
                         label="Download High-Quality Render (.PNG)",

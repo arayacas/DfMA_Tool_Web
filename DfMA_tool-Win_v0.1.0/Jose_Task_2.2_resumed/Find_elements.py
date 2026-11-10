@@ -20,6 +20,78 @@ def get_elements(file_path):
         
     return all_framing
 
+def get_ifc_panel_origin(panel_meshes):
+    """
+    Get the minimum XYZ coordinate of the IFC panel meshes.
+    This becomes the (0, 0, 0) LOCAL ORIGIN of the panel.
+    """
+    valid_bounds = [
+        mesh.bounds
+        for mesh in panel_meshes
+        if mesh is not None and mesh.n_points > 0
+    ]
+
+    if not valid_bounds:
+        return (0.0, 0.0, 0.0)
+
+    min_x = min(b[0] for b in valid_bounds)
+    min_y = min(b[2] for b in valid_bounds)
+    min_z = min(b[4] for b in valid_bounds)
+
+    return (min_x, min_y, min_z)
+
+def get_stud_coordinates(elements, panel_meshes=None):
+    """
+    Extracts local member center coordinates (X, Y, Z) normalized to the
+    exact same (0, 0, 0) panel origin used in Panel_Connections.py, along
+    with each member's 3D unit orientation vector.
+    """
+    if panel_meshes is None:
+        panel_meshes = get_3d_meshes(elements)
+
+    ox, oy, oz = get_ifc_panel_origin(panel_meshes)
+    coordinates_list = []
+
+    for idx, (element, mesh) in enumerate(zip(elements, panel_meshes)):
+        if mesh is None or mesh.n_points == 0:
+            continue
+
+        b = mesh.bounds
+        # Bounding-box midpoint in Global IFC space
+        cx_global = (b[0] + b[1]) / 2.0
+        cy_global = (b[2] + b[3]) / 2.0
+        cz_global = (b[4] + b[5]) / 2.0
+
+        # Shift to Local Panel Origin (0, 0, 0) to match Panel_Connections.py
+        local_x = cx_global - ox
+        local_y = cy_global - oy
+        local_z = cz_global - oz
+
+        # Extract 3D orientation vector and structural type
+        vx, vy, vz, orientation_type = get_member_orientation_from_mesh(mesh, element)
+
+        raw_name = getattr(element, "Name", None) or f"Member_{idx+1}"
+        gid = getattr(element, "GlobalId", "Unknown_GID")
+        short_gid = gid[-4:] if len(gid) >= 4 else gid
+
+        # Build a unique display name if Option 1 isn't already applied
+        unique_name = raw_name if str(raw_name).endswith(f"[{short_gid}]") else f"{raw_name} [{short_gid}]"
+
+        coordinates_list.append({
+            "Member ID (Short)": unique_name,
+            "Profile Name": str(raw_name),
+            "GlobalId (IFC)": str(gid),
+            "Ontology GID": str(gid).replace("$", "_"),  # Matches .ttl sanitized IDs
+            "Orientation": orientation_type,
+            "X (m)": round(local_x, 4),
+            "Y (m)": round(local_y, 4),
+            "Z (m)": round(local_z, 4),
+            "Vector X": vx,
+            "Vector Y": vy,
+            "Vector Z": vz
+        })
+
+    return coordinates_list
 def sort_framing_by_orientation(elements):
     """Sorts steel members into vertical and horizontal lists based on their 3D proportions."""
     vertical_studs = []
@@ -59,28 +131,6 @@ def sort_framing_by_orientation(elements):
             
     return vertical_studs, horizontal_tracks
 
-def get_stud_coordinates(elements):
-    """Extracts raw X, Y, Z locations from the IFC pointer trail."""
-    coordinates_list = []
-    
-    for element in elements:
-        try:
-            placement = element.ObjectPlacement
-            relative_placement = placement.RelativePlacement
-            location = relative_placement.Location
-            xyz = location.Coordinates
-            
-            coordinates_list.append({
-                "Name": element.Name,
-                "X": xyz[0],
-                "Y": xyz[1],
-                "Z": xyz[2]
-            })
-        except Exception:
-            pass 
-            
-    return coordinates_list
-
 def get_3d_meshes(elements):
     """Takes a list of IFC elements and converts them into PyVista 3D meshes."""
     
@@ -117,4 +167,48 @@ def get_3d_meshes(elements):
             pass
             
     return mesh_list
+def get_member_orientation_from_mesh(mesh, element=None):
+    """
+    Calculates the longitudinal unit vector (Vector X, Vector Y, Vector Z)
+    and structural orientation of a member.
+    Uses Principal Component Analysis (SVD) on the 3D mesh points so it is
+    immune to inconsistent CAD drawing axes, with an IFC matrix fallback.
+    """
+    try:
+        if mesh is not None and mesh.n_points >= 3:
+            pts = np.asarray(mesh.points, dtype=float)
+            centered_pts = pts - pts.mean(axis=0)
+            
+            # SVD: The first principal component (vh[0]) is the longest physical axis
+            _, _, vh = np.linalg.svd(centered_pts, full_matrices=False)
+            vec = vh[0]
+            
+            # Standardize vector sign so Vertical vectors always point Up (+Z)
+            # and Horizontal vectors point consistently in +X / +Y
+            if abs(vec[2]) > 0.7:
+                if vec[2] < 0:
+                    vec = -vec
+            elif abs(vec[0]) > 1e-4:
+                if vec[0] < 0:
+                    vec = -vec
+            elif vec[1] < 0:
+                vec = -vec
 
+            vx, vy, vz = float(vec[0]), float(vec[1]), float(vec[2])
+        else:
+            # Fallback to IFC Local Placement Z-axis
+            matrix = ifcopenshell.util.placement.get_local_placement(element.ObjectPlacement)
+            vx, vy, vz = float(matrix[0][2]), float(matrix[1][2]), float(matrix[2][2])
+
+        # Classify human-readable orientation using the vertical Z component
+        if abs(vz) >= 0.85:
+            role = "Vertical (Stud)"
+        elif abs(vz) <= 0.15:
+            role = "Horizontal (Track)"
+        else:
+            role = "Slanted / Diagonal"
+
+        return round(vx, 4), round(vy, 4), round(vz, 4), role
+
+    except Exception:
+        return 0.0, 0.0, 1.0, "Unknown"
